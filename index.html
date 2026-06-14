@@ -19,7 +19,7 @@
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
             
-            /* Monochromatic Accents */
+            /* Monochromatic Accents for Premium Look */
             --accent-primary: #ffffff; 
             --accent-success: #10b981; 
             --accent-warning: #eab308; 
@@ -37,6 +37,7 @@
             color: var(--text-primary); display: flex; overflow: hidden; 
         }
 
+        /* Ambient White Light */
         body::before {
             content: ''; position: absolute; width: 600px; height: 600px; background: #ffffff;
             border-radius: 50%; filter: blur(250px); opacity: 0.03; top: 50%; left: 50%;
@@ -47,7 +48,7 @@
         #appWrapper { display: none; width: 100%; height: 100%; }
         #appWrapper.active { display: flex; }
 
-        /* --- AUTH PAGES (LOGIN & SIGNUP) --- */
+        /* --- AUTH PAGES (LOGIN) --- */
         .login-container {
             position: fixed; inset: 0; z-index: 3000;
             display: flex; justify-content: center; align-items: center;
@@ -67,36 +68,49 @@
 
         @keyframes fadeInTop { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .auth-header { text-align: center; margin-bottom: 25px; }
-        .login-logo { width: 70px; height: 70px; border-radius: 18px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 10px 25px rgba(255,255,255,0.1); }
-        .login-title { font-size: 1.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; background: linear-gradient(to right, #ffffff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; white-space: nowrap; }
+        .auth-header { text-align: center; margin-bottom: 30px; }
+        .login-logo { width: 75px; height: 75px; border-radius: 18px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 10px 25px rgba(255,255,255,0.1); }
+        
+        /* FIX FOR CLIPPED TEXT */
+        .login-title { 
+            font-size: 1.35rem; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            background: linear-gradient(to right, #ffffff, #888); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 5px; 
+            text-align: center;
+            padding: 2px 5px;
+        }
         .login-subtitle { font-size: 0.8rem; color: var(--text-secondary); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;}
 
-        .auth-forms-wrapper { position: relative; width: 100%; }
-        .auth-form { display: none; flex-direction: column; gap: 18px; animation: fadeIn 0.4s ease; }
-        .auth-form.active { display: flex; }
-
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;}
         .form-label { font-size: 0.8rem; font-weight: 600; color: #d4d4d8; letter-spacing: 1.5px; text-transform: uppercase; }
         .form-input { background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); padding: 15px 20px; border-radius: 14px; color: #fff; font-size: 1.05rem; outline: none; transition: all 0.3s ease; width: 100%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
         .form-input:focus { border-color: rgba(255, 255, 255, 0.6); background: rgba(30, 30, 35, 0.9); box-shadow: 0 0 18px rgba(255, 255, 255, 0.15); }
         
-        .btn-auth {
-            background: linear-gradient(135deg, #ffffff, #d4d4d8); color: #000; border: none;
-            padding: 16px; border-radius: 14px; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px;
-            cursor: pointer; transition: all 0.3s ease; margin-top: 5px; display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-auth:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25); }
+        .btn-auth { background: linear-gradient(135deg, #27272a, #000); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 14px; font-size: 1rem; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; }
+        .btn-auth:hover { background: #3f3f46; border-color: #fff; }
 
-        .auth-switch { text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-secondary); }
-        .auth-switch span { color: #fff; font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; transition: 0.3s;}
-        .auth-switch span:hover { color: var(--accent-info); }
+        .divider { display: flex; align-items: center; text-align: center; color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin: 25px 0; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .divider:not(:empty)::before { margin-right: 15px; }
+        .divider:not(:empty)::after { margin-left: 15px; }
 
-        /* --- DASHBOARD STYLES --- */
+        /* GOOGLE SIGN IN BUTTON */
+        .btn-google { background: #ffffff; color: #000; border: none; padding: 16px; border-radius: 14px; font-size: 1.05rem; font-weight: 800; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; gap: 12px; width: 100%; box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15); }
+        .btn-google:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3); }
+        .btn-google img { width: 22px; height: 22px; }
+
+        /* --- DASHBOARD SIDEBAR --- */
         .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { display: block; opacity: 1; }
-
-        .sidebar { position: relative; left: 0; top: 0; height: 100%; width: 280px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 30px 20px; z-index: 1000; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(20px); box-shadow: 5px 0 25px rgba(0,0,0,0.9); flex-shrink: 0; }
+        
+        .sidebar { position: fixed; left: 0; top: 0; height: 100%; transform: translateX(-100%); width: 280px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 30px 20px; z-index: 1000; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(20px); box-shadow: 5px 0 25px rgba(0,0,0,0.9); }
+        .sidebar.active { transform: translateX(0); }
+        
         .brand { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 45px; letter-spacing: 1px; white-space: nowrap; }
         .brand-logo { width: 42px; height: 42px; border-radius: 12px; object-fit: cover; box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1); flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2); background: #000; }
         
@@ -105,23 +119,24 @@
         .nav-link.active { background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent); color: #fff; border-left: 4px solid var(--accent-primary); border-color: rgba(255, 255, 255, 0.1) transparent transparent transparent; }
         .nav-link i { font-size: 1.2rem; width: 20px; text-align: center; }
         .nav-link.active i { color: var(--accent-primary); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-
+        
         .sidebar-bottom { margin-top: auto; padding-top: 25px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .system-status { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 700; color: #ffffff; letter-spacing: 1.5px; text-transform: uppercase; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; box-shadow: 0 0 12px var(--accent-success); } 100% { opacity: 1; } }
+        @keyframes blink { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); box-shadow: 0 0 12px var(--accent-success); } 100% { opacity: 1; transform: scale(1); } }
         .secure-dot-icon { width: 8px; height: 8px; background-color: var(--accent-success); border-radius: 50%; box-shadow: 0 0 10px var(--accent-success); animation: blink 1.5s infinite ease-in-out; }
-        .sidebar-footer-text { font-size: 0.65rem; color: #71717a; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .sidebar-footer-text { font-size: 0.65rem; color: #71717a; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
 
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; width: 100%; z-index: 1;}
+        /* --- DASHBOARD MAIN CONTENT --- */
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; width: 100%; z-index: 1; margin-left: 0; }
+        
         .topbar { height: 80px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(10, 10, 12, 0.6); backdrop-filter: blur(20px); flex-shrink: 0; }
         .topbar-left { display: flex; align-items: center; gap: 20px; }
-        .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-primary); cursor: pointer; background: var(--bg-input); padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .menu-toggle { display: block; font-size: 1.5rem; color: var(--text-primary); cursor: pointer; background: var(--bg-input); padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border-color); }
         .page-title { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; background: linear-gradient(to right, #ffffff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
         
-        .admin-profile-wrapper { display: flex; align-items: center; gap: 15px;}
         .admin-profile { display: flex; align-items: center; gap: 15px; padding: 6px 18px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 50px;}
         .admin-info { text-align: right; }
-        .admin-info h4 { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.5px;}
+        .admin-info h4 { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;}
         .admin-info span { font-size: 0.7rem; color: #a1a1aa; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;}
         .admin-img-wrapper { position: relative; }
         .admin-img { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-color); object-fit: cover; }
@@ -130,24 +145,21 @@
         .dashboard-area { padding: 40px 50px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; align-items: center; scroll-behavior: smooth; }
         .dashboard-area::-webkit-scrollbar { width: 8px; }
         .dashboard-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-
+        
         .section-container { width: 100%; max-width: 1100px; display: none; margin: 0 auto; }
         .section-container.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .admin-card { background: var(--bg-card); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid var(--border-glow); border-left: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 45px; box-shadow: 0 40px 80px rgba(0,0,0,0.9), inset 0 0 40px rgba(255, 255, 255, 0.1); }
+        .admin-card { background: var(--bg-card); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid var(--border-glow); border-left: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 45px; box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 30px rgba(255, 255, 255, 0.05), inset 0 0 40px rgba(255, 255, 255, 0.1); }
         .card-header { font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; letter-spacing: 1px;}
         .card-header i { padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5);}
         
+        /* EXACT ORIGINAL FORM STYLES */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px; position: relative; z-index: 2;}
         .form-group.full-width { grid-column: 1 / -1; }
         select.form-input { cursor: pointer; appearance: none; }
         
-        .btn-submit { 
-            grid-column: 1 / -1; background: linear-gradient(135deg, #ffffff, #d4d4d8); color: #000; border: none; 
-            padding: 18px; border-radius: 16px; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s ease; 
-            margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
+        .btn-submit { grid-column: 1 / -1; background: linear-gradient(135deg, #ffffff, #d4d4d8); color: #000; border: none; padding: 18px; border-radius: 16px; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s ease; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 10px;}
         .btn-submit:hover { filter: brightness(1.1); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 255, 255, 0.35); }
         .btn-edit-submit { background: linear-gradient(135deg, #e4e4e7, #a1a1aa); box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15); }
 
@@ -187,8 +199,29 @@
         #toast { position: fixed; bottom: 40px; right: 40px; background: #ffffff; color: #000; padding: 18px 30px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; transform: translateX(150%); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
         #toast.show { transform: translateX(0); }
 
-        @media (max-width: 1024px) { .sidebar { position: fixed; transform: translateX(-100%); } .sidebar.active { transform: translateX(0); } .menu-toggle { display: block; } .dashboard-area { padding: 30px; } }
-        @media (max-width: 768px) { .topbar { padding: 0 20px; height: 70px; } .admin-info { display: none; } .dashboard-area { padding: 20px 15px; } .admin-card { padding: 25px 20px; border-radius: 20px; } .form-grid { grid-template-columns: 1fr; } .modal-content { padding: 20px; width: 98%; } .modal-grid { grid-template-columns: 1fr; } .close-modal { top: 15px; right: 15px; width: 32px; height: 32px; font-size: 1.1rem; } }
+        /* RESPONSIVENESS */
+        @media (min-width: 1025px) {
+            .sidebar { transform: translateX(0); }
+            .main-content { margin-left: 280px; }
+            .menu-toggle { display: none; }
+        }
+        @media (max-width: 1024px) { 
+            .dashboard-area { padding: 30px; } 
+            .books-table { min-width: 700px; }
+        }
+        @media (max-width: 768px) { 
+            .topbar { padding: 0 20px; height: 70px; } 
+            .page-title { font-size: 1.2rem; }
+            .admin-info { display: none; } 
+            .dashboard-area { padding: 20px 15px; } 
+            .admin-card { padding: 25px 20px; border-radius: 20px; } 
+            .form-grid { grid-template-columns: 1fr; } 
+            .modal-content { padding: 20px; border-radius: 20px; max-height: 95svh; width: 98%; margin: 0 auto; } 
+            .modal-grid { grid-template-columns: 1fr; gap: 12px; } 
+            .close-modal { top: 15px; right: 15px; width: 32px; height: 32px; font-size: 1.1rem; } 
+            .form-input { padding: 12px 15px; font-size: 1rem; }
+            .btn-submit { padding: 15px; font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -201,50 +234,53 @@
                 <p class="login-subtitle">System Authorization Required</p>
             </div>
             
-            <div class="auth-forms-wrapper">
-                <form id="loginForm" class="auth-form active">
-                    <div class="form-group">
-                        <label class="form-label">Email Address</label>
-                        <input type="email" id="loginEmail" class="form-input" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" id="loginPassword" class="form-input" placeholder="Enter secure password" required>
-                    </div>
-                    <button type="submit" id="loginBtn" class="btn-auth"><i class="fas fa-sign-in-alt"></i> Secure Login</button>
-                    <div class="auth-switch">Don't have an account? <span onclick="toggleAuthMode()">Create Account</span></div>
-                </form>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Admin Email</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="Enter admin email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Enter password" required>
+                </div>
+                <button type="submit" id="loginBtn" class="btn-auth"><i class="fas fa-lock"></i> Manual Login</button>
+            </form>
 
-                <form id="signupForm" class="auth-form">
-                    <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" id="signupName" class="form-input" placeholder="Enter your full name" required autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Email Address</label>
-                        <input type="email" id="signupEmail" class="form-input" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Create Password</label>
-                        <input type="password" id="signupPassword" class="form-input" placeholder="Min 6 characters" required>
-                    </div>
-                    <button type="submit" id="signupBtn" class="btn-auth"><i class="fas fa-user-plus"></i> Register & Enter</button>
-                    <div class="auth-switch">Already an admin? <span onclick="toggleAuthMode()">Login Here</span></div>
-                </form>
-            </div>
+            <div class="divider">OR</div>
+
+            <button type="button" id="googleSignInBtn" class="btn-google">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+                Continue with Google
+            </button>
         </div>
     </div>
 
     <div id="appWrapper">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
         <aside class="sidebar" id="sidebar">
-            <div class="brand"><img src="https://i.postimg.cc/cJdGqYHG/IMG-20260524-WA0004.jpg" alt="Logo" class="brand-logo">MULTIVERSE ADMIN</div>
-            <div class="nav-link active" id="navAddBook" onclick="switchTab('add')"><i class="fas fa-plus-circle"></i> Add New Book</div>
-            <div class="nav-link" id="navManageBooks" onclick="switchTab('manage')"><i class="fas fa-layer-group"></i> Manage Books</div>
-            <div class="nav-link" id="navAnalytics" onclick="switchTab('analytics')"><i class="fas fa-chart-line"></i> System Logs</div>
+            <div class="brand">
+                <img src="https://i.postimg.cc/cJdGqYHG/IMG-20260524-WA0004.jpg" alt="Logo" class="brand-logo">
+                MULTIVERSE ADMIN
+            </div>
+            
+            <div class="nav-link active" id="navAddBook" onclick="switchTab('add')">
+                <i class="fas fa-plus-circle"></i> Add New Book
+            </div>
+            <div class="nav-link" id="navManageBooks" onclick="switchTab('manage')">
+                <i class="fas fa-layer-group"></i> Manage Books
+            </div>
+            <div class="nav-link" id="navAnalytics" onclick="switchTab('analytics')">
+                <i class="fas fa-chart-line"></i> System Logs
+            </div>
+            
             <div class="sidebar-bottom">
-                <div class="system-status"><span class="secure-dot-icon"></span> SYSTEM SECURE</div>
-                <div class="sidebar-footer-text">MULTIVERSE BOOKS</div>
+                <div class="system-status">
+                    <span class="secure-dot-icon"></span> SYSTEM SECURE
+                </div>
+                <div class="sidebar-footer-text">
+                    MULTIVERSE BOOKS • MADxPRINCE
+                </div>
             </div>
         </aside>
 
@@ -257,15 +293,15 @@
                 <div class="admin-profile-wrapper">
                     <div class="admin-profile">
                         <div class="admin-info">
-                            <h4 id="currentAdminName">ADMIN</h4>
+                            <h4 id="currentAdminName">MADxPRINCE</h4>
                             <span>Active Session</span>
                         </div>
                         <div class="admin-img-wrapper">
-                            <img src="https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png" class="admin-img">
+                            <img id="currentAdminImg" src="https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png" class="admin-img" alt="Admin">
                             <span class="status-dot"></span>
                         </div>
                     </div>
-                    </div>
+                </div>
             </header>
 
             <div class="dashboard-area">
@@ -370,11 +406,11 @@
             <div class="card-header" style="margin-bottom: 20px;"><i class="fas fa-pen"></i> Edit Vault Record</div>
             <form id="editBookForm" class="modal-grid">
                 <input type="hidden" id="editDocId"> 
-                <div class="form-group" style="grid-column: 1 / -1;">
+                <div class="form-group full-width">
                     <label class="form-label">Book Title</label>
                     <input type="text" id="edTitle" class="form-input" required autocomplete="off">
                 </div>
-                <div class="form-group" style="grid-column: 1 / -1;">
+                <div class="form-group full-width">
                     <label class="form-label">Cover Image URL</label>
                     <input type="url" id="edImage" class="form-input" required autocomplete="off">
                 </div>
@@ -398,70 +434,75 @@
                     <label class="form-label">Exam Relevance</label>
                     <input type="text" id="edExams" class="form-input" required autocomplete="off">
                 </div>
-                <div class="form-group" style="grid-column: 1 / -1;">
+                <div class="form-group full-width">
                     <label class="form-label">Direct PDF Link</label>
                     <input type="url" id="edPdfUrl" class="form-input" required autocomplete="off">
                 </div>
-                <div class="form-group" style="grid-column: 1 / -1;">
+                <div class="form-group full-width">
                     <label class="form-label">YouTube Link (Optional)</label>
                     <input type="url" id="edYtUrl" class="form-input" autocomplete="off">
                 </div>
-                <button type="submit" class="btn-submit btn-edit-submit" style="grid-column: 1 / -1;">
+                <button type="submit" class="btn-submit btn-edit-submit">
                     <i class="fas fa-save"></i> Save Changes
                 </button>
             </form>
         </div>
     </div>
 
-    <div id="toast"><i class="fas fa-info-circle"></i> <span id="toastMsg">Success!</span></div>
+    <div id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Action Successful!</span></div>
 
     <script>
-        function toggleAuthMode() {
-            document.getElementById('loginForm').classList.toggle('active');
-            document.getElementById('signupForm').classList.toggle('active');
-        }
-
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle'); 
+        const sidebar = document.getElementById('sidebar'); 
         const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-        function toggleMenu() { sidebar.classList.toggle('active'); sidebarOverlay.classList.toggle('active'); }
-        menuToggle.addEventListener('click', toggleMenu);
+        
+        function toggleMenu() { 
+            sidebar.classList.toggle('active'); 
+            sidebarOverlay.classList.toggle('active'); 
+        }
+        
+        menuToggle.addEventListener('click', toggleMenu); 
         sidebarOverlay.addEventListener('click', toggleMenu);
 
         function switchTab(tab) {
             document.querySelectorAll('.section-container').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-
-            if(tab === 'add') {
-                document.getElementById('sectionAddBook').classList.add('active');
-                document.getElementById('navAddBook').classList.add('active');
-                document.getElementById('topbarTitle').innerText = "Add New Book";
-            } else if (tab === 'manage') {
-                document.getElementById('sectionManageBooks').classList.add('active');
-                document.getElementById('navManageBooks').classList.add('active');
-                document.getElementById('topbarTitle').innerText = "Manage Vault";
-            } else if (tab === 'analytics') {
-                document.getElementById('sectionAnalytics').classList.add('active');
-                document.getElementById('navAnalytics').classList.add('active');
-                document.getElementById('topbarTitle').innerText = "System Logs";
+            
+            if(tab === 'add') { 
+                document.getElementById('sectionAddBook').classList.add('active'); 
+                document.getElementById('navAddBook').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "Add New Book"; 
+            } else if (tab === 'manage') { 
+                document.getElementById('sectionManageBooks').classList.add('active'); 
+                document.getElementById('navManageBooks').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "Manage Vault"; 
+            } else if (tab === 'analytics') { 
+                document.getElementById('sectionAnalytics').classList.add('active'); 
+                document.getElementById('navAnalytics').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "System Logs"; 
             }
-            sidebar.classList.remove('active'); sidebarOverlay.classList.remove('active');
+            
+            sidebar.classList.remove('active'); 
+            sidebarOverlay.classList.remove('active');
         }
 
         function showToast(message) {
-            const toast = document.getElementById('toast');
+            const toast = document.getElementById('toast'); 
             document.getElementById('toastMsg').innerText = message;
             
-            if(message.includes("Deleted") || message.includes("Error") || message.includes("Invalid") || message.includes("Expired")) {
-                toast.style.background = "var(--accent-danger)"; toast.style.color = "#fff";
-            } else if (message.includes("Updated") || message.includes("Restored")) {
-                toast.style.background = "var(--accent-info)"; toast.style.color = "#fff";
-            } else {
-                toast.style.background = "var(--accent-success)"; toast.style.color = "#fff";
+            if(message.includes("Deleted") || message.includes("Error") || message.includes("Invalid") || message.includes("Expired") || message.includes("Blocked")) { 
+                toast.style.background = "#ef4444"; 
+                toast.style.color = "#fff"; 
+            } else if (message.includes("Updated") || message.includes("Restored")) { 
+                toast.style.background = "#3b82f6"; 
+                toast.style.color = "#fff"; 
+            } else { 
+                toast.style.background = "#10b981"; 
+                toast.style.color = "#fff"; 
             }
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3500);
+            
+            toast.classList.add('show'); 
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
 
         window.closeEditModal = function() { document.getElementById('editModal').classList.remove('active'); }
@@ -470,7 +511,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXBSGCZFdkSbk-Ireoo7sRY4mLzS25nyk",
@@ -484,21 +525,20 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
+        const provider = new GoogleAuthProvider(); 
 
         let CURRENT_ADMIN_NAME = "ADMIN"; 
+        let CURRENT_ADMIN_PHOTO = "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
 
         // --- SMART AUTH OBSERVER WITH 2-DAY TIMER ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Timer Logic: Check if 2 days have passed since login
                 const loginTime = localStorage.getItem('adminSessionStart');
-                const twoDaysInMs = 2 * 24 * 60 * 60 * 1000; // 48 hours in milliseconds
+                const twoDaysInMs = 2 * 24 * 60 * 60 * 1000; 
                 
                 if (!loginTime) {
-                    // If no time is saved but user is logged in, save current time
                     localStorage.setItem('adminSessionStart', Date.now());
                 } else if (Date.now() - parseInt(loginTime) > twoDaysInMs) {
-                    // Session Expired after 2 Days - Auto Logout
                     signOut(auth).then(() => {
                         localStorage.removeItem('adminSessionStart');
                         showToast("Session Expired. Please login again.");
@@ -506,61 +546,56 @@
                     return; 
                 }
 
-                // If session is valid, show app
+                // Show App
                 document.getElementById('loginOverlay').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loginOverlay').style.display = 'none';
                     document.getElementById('appWrapper').classList.add('active');
                 }, 400);
                 
+                // Set Profile Data
                 CURRENT_ADMIN_NAME = user.displayName ? user.displayName : user.email.split('@')[0];
+                if(user.photoURL) { CURRENT_ADMIN_PHOTO = user.photoURL; }
+                
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME;
+                document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
             } else {
-                // User is logged out
+                // Show Login Screen
                 document.getElementById('appWrapper').classList.remove('active');
                 document.getElementById('loginOverlay').style.display = 'flex';
                 setTimeout(() => { document.getElementById('loginOverlay').style.opacity = '1'; }, 50);
             }
         });
 
-        // --- SIGN UP LOGIC ---
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const pass = document.getElementById('signupPassword').value;
-            const btn = document.getElementById('signupBtn');
-            
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Creating...`;
+        // --- GOOGLE SIGN-IN LOGIC ---
+        document.getElementById('googleSignInBtn').addEventListener('click', async () => {
             try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-                await updateProfile(userCredential.user, { displayName: name });
-                
-                // Save new session time
+                await signInWithPopup(auth, provider);
                 localStorage.setItem('adminSessionStart', Date.now());
-                showToast("Account Created Successfully!");
-                e.target.reset();
-            } catch(error) { showToast("Error: " + error.message); }
-            btn.innerHTML = `<i class="fas fa-user-plus"></i> Register & Enter`;
+                showToast("Google Verification Successful!");
+            } catch(error) { 
+                console.error(error);
+                showToast("Error: Verification Failed"); 
+            }
         });
 
-        // --- LOGIN LOGIC ---
+        // --- MANUAL LOGIN LOGIC ---
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
             const btn = document.getElementById('loginBtn');
             
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Authenticating...`;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Checking...`;
             try {
                 await signInWithEmailAndPassword(auth, email, pass);
-                
-                // Save new session time
                 localStorage.setItem('adminSessionStart', Date.now());
                 showToast("Welcome Back!");
                 e.target.reset();
-            } catch(error) { showToast("Error: Invalid Email or Password"); }
-            btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> Secure Login`;
+            } catch(error) { 
+                showToast("Error: Invalid Details"); 
+            }
+            btn.innerHTML = `<i class="fas fa-lock"></i> Manual Login`;
         });
 
         // ================= DATABASE LOGIC =================
@@ -578,37 +613,65 @@
             try {
                 await addDoc(collection(db, "activity_logs"), {
                     action: actionType, bookTitle: bookTitle, image: imageUrl, deletedData: deletedBookData, 
-                    adminName: CURRENT_ADMIN_NAME, timestamp: new Date().getTime(),
+                    adminName: CURRENT_ADMIN_NAME, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(),
                     dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' })
                 });
             } catch(e) {}
         }
 
         document.getElementById('addBookForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
-            const titleInput = document.getElementById('inTitle').value; const imgInput = document.getElementById('inImage').value;
+            e.preventDefault(); 
+            const btn = e.target.querySelector('button'); 
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
+            
+            const titleInput = document.getElementById('inTitle').value; 
+            const imgInput = document.getElementById('inImage').value;
+            
             const newBook = {
-                title: titleInput, author: document.getElementById('inAuthor').value, image: imgInput, year: document.getElementById('inYear').value,
-                lang: document.getElementById('inLang').value, exams: document.getElementById('inExams').value, pdfLink: document.getElementById('inPdfUrl').value, ytLink: document.getElementById('inYtUrl').value,
-                dateAdded: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(), createdAt: new Date().getTime()
+                title: titleInput, 
+                author: document.getElementById('inAuthor').value, 
+                image: imgInput, 
+                year: document.getElementById('inYear').value,
+                lang: document.getElementById('inLang').value, 
+                exams: document.getElementById('inExams').value, 
+                pdfLink: document.getElementById('inPdfUrl').value, 
+                ytLink: document.getElementById('inYtUrl').value,
+                dateAdded: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(), 
+                createdAt: new Date().getTime()
             };
-            try { await addDoc(collection(db, "books"), newBook); await logActivity("ADD", titleInput, imgInput); showToast("Book Published!"); e.target.reset(); } 
-            catch (error) { showToast("Error saving to database."); }
+            
+            try { 
+                await addDoc(collection(db, "books"), newBook); 
+                await logActivity("ADD", titleInput, imgInput); 
+                showToast("Book Published Successfully!"); 
+                e.target.reset(); 
+            } catch (error) { 
+                showToast("Error saving to database."); 
+            }
             btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Book to Database`;
         });
 
         function renderBooks() {
             const tbody = document.getElementById('booksTableBody'); tbody.innerHTML = '';
-            if (dbBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">Vault is empty.</td></tr>`; return; }
+            if (dbBooks.length === 0) { 
+                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No records found. The vault is currently empty.</td></tr>`; 
+                return; 
+            }
             dbBooks.forEach((book, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70'"></td>
-                    <td><strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${book.title}</strong><span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib" style="margin-right:5px;"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt" style="margin-right:5px;"></i> ${book.year}</span></td>
-                    <td><div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div><span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span></td>
+                    <td><img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td>
                     <td>
-                        <button class="action-btn btn-edit" onclick="openEditModal(${index})"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button>
+                        <strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem; letter-spacing:0.5px;">${book.title}</strong>
+                        <span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib" style="margin-right:5px;"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt" style="margin-right:5px;"></i> ${book.year}</span>
+                    </td>
+                    <td>
+                        <div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div>
+                        <span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span>
+                    </td>
+                    <td>
+                        <button class="action-btn btn-edit" onclick="openEditModal(${index})" title="Edit Record"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')" title="Delete Record"><i class="fas fa-trash-alt"></i></button>
                     </td>`;
                 tbody.appendChild(tr);
             });
@@ -617,55 +680,110 @@
         window.deleteBook = async function(id, title) {
             if(confirm(`Are you sure you want to delete "${title}" permanently?`)) {
                 const b = dbBooks.find(x => x.id === id); 
-                try { await deleteDoc(doc(db, "books", id)); await logActivity("DELETE", title, b.image, b); showToast("Record Deleted!"); } catch (e) { showToast("Error deleting!"); }
+                try { 
+                    await deleteDoc(doc(db, "books", id)); 
+                    await logActivity("DELETE", title, b.image, b); 
+                    showToast("Record Deleted!"); 
+                } catch (e) { showToast("Error deleting document."); }
             }
         }
 
         window.openEditModal = function(index) {
-            const book = dbBooks[index]; document.getElementById('editDocId').value = book.id;
-            ['edTitle','edAuthor','edYear','edLang','edExams','edImage','edPdfUrl','edYtUrl'].forEach(id => {
-                document.getElementById(id).value = book[id.replace('ed','').toLowerCase()] || book[id.replace('ed','').replace('Url','Link').toLowerCase()] || "";
-            });
+            const book = dbBooks[index]; 
+            document.getElementById('editDocId').value = book.id;
+            document.getElementById('edTitle').value = book.title;
+            document.getElementById('edAuthor').value = book.author;
+            document.getElementById('edYear').value = book.year;
+            document.getElementById('edLang').value = book.lang;
+            document.getElementById('edExams').value = book.exams;
+            document.getElementById('edImage').value = book.image;
+            document.getElementById('edPdfUrl').value = book.pdfLink;
+            document.getElementById('edYtUrl').value = book.ytLink || "";
             document.getElementById('editModal').classList.add('active');
         }
 
         document.getElementById('editBookForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
-            const docId = document.getElementById('editDocId').value; const updatedTitle = document.getElementById('edTitle').value; const updatedImage = document.getElementById('edImage').value;
-            const updatedData = { title: updatedTitle, author: document.getElementById('edAuthor').value, image: updatedImage, year: document.getElementById('edYear').value, lang: document.getElementById('edLang').value, exams: document.getElementById('edExams').value, pdfLink: document.getElementById('edPdfUrl').value, ytLink: document.getElementById('edYtUrl').value };
-            try { await updateDoc(doc(db, "books", docId), updatedData); await logActivity("EDIT", updatedTitle, updatedImage); closeEditModal(); showToast("Vault Record Updated!"); } catch (error) { showToast("Error updating!"); }
+            e.preventDefault(); 
+            const btn = e.target.querySelector('button'); 
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+            
+            const docId = document.getElementById('editDocId').value; 
+            const updatedTitle = document.getElementById('edTitle').value; 
+            const updatedImage = document.getElementById('edImage').value;
+            
+            const updatedData = { 
+                title: updatedTitle, 
+                author: document.getElementById('edAuthor').value, 
+                image: updatedImage, 
+                year: document.getElementById('edYear').value, 
+                lang: document.getElementById('edLang').value, 
+                exams: document.getElementById('edExams').value, 
+                pdfLink: document.getElementById('edPdfUrl').value, 
+                ytLink: document.getElementById('edYtUrl').value 
+            };
+            
+            try { 
+                await updateDoc(doc(db, "books", docId), updatedData); 
+                await logActivity("EDIT", updatedTitle, updatedImage); 
+                closeEditModal(); 
+                showToast("Vault Record Updated!"); 
+            } catch (error) { showToast("Error updating document."); }
+            
             btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
 
         window.restoreBook = async function(logId) {
-            const logEntry = dbLogs.find(l => l.id === logId); if(!logEntry || !logEntry.deletedData) return;
+            const logEntry = dbLogs.find(l => l.id === logId); 
+            if(!logEntry || !logEntry.deletedData) return;
+            
             if(confirm(`Do you want to Recover/Restore "${logEntry.bookTitle}" to the main Vault?`)) {
                 try {
-                    const restoredData = { ...logEntry.deletedData }; delete restoredData.id; restoredData.createdAt = new Date().getTime();
-                    await addDoc(collection(db, "books"), restoredData); await logActivity("RESTORE", logEntry.bookTitle, logEntry.image); showToast("Book Restored Successfully!");
-                } catch(error) {}
+                    const restoredData = { ...logEntry.deletedData }; 
+                    delete restoredData.id; 
+                    restoredData.createdAt = new Date().getTime();
+                    
+                    await addDoc(collection(db, "books"), restoredData); 
+                    await logActivity("RESTORE", logEntry.bookTitle, logEntry.image); 
+                    showToast("Book Restored Successfully!");
+                } catch(error) { showToast("Error recovering data."); }
             }
         }
 
         function renderLogs() {
             const tbody = document.getElementById('logsTableBody'); tbody.innerHTML = '';
-            if (dbLogs.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet. Logs will appear here.</td></tr>`; return; }
+            if (dbLogs.length === 0) { 
+                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet. Logs will appear here.</td></tr>`; 
+                return; 
+            }
             dbLogs.forEach(log => {
                 let badge = ''; let rec = '';
                 if(log.action === 'ADD') badge = `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>`;
                 else if(log.action === 'EDIT') badge = `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>`;
-                else if(log.action === 'DELETE') { badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; if(log.deletedData) rec = `<br><button class="action-btn btn-recover" onclick="restoreBook('${log.id}')"><i class="fas fa-undo"></i> Recover Book</button>`; } 
+                else if(log.action === 'DELETE') { 
+                    badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; 
+                    if(log.deletedData) rec = `<br><button class="action-btn btn-recover" onclick="restoreBook('${log.id}')"><i class="fas fa-undo"></i> Recover Book</button>`; 
+                } 
                 else if (log.action === 'RESTORE') badge = `<span class="log-badge log-restore"><i class="fas fa-trash-restore"></i> Restored</span>`;
                 
-                let img = log.image ? `<img src="${log.image}" class="log-table-img">` : '';
+                let img = log.image ? `<img src="${log.image}" class="log-table-img" onerror="this.src='https://via.placeholder.com/40x55?text=Img'">` : '';
+                let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
+                
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${badge}</td>
                     <td style="display: flex; align-items: center;">${img}<span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span></td>
-                    <td><div class="log-admin-name"><img src="https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png" class="log-admin-avatar"> 
-                        ${log.adminName}
-                    </div></td>
-                    <td><div style="color: #a1a1aa; font-size: 0.9rem;"><i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}</div>${rec}</td>`;
+                    <td>
+                        <div class="log-admin-name">
+                            <img src="${avatar}" class="log-admin-avatar"> 
+                            ${log.adminName}
+                        </div>
+                    </td>
+                    <td>
+                        <div style="color: #a1a1aa; font-size: 0.9rem;">
+                            <i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}
+                        </div>
+                        ${rec}
+                    </td>`;
                 tbody.appendChild(tr);
             });
         }
