@@ -71,7 +71,6 @@
         .auth-header { text-align: center; margin-bottom: 30px; }
         .login-logo { width: 75px; height: 75px; border-radius: 18px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 10px 25px rgba(255,255,255,0.1); }
         
-        /* FIX FOR CLIPPED TEXT */
         .login-title { 
             font-size: 1.35rem; 
             font-weight: 800; 
@@ -511,7 +510,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXBSGCZFdkSbk-Ireoo7sRY4mLzS25nyk",
@@ -530,23 +529,10 @@
         let CURRENT_ADMIN_NAME = "ADMIN"; 
         let CURRENT_ADMIN_PHOTO = "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
 
-        // --- SMART AUTH OBSERVER WITH 2-DAY TIMER ---
+        // --- AUTH OBSERVER (LIFETIME SESSION) ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                const loginTime = localStorage.getItem('adminSessionStart');
-                const twoDaysInMs = 2 * 24 * 60 * 60 * 1000; 
-                
-                if (!loginTime) {
-                    localStorage.setItem('adminSessionStart', Date.now());
-                } else if (Date.now() - parseInt(loginTime) > twoDaysInMs) {
-                    signOut(auth).then(() => {
-                        localStorage.removeItem('adminSessionStart');
-                        showToast("Session Expired. Please login again.");
-                    });
-                    return; 
-                }
-
-                // Show App
+                // User logged in: Stay logged in forever
                 document.getElementById('loginOverlay').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loginOverlay').style.display = 'none';
@@ -560,7 +546,7 @@
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME;
                 document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
             } else {
-                // Show Login Screen
+                // User logged out: Show Login Screen
                 document.getElementById('appWrapper').classList.remove('active');
                 document.getElementById('loginOverlay').style.display = 'flex';
                 setTimeout(() => { document.getElementById('loginOverlay').style.opacity = '1'; }, 50);
@@ -571,7 +557,6 @@
         document.getElementById('googleSignInBtn').addEventListener('click', async () => {
             try {
                 await signInWithPopup(auth, provider);
-                localStorage.setItem('adminSessionStart', Date.now());
                 showToast("Google Verification Successful!");
             } catch(error) { 
                 console.error(error);
@@ -589,7 +574,6 @@
             btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Checking...`;
             try {
                 await signInWithEmailAndPassword(auth, email, pass);
-                localStorage.setItem('adminSessionStart', Date.now());
                 showToast("Welcome Back!");
                 e.target.reset();
             } catch(error) { 
