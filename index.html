@@ -166,15 +166,28 @@
         
         .topbar { height: 80px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(10, 10, 12, 0.6); backdrop-filter: blur(20px); flex-shrink: 0; }
         .topbar-left { display: flex; align-items: center; gap: 20px; }
-        .menu-toggle { display: block; font-size: 1.5rem; color: var(--text-primary); cursor: pointer; background: var(--bg-input); padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border-color); }
+        
+        /* Premium Menu Toggle Button */
+        .menu-toggle { 
+            display: block; font-size: 1.4rem; color: var(--text-primary); cursor: pointer; 
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 10px 14px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(255, 255, 255, 0.03); 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .menu-toggle:active { transform: scale(0.95); }
+        
         .page-title { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; background: linear-gradient(to right, #ffffff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
         
-        .admin-profile { display: flex; align-items: center; gap: 15px; padding: 6px 18px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 50px;}
+        /* PC/Desktop Profile Layout (Border + Text Enabled) */
+        .admin-profile { display: flex; align-items: center; gap: 15px; padding: 6px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 50px;}
         .admin-info { text-align: right; }
         .admin-info h4 { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;}
         .admin-info span { font-size: 0.7rem; color: #a1a1aa; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;}
         .admin-img-wrapper { position: relative; }
-        .admin-img { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-color); object-fit: cover; }
+        .admin-img { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.05); object-fit: cover; }
         .status-dot { position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--accent-success); border: 2px solid #000; border-radius: 50%; animation: blink 1.5s infinite ease-in-out; }
 
         .dashboard-area { padding: 40px 50px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; align-items: center; scroll-behavior: smooth; }
@@ -246,7 +259,11 @@
         @media (max-width: 768px) { 
             .topbar { padding: 0 20px; height: 70px; } 
             .page-title { font-size: 1.2rem; }
-            .admin-info { display: none; } 
+            
+            /* UPDATED: Profile tweaks for Mobile */
+            .admin-profile { border: none; background: transparent; padding: 0; } /* Hides the white line and background */
+            .admin-info { display: none; } /* Hides text (MADxPRINCE & Active Session) */
+            
             .dashboard-area { padding: 20px 15px; } 
             .admin-card { padding: 25px 20px; border-radius: 20px; } 
             .form-grid { grid-template-columns: 1fr; } 
@@ -614,8 +631,14 @@
                 await signInWithPopup(auth, provider);
                 showToast("Google Verification Successful!");
             } catch(error) { 
-                console.error(error);
-                showToast("Error: Verification Failed"); 
+                console.error("Google Auth Error: ", error);
+                if (error.code === 'auth/unauthorized-domain') {
+                    showToast("Error: Domain is not authorized in Firebase!");
+                } else if (error.code === 'auth/popup-closed-by-user') {
+                    showToast("Error: Login cancelled.");
+                } else {
+                    showToast("Error: " + error.message); 
+                }
             }
         });
 
