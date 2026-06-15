@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            /* Premium Black & Gray Theme Variables */
             --bg-body: #050505;
             --bg-sidebar: rgba(12, 12, 14, 0.95);
             --bg-card: linear-gradient(145deg, rgba(30, 30, 35, 0.7), rgba(15, 15, 18, 0.8));
@@ -18,8 +17,6 @@
             --border-glow: rgba(255, 255, 255, 0.3);
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
-            
-            /* Monochromatic Accents for Premium Look */
             --accent-primary: #ffffff; 
             --accent-success: #10b981; 
             --accent-warning: #eab308; 
@@ -37,14 +34,12 @@
             color: var(--text-primary); display: flex; overflow: hidden; 
         }
 
-        /* Ambient White Light */
         body::before {
             content: ''; position: absolute; width: 600px; height: 600px; background: #ffffff;
             border-radius: 50%; filter: blur(250px); opacity: 0.03; top: 50%; left: 50%;
             transform: translate(-50%, -50%); z-index: 0; pointer-events: none;
         }
 
-        /* --- PREMIUM 4-DOT SYSTEM LOADER --- */
         #systemLoader {
             position: fixed; inset: 0; z-index: 99999;
             background-color: var(--bg-body);
@@ -53,24 +48,10 @@
             color: #fff; transition: opacity 0.4s ease;
         }
         
-        .dots-container {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-        
-        .dot {
-            width: 14px; height: 14px;
-            background-color: var(--text-secondary);
-            border-radius: 50%;
-            animation: premiumPulse 1.2s infinite ease-in-out;
-            opacity: 0.3;
-        }
-        
-        .dot:nth-child(1) { animation-delay: 0s; }
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
-        .dot:nth-child(4) { animation-delay: 0.6s; }
+        .dots-container { display: flex; gap: 12px; margin-bottom: 25px; }
+        .dot { width: 14px; height: 14px; background-color: var(--text-secondary); border-radius: 50%; animation: premiumPulse 1.2s infinite ease-in-out; opacity: 0.3; }
+        .dot:nth-child(1) { animation-delay: 0s; } .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; } .dot:nth-child(4) { animation-delay: 0.6s; }
 
         @keyframes premiumPulse {
             0%, 100% { opacity: 0.2; transform: scale(0.8); box-shadow: none; background-color: var(--text-secondary); }
@@ -79,46 +60,27 @@
 
         .loader-text { font-size: 1.1rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #a1a1aa; }
 
-        /* --- APP WRAPPER --- */
         #appWrapper { display: none; width: 100%; height: 100%; }
         #appWrapper.active { display: flex; }
 
-        /* --- AUTH PAGES (LOGIN) --- */
         .login-container {
-            display: none; 
-            position: fixed; inset: 0; z-index: 3000;
-            justify-content: center; align-items: center;
-            background: var(--bg-body);
-            background-image: radial-gradient(circle at center, #1a1a1f 0%, #000000 100%);
+            display: none; position: fixed; inset: 0; z-index: 3000; justify-content: center; align-items: center;
+            background: var(--bg-body); background-image: radial-gradient(circle at center, #1a1a1f 0%, #000000 100%);
             padding: 20px; transition: opacity 0.5s ease; opacity: 0;
         }
         
         .login-card {
             background: var(--bg-card); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
             border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid var(--border-glow);
-            border-radius: 30px; padding: 45px 40px; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.9), inset 0 0 40px rgba(255, 255, 255, 0.05); 
-            width: 100%; max-width: 420px; position: relative; overflow: hidden;
-            animation: fadeInTop 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 30px; padding: 45px 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.9), inset 0 0 40px rgba(255, 255, 255, 0.05); 
+            width: 100%; max-width: 420px; position: relative; overflow: hidden; animation: fadeInTop 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes fadeInTop { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
         .auth-header { text-align: center; margin-bottom: 30px; }
         .login-logo { width: 75px; height: 75px; border-radius: 18px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 10px 25px rgba(255,255,255,0.1); }
-        
-        .login-title { 
-            font-size: 1.35rem; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            background: linear-gradient(to right, #ffffff, #888); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            margin-bottom: 5px; 
-            text-align: center;
-            padding: 2px 5px;
-        }
+        .login-title { font-size: 1.35rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; background: linear-gradient(to right, #ffffff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; text-align: center; padding: 2px 5px;}
         .login-subtitle { font-size: 0.8rem; color: var(--text-secondary); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;}
 
         .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;}
@@ -131,15 +93,12 @@
 
         .divider { display: flex; align-items: center; text-align: center; color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin: 25px 0; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .divider:not(:empty)::before { margin-right: 15px; }
-        .divider:not(:empty)::after { margin-left: 15px; }
+        .divider:not(:empty)::before { margin-right: 15px; } .divider:not(:empty)::after { margin-left: 15px; }
 
-        /* GOOGLE SIGN IN BUTTON */
         .btn-google { background: #ffffff; color: #000; border: none; padding: 16px; border-radius: 14px; font-size: 1.05rem; font-weight: 800; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; gap: 12px; width: 100%; box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15); }
         .btn-google:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3); }
         .btn-google img { width: 22px; height: 22px; }
 
-        /* --- DASHBOARD SIDEBAR --- */
         .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { display: block; opacity: 1; }
         
@@ -161,27 +120,15 @@
         .secure-dot-icon { width: 8px; height: 8px; background-color: var(--accent-success); border-radius: 50%; box-shadow: 0 0 10px var(--accent-success); animation: blink 1.5s infinite ease-in-out; }
         .sidebar-footer-text { font-size: 0.65rem; color: #71717a; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
 
-        /* --- DASHBOARD MAIN CONTENT --- */
         .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; width: 100%; z-index: 1; margin-left: 0; }
         
         .topbar { height: 80px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(10, 10, 12, 0.6); backdrop-filter: blur(20px); flex-shrink: 0; }
         .topbar-left { display: flex; align-items: center; gap: 20px; }
         
-        /* Premium Menu Toggle Button */
-        .menu-toggle { 
-            display: block; font-size: 1.4rem; color: var(--text-primary); cursor: pointer; 
-            background: rgba(255, 255, 255, 0.05); 
-            padding: 10px 14px; 
-            border-radius: 12px; 
-            border: 1px solid rgba(255, 255, 255, 0.03); 
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        .menu-toggle { display: block; font-size: 1.4rem; color: var(--text-primary); cursor: pointer; background: rgba(255, 255, 255, 0.05); padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .menu-toggle:active { transform: scale(0.95); }
-        
         .page-title { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; background: linear-gradient(to right, #ffffff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
         
-        /* PC/Desktop Profile Layout (Border + Text Enabled) */
         .admin-profile { display: flex; align-items: center; gap: 15px; padding: 6px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 50px;}
         .admin-info { text-align: right; }
         .admin-info h4 { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;}
@@ -210,7 +157,6 @@
         .btn-submit:hover { filter: brightness(1.1); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 255, 255, 0.35); }
         .btn-edit-submit { background: linear-gradient(135deg, #e4e4e7, #a1a1aa); box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15); }
 
-        /* TABLES */
         .table-responsive { overflow-x: auto; margin-top: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); position: relative; z-index: 2;}
         .books-table { width: 100%; border-collapse: collapse; min-width: 800px; text-align: left; }
         .books-table th { background: rgba(255,255,255,0.05); padding: 18px 25px; font-size: 0.85rem; font-weight: 600; color: #d4d4d8; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -235,7 +181,6 @@
         .log-admin-name { display: flex; align-items: center; gap: 8px; font-weight: 600; color: #fff; text-transform: uppercase; }
         .log-admin-avatar { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
 
-        /* MODAL & TOAST */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; padding: 20px; }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-content { background: linear-gradient(145deg, rgba(25, 25, 30, 0.95), rgba(10, 10, 12, 0.98)); width: 100%; max-width: 800px; border-radius: 28px; border: 1px solid var(--border-glow); max-height: 90svh; overflow-y: auto; position: relative; padding: 35px;}
@@ -246,44 +191,22 @@
         #toast { position: fixed; bottom: 40px; right: 40px; background: #ffffff; color: #000; padding: 18px 30px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; transform: translateX(150%); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
         #toast.show { transform: translateX(0); }
 
-        /* RESPONSIVENESS */
-        @media (min-width: 1025px) {
-            .sidebar { transform: translateX(0); }
-            .main-content { margin-left: 280px; }
-            .menu-toggle { display: none; }
-        }
-        @media (max-width: 1024px) { 
-            .dashboard-area { padding: 30px; } 
-            .books-table { min-width: 700px; }
-        }
+        @media (min-width: 1025px) { .sidebar { transform: translateX(0); } .main-content { margin-left: 280px; } .menu-toggle { display: none; } }
+        @media (max-width: 1024px) { .dashboard-area { padding: 30px; } .books-table { min-width: 700px; } }
         @media (max-width: 768px) { 
-            .topbar { padding: 0 20px; height: 70px; } 
-            .page-title { font-size: 1.2rem; }
-            
-            /* UPDATED: Profile tweaks for Mobile */
-            .admin-profile { border: none; background: transparent; padding: 0; } /* Hides the white line and background */
-            .admin-info { display: none; } /* Hides text (MADxPRINCE & Active Session) */
-            
-            .dashboard-area { padding: 20px 15px; } 
-            .admin-card { padding: 25px 20px; border-radius: 20px; } 
-            .form-grid { grid-template-columns: 1fr; } 
-            .modal-content { padding: 20px; border-radius: 20px; max-height: 95svh; width: 98%; margin: 0 auto; } 
-            .modal-grid { grid-template-columns: 1fr; gap: 12px; } 
-            .close-modal { top: 15px; right: 15px; width: 32px; height: 32px; font-size: 1.1rem; } 
-            .form-input { padding: 12px 15px; font-size: 1rem; }
-            .btn-submit { padding: 15px; font-size: 1rem; }
+            .topbar { padding: 0 20px; height: 70px; } .page-title { font-size: 1.2rem; }
+            .admin-profile { border: none; background: transparent; padding: 0; } .admin-info { display: none; } 
+            .dashboard-area { padding: 20px 15px; } .admin-card { padding: 25px 20px; border-radius: 20px; } 
+            .form-grid { grid-template-columns: 1fr; } .modal-content { padding: 20px; border-radius: 20px; max-height: 95svh; width: 98%; margin: 0 auto; } 
+            .modal-grid { grid-template-columns: 1fr; gap: 12px; } .close-modal { top: 15px; right: 15px; width: 32px; height: 32px; font-size: 1.1rem; } 
+            .form-input { padding: 12px 15px; font-size: 1rem; } .btn-submit { padding: 15px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
     <div id="systemLoader">
-        <div class="dots-container">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
+        <div class="dots-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
         <div class="loader-text">Verifying System...</div>
     </div>
 
@@ -297,7 +220,7 @@
             
             <form id="loginForm">
                 <div class="form-group">
-                    <label class="form-label">Admin Email</label>
+                    <label class="form-label">Super Admin Email</label>
                     <input type="email" id="loginEmail" class="form-input" placeholder="Enter admin email" required>
                 </div>
                 <div class="form-group">
@@ -307,7 +230,7 @@
                 <button type="submit" id="loginBtn" class="btn-auth"><i class="fas fa-lock"></i> Manual Login</button>
             </form>
 
-            <div class="divider">OR</div>
+            <div class="divider">CONTRIBUTOR ACCESS</div>
 
             <button type="button" id="googleSignInBtn" class="btn-google">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
@@ -336,12 +259,8 @@
             </div>
             
             <div class="sidebar-bottom">
-                <div class="system-status">
-                    <span class="secure-dot-icon"></span> SYSTEM SECURE
-                </div>
-                <div class="sidebar-footer-text">
-                    MULTIVERSE BOOKS • MADxPRINCE
-                </div>
+                <div class="system-status"><span class="secure-dot-icon"></span> SYSTEM SECURE</div>
+                <div class="sidebar-footer-text">MULTIVERSE BOOKS • MADxPRINCE</div>
             </div>
         </aside>
 
@@ -354,8 +273,8 @@
                 <div class="admin-profile-wrapper">
                     <div class="admin-profile">
                         <div class="admin-info">
-                            <h4 id="currentAdminName">MADxPRINCE</h4>
-                            <span>Active Session</span>
+                            <h4 id="currentAdminName">USER</h4>
+                            <span id="roleText">Active Session</span>
                         </div>
                         <div class="admin-img-wrapper">
                             <img id="currentAdminImg" src="https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png" class="admin-img" alt="Admin">
@@ -451,9 +370,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 15px; text-align: center; font-weight: 500;">
-                            <i class="fas fa-info-circle"></i> System logs and deleted files are securely retained for a <strong>Lifetime</strong>.
-                        </div>
                     </div>
                 </div>
 
@@ -517,13 +433,8 @@
         const sidebar = document.getElementById('sidebar'); 
         const sidebarOverlay = document.getElementById('sidebarOverlay');
         
-        function toggleMenu() { 
-            sidebar.classList.toggle('active'); 
-            sidebarOverlay.classList.toggle('active'); 
-        }
-        
-        menuToggle.addEventListener('click', toggleMenu); 
-        sidebarOverlay.addEventListener('click', toggleMenu);
+        function toggleMenu() { sidebar.classList.toggle('active'); sidebarOverlay.classList.toggle('active'); }
+        menuToggle.addEventListener('click', toggleMenu); sidebarOverlay.addEventListener('click', toggleMenu);
 
         function switchTab(tab) {
             document.querySelectorAll('.section-container').forEach(el => el.classList.remove('active'));
@@ -542,30 +453,16 @@
                 document.getElementById('navAnalytics').classList.add('active'); 
                 document.getElementById('topbarTitle').innerText = "System Logs"; 
             }
-            
-            sidebar.classList.remove('active'); 
-            sidebarOverlay.classList.remove('active');
+            sidebar.classList.remove('active'); sidebarOverlay.classList.remove('active');
         }
 
         function showToast(message) {
-            const toast = document.getElementById('toast'); 
-            document.getElementById('toastMsg').innerText = message;
-            
-            if(message.includes("Deleted") || message.includes("Error") || message.includes("Invalid") || message.includes("Blocked")) { 
-                toast.style.background = "#ef4444"; 
-                toast.style.color = "#fff"; 
-            } else if (message.includes("Updated") || message.includes("Restored")) { 
-                toast.style.background = "#3b82f6"; 
-                toast.style.color = "#fff"; 
-            } else { 
-                toast.style.background = "#10b981"; 
-                toast.style.color = "#fff"; 
-            }
-            
-            toast.classList.add('show'); 
-            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            const toast = document.getElementById('toast'); document.getElementById('toastMsg').innerText = message;
+            if(message.includes("Deleted") || message.includes("Error")) { toast.style.background = "#ef4444"; toast.style.color = "#fff"; } 
+            else if (message.includes("Updated") || message.includes("Restored")) { toast.style.background = "#3b82f6"; toast.style.color = "#fff"; } 
+            else { toast.style.background = "#10b981"; toast.style.color = "#fff"; }
+            toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
-
         window.closeEditModal = function() { document.getElementById('editModal').classList.remove('active'); }
     </script>
 
@@ -588,79 +485,63 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider(); 
 
-        let CURRENT_ADMIN_NAME = "ADMIN"; 
+        let CURRENT_ADMIN_NAME = "USER"; 
         let CURRENT_ADMIN_PHOTO = "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
+        
+        // --- YAHAN APNA EMAIL DAALEIN JO SUPER ADMIN HOGA ---
+        const SUPER_ADMIN_EMAIL = "princeyadav000261@gmail.com"; 
+        window.IS_SUPER_ADMIN = false;
 
-        // --- AUTH OBSERVER (LIFETIME SESSION & FOUC FIX) ---
         onAuthStateChanged(auth, (user) => {
             const loader = document.getElementById('systemLoader');
-            
             if (user) {
-                // User logged in: Stay logged in forever
                 document.getElementById('appWrapper').classList.add('active');
                 
-                // Set Profile Data
                 CURRENT_ADMIN_NAME = user.displayName ? user.displayName : user.email.split('@')[0];
                 if(user.photoURL) { CURRENT_ADMIN_PHOTO = user.photoURL; }
                 
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME;
                 document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
-                
-                // Hide Loader smoothly
-                if (loader) {
-                    loader.style.opacity = '0';
-                    setTimeout(() => loader.style.display = 'none', 400);
+
+                // CHECK ROLE
+                if(user.email === SUPER_ADMIN_EMAIL) {
+                    window.IS_SUPER_ADMIN = true;
+                    document.getElementById('roleText').innerText = "Super Admin";
+                    document.getElementById('navManageBooks').style.display = 'flex';
+                    document.getElementById('navAnalytics').style.display = 'flex';
+                } else {
+                    window.IS_SUPER_ADMIN = false;
+                    document.getElementById('roleText').innerText = "Contributor";
+                    document.getElementById('navManageBooks').style.display = 'none';
+                    document.getElementById('navAnalytics').style.display = 'none';
+                    switchTab('add'); // Force normal users to Add Book screen
                 }
+                
+                if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
             } else {
-                // User logged out: Show Login Screen
                 document.getElementById('appWrapper').classList.remove('active');
                 document.getElementById('loginOverlay').style.display = 'flex';
                 setTimeout(() => { document.getElementById('loginOverlay').style.opacity = '1'; }, 50);
-                
-                // Hide Loader smoothly
-                if (loader) {
-                    loader.style.opacity = '0';
-                    setTimeout(() => loader.style.display = 'none', 400);
-                }
+                if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
             }
         });
 
-        // --- GOOGLE SIGN-IN LOGIC ---
         document.getElementById('googleSignInBtn').addEventListener('click', async () => {
-            try {
-                await signInWithPopup(auth, provider);
-                showToast("Google Verification Successful!");
-            } catch(error) { 
-                console.error("Google Auth Error: ", error);
-                if (error.code === 'auth/unauthorized-domain') {
-                    showToast("Error: Domain is not authorized in Firebase!");
-                } else if (error.code === 'auth/popup-closed-by-user') {
-                    showToast("Error: Login cancelled.");
-                } else {
-                    showToast("Error: " + error.message); 
-                }
-            }
+            try { await signInWithPopup(auth, provider); showToast("Google Verification Successful!"); } 
+            catch(error) { showToast("Error: " + error.message); }
         });
 
-        // --- MANUAL LOGIN LOGIC ---
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
             const btn = document.getElementById('loginBtn');
-            
             btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Checking...`;
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-                showToast("Welcome Back!");
-                e.target.reset();
-            } catch(error) { 
-                showToast("Error: Invalid Details"); 
-            }
+            try { await signInWithEmailAndPassword(auth, email, pass); showToast("Super Admin Access Granted!"); e.target.reset(); } 
+            catch(error) { showToast("Error: Invalid Details"); }
             btn.innerHTML = `<i class="fas fa-lock"></i> Manual Login`;
         });
 
-        // ================= DATABASE LOGIC =================
         let dbBooks = []; let dbLogs = [];
 
         onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => {
@@ -683,169 +564,86 @@
 
         document.getElementById('addBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            const btn = e.target.querySelector('button'); 
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
-            
-            const titleInput = document.getElementById('inTitle').value; 
-            const imgInput = document.getElementById('inImage').value;
-            
+            const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
+            const titleInput = document.getElementById('inTitle').value; const imgInput = document.getElementById('inImage').value;
             const newBook = {
-                title: titleInput, 
-                author: document.getElementById('inAuthor').value, 
-                image: imgInput, 
-                year: document.getElementById('inYear').value,
-                lang: document.getElementById('inLang').value, 
-                exams: document.getElementById('inExams').value, 
-                pdfLink: document.getElementById('inPdfUrl').value, 
-                ytLink: document.getElementById('inYtUrl').value,
-                dateAdded: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(), 
+                title: titleInput, author: document.getElementById('inAuthor').value, image: imgInput, year: document.getElementById('inYear').value,
+                lang: document.getElementById('inLang').value, exams: document.getElementById('inExams').value, pdfLink: document.getElementById('inPdfUrl').value, 
+                ytLink: document.getElementById('inYtUrl').value, dateAdded: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(), 
                 createdAt: new Date().getTime()
             };
-            
-            try { 
-                await addDoc(collection(db, "books"), newBook); 
-                await logActivity("ADD", titleInput, imgInput); 
-                showToast("Book Published Successfully!"); 
-                e.target.reset(); 
-            } catch (error) { 
-                showToast("Error saving to database."); 
-            }
+            try { await addDoc(collection(db, "books"), newBook); await logActivity("ADD", titleInput, imgInput); showToast("Book Published Successfully!"); e.target.reset(); } 
+            catch (error) { showToast("Error saving to database."); }
             btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Book to Database`;
         });
 
         function renderBooks() {
             const tbody = document.getElementById('booksTableBody'); tbody.innerHTML = '';
-            if (dbBooks.length === 0) { 
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No records found. The vault is currently empty.</td></tr>`; 
-                return; 
-            }
+            if (dbBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No records found. The vault is currently empty.</td></tr>`; return; }
             dbBooks.forEach((book, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td>
+                    <td><strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${book.title}</strong><span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${book.year}</span></td>
+                    <td><div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div><span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span></td>
                     <td>
-                        <strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem; letter-spacing:0.5px;">${book.title}</strong>
-                        <span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib" style="margin-right:5px;"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt" style="margin-right:5px;"></i> ${book.year}</span>
-                    </td>
-                    <td>
-                        <div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div>
-                        <span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span>
-                    </td>
-                    <td>
-                        <button class="action-btn btn-edit" onclick="openEditModal(${index})" title="Edit Record"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')" title="Delete Record"><i class="fas fa-trash-alt"></i></button>
+                        <button class="action-btn btn-edit" onclick="openEditModal(${index})"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button>
                     </td>`;
                 tbody.appendChild(tr);
             });
         }
 
         window.deleteBook = async function(id, title) {
+            if(!window.IS_SUPER_ADMIN) return;
             if(confirm(`Are you sure you want to delete "${title}" permanently?`)) {
                 const b = dbBooks.find(x => x.id === id); 
-                try { 
-                    await deleteDoc(doc(db, "books", id)); 
-                    await logActivity("DELETE", title, b.image, b); 
-                    showToast("Record Deleted!"); 
-                } catch (e) { showToast("Error deleting document."); }
+                try { await deleteDoc(doc(db, "books", id)); await logActivity("DELETE", title, b.image, b); showToast("Record Deleted!"); } 
+                catch (e) { showToast("Error deleting document."); }
             }
         }
 
         window.openEditModal = function(index) {
+            if(!window.IS_SUPER_ADMIN) return;
             const book = dbBooks[index]; 
-            document.getElementById('editDocId').value = book.id;
-            document.getElementById('edTitle').value = book.title;
-            document.getElementById('edAuthor').value = book.author;
-            document.getElementById('edYear').value = book.year;
-            document.getElementById('edLang').value = book.lang;
-            document.getElementById('edExams').value = book.exams;
-            document.getElementById('edImage').value = book.image;
-            document.getElementById('edPdfUrl').value = book.pdfLink;
-            document.getElementById('edYtUrl').value = book.ytLink || "";
+            document.getElementById('editDocId').value = book.id; document.getElementById('edTitle').value = book.title; document.getElementById('edAuthor').value = book.author;
+            document.getElementById('edYear').value = book.year; document.getElementById('edLang').value = book.lang; document.getElementById('edExams').value = book.exams;
+            document.getElementById('edImage').value = book.image; document.getElementById('edPdfUrl').value = book.pdfLink; document.getElementById('edYtUrl').value = book.ytLink || "";
             document.getElementById('editModal').classList.add('active');
         }
 
         document.getElementById('editBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            const btn = e.target.querySelector('button'); 
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
-            
-            const docId = document.getElementById('editDocId').value; 
-            const updatedTitle = document.getElementById('edTitle').value; 
-            const updatedImage = document.getElementById('edImage').value;
-            
-            const updatedData = { 
-                title: updatedTitle, 
-                author: document.getElementById('edAuthor').value, 
-                image: updatedImage, 
-                year: document.getElementById('edYear').value, 
-                lang: document.getElementById('edLang').value, 
-                exams: document.getElementById('edExams').value, 
-                pdfLink: document.getElementById('edPdfUrl').value, 
-                ytLink: document.getElementById('edYtUrl').value 
-            };
-            
-            try { 
-                await updateDoc(doc(db, "books", docId), updatedData); 
-                await logActivity("EDIT", updatedTitle, updatedImage); 
-                closeEditModal(); 
-                showToast("Vault Record Updated!"); 
-            } catch (error) { showToast("Error updating document."); }
-            
+            const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+            const docId = document.getElementById('editDocId').value; const updatedTitle = document.getElementById('edTitle').value; const updatedImage = document.getElementById('edImage').value;
+            const updatedData = { title: updatedTitle, author: document.getElementById('edAuthor').value, image: updatedImage, year: document.getElementById('edYear').value, lang: document.getElementById('edLang').value, exams: document.getElementById('edExams').value, pdfLink: document.getElementById('edPdfUrl').value, ytLink: document.getElementById('edYtUrl').value };
+            try { await updateDoc(doc(db, "books", docId), updatedData); await logActivity("EDIT", updatedTitle, updatedImage); closeEditModal(); showToast("Vault Record Updated!"); } 
+            catch (error) { showToast("Error updating document."); }
             btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
 
         window.restoreBook = async function(logId) {
-            const logEntry = dbLogs.find(l => l.id === logId); 
-            if(!logEntry || !logEntry.deletedData) return;
-            
+            if(!window.IS_SUPER_ADMIN) return;
+            const logEntry = dbLogs.find(l => l.id === logId); if(!logEntry || !logEntry.deletedData) return;
             if(confirm(`Do you want to Recover/Restore "${logEntry.bookTitle}" to the main Vault?`)) {
-                try {
-                    const restoredData = { ...logEntry.deletedData }; 
-                    delete restoredData.id; 
-                    restoredData.createdAt = new Date().getTime();
-                    
-                    await addDoc(collection(db, "books"), restoredData); 
-                    await logActivity("RESTORE", logEntry.bookTitle, logEntry.image); 
-                    showToast("Book Restored Successfully!");
+                try { const restoredData = { ...logEntry.deletedData }; delete restoredData.id; restoredData.createdAt = new Date().getTime();
+                    await addDoc(collection(db, "books"), restoredData); await logActivity("RESTORE", logEntry.bookTitle, logEntry.image); showToast("Book Restored Successfully!");
                 } catch(error) { showToast("Error recovering data."); }
             }
         }
 
         function renderLogs() {
             const tbody = document.getElementById('logsTableBody'); tbody.innerHTML = '';
-            if (dbLogs.length === 0) { 
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet. Logs will appear here.</td></tr>`; 
-                return; 
-            }
+            if (dbLogs.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet. Logs will appear here.</td></tr>`; return; }
             dbLogs.forEach(log => {
                 let badge = ''; let rec = '';
                 if(log.action === 'ADD') badge = `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>`;
                 else if(log.action === 'EDIT') badge = `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>`;
-                else if(log.action === 'DELETE') { 
-                    badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; 
-                    if(log.deletedData) rec = `<br><button class="action-btn btn-recover" onclick="restoreBook('${log.id}')"><i class="fas fa-undo"></i> Recover Book</button>`; 
-                } 
+                else if(log.action === 'DELETE') { badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; if(log.deletedData) rec = `<br><button class="action-btn btn-recover" onclick="restoreBook('${log.id}')"><i class="fas fa-undo"></i> Recover Book</button>`; } 
                 else if (log.action === 'RESTORE') badge = `<span class="log-badge log-restore"><i class="fas fa-trash-restore"></i> Restored</span>`;
-                
-                let img = log.image ? `<img src="${log.image}" class="log-table-img" onerror="this.src='https://via.placeholder.com/40x55?text=Img'">` : '';
-                let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
-                
+                let img = log.image ? `<img src="${log.image}" class="log-table-img" onerror="this.src='https://via.placeholder.com/40x55?text=Img'">` : ''; let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${badge}</td>
-                    <td style="display: flex; align-items: center;">${img}<span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span></td>
-                    <td>
-                        <div class="log-admin-name">
-                            <img src="${avatar}" class="log-admin-avatar"> 
-                            ${log.adminName}
-                        </div>
-                    </td>
-                    <td>
-                        <div style="color: #a1a1aa; font-size: 0.9rem;">
-                            <i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}
-                        </div>
-                        ${rec}
-                    </td>`;
+                tr.innerHTML = `<td>${badge}</td><td style="display: flex; align-items: center;">${img}<span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span></td><td><div class="log-admin-name"><img src="${avatar}" class="log-admin-avatar"> ${log.adminName}</div></td><td><div style="color: #a1a1aa; font-size: 0.9rem;"><i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}</div>${rec}</td>`;
                 tbody.appendChild(tr);
             });
         }
