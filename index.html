@@ -616,33 +616,43 @@
             return "🖥️ Web Browser";
         }
 
+        // IMPROVED: Error handler added here to prevent infinite loader
         onAuthStateChanged(auth, async (user) => {
             const loader = document.getElementById('systemLoader');
+            
             if (user) {
-                // Check Block Status first
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-                
-                let currentStatus = "Active";
-                if (userSnap.exists() && userSnap.data().status === "Blocked") {
-                    alert("⚠️ Access Denied: You have been BLOCKED by the Super Admin. If you think this is a mistake, contact support.");
-                    signOut(auth);
-                    return; // Stop execution
-                } else if (userSnap.exists()) {
-                    currentStatus = userSnap.data().status;
+                try {
+                    // Check Block Status first
+                    const userRef = doc(db, "users", user.uid);
+                    const userSnap = await getDoc(userRef);
+                    
+                    let currentStatus = "Active";
+                    if (userSnap.exists() && userSnap.data().status === "Blocked") {
+                        alert("⚠️ Access Denied: You have been BLOCKED by the Super Admin.");
+                        signOut(auth);
+                        if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
+                        return; // Stop execution
+                    } else if (userSnap.exists()) {
+                        currentStatus = userSnap.data().status;
+                    }
+
+                    // Save or Update User Session Details
+                    await setDoc(userRef, {
+                        name: user.displayName || user.email.split('@')[0],
+                        email: user.email,
+                        photo: user.photoURL || "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png",
+                        device: getDeviceType(),
+                        lastLogin: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }),
+                        status: currentStatus,
+                        role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin" : "Contributor"
+                    }, { merge: true });
+
+                } catch (error) {
+                    console.error("Firebase Database Error (Rules might not be set): ", error);
+                    // UI will load anyway, skipping the Firebase write step to prevent stuck screen
                 }
 
-                // Save or Update User Session Details
-                await setDoc(userRef, {
-                    name: user.displayName || user.email.split('@')[0],
-                    email: user.email,
-                    photo: user.photoURL || "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png",
-                    device: getDeviceType(),
-                    lastLogin: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }),
-                    status: currentStatus,
-                    role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin" : "Contributor"
-                }, { merge: true });
-
+                // Proceed with loading UI
                 document.getElementById('appWrapper').classList.add('active');
                 
                 CURRENT_ADMIN_NAME = user.displayName ? user.displayName : user.email.split('@')[0];
@@ -667,6 +677,7 @@
                     switchTab('add'); 
                 }
                 
+                // Hide loader after loading dashboard
                 if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
             } else {
                 document.getElementById('appWrapper').classList.remove('active');
@@ -696,17 +707,17 @@
 
         onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => {
             dbBooks = []; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbBooks.push(d); }); renderBooks();
-        });
+        }, (error) => { console.error(error); });
 
         onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snapshot) => {
             dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs();
-        });
+        }, (error) => { console.error(error); });
 
         onSnapshot(collection(db, "users"), (snapshot) => {
             if(!window.IS_SUPER_ADMIN) return;
             dbUsers = []; snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); 
             renderUsersTable();
-        });
+        }, (error) => { console.error(error); });
 
         async function logActivity(actionType, bookTitle, imageUrl = "", deletedBookData = null) {
             try {
@@ -729,7 +740,7 @@
                 createdAt: new Date().getTime()
             };
             try { await addDoc(collection(db, "books"), newBook); await logActivity("ADD", titleInput, imgInput); showToast("Book Published Successfully!"); e.target.reset(); } 
-            catch (error) { showToast("Error saving to database."); }
+            catch (error) { showToast("Error saving to database. Check Firebase Rules."); }
             btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Book to Database`;
         });
 
@@ -845,4 +856,3 @@
     </script>
 </body>
 </html>
-
