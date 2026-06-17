@@ -63,16 +63,25 @@
         #appWrapper { display: none; width: 100%; height: 100%; }
         #appWrapper.active { display: flex; }
 
-        /* --- PREMIUM LOGIN UI DESIGN --- */
+        /* --- FIX: PREMIUM LOGIN UI DESIGN --- */
         .login-container {
-            display: none; position: fixed; inset: 0; z-index: 3000; flex-direction: column; justify-content: center; align-items: center;
+            display: none; position: fixed; inset: 0; z-index: 3000; flex-direction: column; 
             background: #0d0f23;
             background-image: radial-gradient(circle at center, #151833 0%, #080a14 100%);
-            padding: 20px; transition: opacity 0.5s ease; opacity: 0; overflow: hidden;
+            transition: opacity 0.5s ease; opacity: 0; 
+            /* Fix for scrolling if screen is too small */
+            overflow-y: auto; overflow-x: hidden;
+        }
+
+        /* Fix wrapper to keep everything perfectly centered */
+        .login-content-wrapper {
+            margin: auto; /* Important for flex centering without cutoff */
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px 20px; width: 100%; max-width: 450px; position: relative; z-index: 10;
         }
 
         /* Background Shapes */
-        .bg-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .bg-shapes { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
         .shape { position: absolute; opacity: 0; animation: starBlink ease-in-out infinite alternate; }
         .shape-circle { width: 45px; height: 45px; border: 2px solid rgba(255, 255, 255, 0.05); border-radius: 50%; }
         .shape-circle.small { width: 25px; height: 25px; }
@@ -92,7 +101,7 @@
         .s6 { top: 55%; right: 8%; animation-duration: 3.8s; animation-delay: 0.8s; }
         .s7 { top: 8%; left: 50%; animation-duration: 4.2s; animation-delay: 0.3s; }
 
-        .floating-bars { display: flex; justify-content: center; align-items: flex-end; gap: 8px; margin-bottom: 25px; height: 60px; position: relative; z-index: 10; }
+        .floating-bars { display: flex; justify-content: center; align-items: flex-end; gap: 8px; margin-bottom: 25px; height: 60px; position: relative; z-index: 10; width: 100%;}
         .bar { width: 22px; border-radius: 6px; animation: floatBar 2s ease-in-out infinite alternate; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .bar.c-cyan { background: linear-gradient(180deg, #00d2ff, #0088ff); height: 50px; animation-delay: 0s; }
         .bar.c-purple { background: linear-gradient(180deg, #9b51e0, #6100ff); height: 65px; animation-delay: 0.3s; }
@@ -101,14 +110,14 @@
         
         @keyframes floatBar { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
 
-        .welcome-header { text-align: center; margin-bottom: 25px; position: relative; z-index: 10; }
+        .welcome-header { text-align: center; margin-bottom: 20px; position: relative; z-index: 10; width: 100%;}
         .welcome-top { display: block; color: #8b5cf6; font-size: 1rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; }
         .welcome-title { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: #ffffff; letter-spacing: 1.5px; line-height: 1.2; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .welcome-subtitle { font-size: 0.8rem; color: #a1a1aa; text-align: center; margin-bottom: 30px; letter-spacing: 0.5px; position: relative; z-index: 10; }
 
         .login-card {
             background: transparent; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px;
-            padding: 35px 25px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            padding: 35px 25px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             animation: fadeInTop 0.8s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10;
         }
 
@@ -120,7 +129,7 @@
             gap: 10px; font-weight: 600; font-size: 0.95rem; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.05);
         }
 
-        .input-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 20px; }
+        .input-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 20px; width: 100%;}
         .input-wrapper i.left-icon { position: absolute; left: 20px; color: #a1a1aa; font-size: 1.1rem; }
         .input-wrapper .toggle-eye { position: absolute; right: 20px; color: #a1a1aa; cursor: pointer; font-size: 1.1rem; transition: 0.3s; padding: 5px; }
         .input-wrapper .toggle-eye:hover { color: #fff; }
@@ -243,7 +252,6 @@
         #toast { position: fixed; bottom: 40px; right: 40px; background: #ffffff; color: #000; padding: 18px 30px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; transform: translateX(150%); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
         #toast.show { transform: translateX(0); }
 
-        /* --- NEW CSS FOR USER MANAGEMENT --- */
         .btn-block { background: rgba(239, 68, 68, 0.15); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 12px; transition: 0.3s; margin-top: 5px; }
         .btn-block:hover { background: var(--accent-danger); color: #fff; }
         .btn-unblock { background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 12px; transition: 0.3s; margin-top: 5px; }
@@ -253,6 +261,23 @@
         .status-blocked { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); }
 
         /* --- FULLY RESPONSIVE MEDIA QUERIES --- */
+        
+        /* Auto scale for shorter height screens (like Laptops) to fit perfectly */
+        @media (max-height: 800px) {
+            .login-content-wrapper { padding: 20px 15px; }
+            .floating-bars { height: 40px; margin-bottom: 15px; }
+            .bar { transform: scaleY(0.7); transform-origin: bottom; }
+            .welcome-header { margin-bottom: 10px; }
+            .welcome-title { font-size: 1.5rem; }
+            .welcome-subtitle { margin-bottom: 20px; font-size: 0.75rem; }
+            .login-card { padding: 25px 20px; }
+            .multiverse-badge { padding: 8px 20px; margin-bottom: 20px; }
+            .input-wrapper { margin-bottom: 15px; }
+            .input-wrapper input { padding: 15px 45px; }
+            .btn-login { padding: 14px; margin-bottom: 10px; }
+            .btn-token-style { padding: 14px; }
+        }
+
         @media (min-width: 1025px) { .sidebar { transform: translateX(0); } .main-content { margin-left: 280px; } .menu-toggle { display: none; } }
         @media (max-width: 1024px) { .dashboard-area { padding: 30px; } .books-table { min-width: 700px; } }
         @media (max-width: 768px) { 
@@ -282,40 +307,43 @@
             <div class="shape shape-circle small s6"></div>
             <div class="shape shape-circle s7"></div>
         </div>
-        <div class="floating-bars">
-            <div class="bar c-cyan"></div>
-            <div class="bar c-purple"></div>
-            <div class="bar c-pink"></div>
-            <div class="bar c-orange"></div>
-        </div>
-        <div class="welcome-header">
-            <span class="welcome-top">Welcome To</span>
-            <h2 class="welcome-title">MULTIVERSE BOOKS</h2>
-        </div>
-        <p class="welcome-subtitle">Best Content | Vault Management | System Analytics</p>
-        <div class="login-card">
-            <div style="text-align: center;">
-                <div class="multiverse-badge">
-                    <i class="fas fa-user-shield"></i> Multiverse Admin
-                </div>
+        
+        <div class="login-content-wrapper">
+            <div class="floating-bars">
+                <div class="bar c-cyan"></div>
+                <div class="bar c-purple"></div>
+                <div class="bar c-pink"></div>
+                <div class="bar c-orange"></div>
             </div>
-            
-            <form id="loginForm">
-                <div class="input-wrapper">
-                    <i class="fas fa-envelope left-icon"></i>
-                    <input type="email" id="loginEmail" placeholder="Enter Admin Email" required autocomplete="off">
+            <div class="welcome-header">
+                <span class="welcome-top">Welcome To</span>
+                <h2 class="welcome-title">MULTIVERSE BOOKS</h2>
+            </div>
+            <p class="welcome-subtitle">Best Content | Vault Management | System Analytics</p>
+            <div class="login-card">
+                <div style="text-align: center;">
+                    <div class="multiverse-badge">
+                        <i class="fas fa-user-shield"></i> Multiverse Admin
+                    </div>
                 </div>
-                <div class="input-wrapper">
-                    <i class="fas fa-lock left-icon"></i>
-                    <input type="password" id="loginPassword" placeholder="Enter Password" required>
-                    <i class="fas fa-eye toggle-eye" id="toggleEye" onclick="togglePasswordVisibility()"></i>
-                </div>
-                <button type="submit" id="loginBtn" class="btn-login">Login</button>
-            </form>
-            <button type="button" id="googleSignInBtn" class="btn-token-style">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width: 20px;">
-                Login with Google
-            </button>
+                
+                <form id="loginForm">
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope left-icon"></i>
+                        <input type="email" id="loginEmail" placeholder="Enter Admin Email" required autocomplete="off">
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock left-icon"></i>
+                        <input type="password" id="loginPassword" placeholder="Enter Password" required>
+                        <i class="fas fa-eye toggle-eye" id="toggleEye" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                    <button type="submit" id="loginBtn" class="btn-login">Login</button>
+                </form>
+                <button type="button" id="googleSignInBtn" class="btn-token-style">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width: 20px;">
+                    Login with Google
+                </button>
+            </div>
         </div>
     </div>
 
@@ -627,13 +655,11 @@
             return "🖥️ Web Browser";
         }
 
-        // PERFECTED AUTH AND DATA LOAD LOGIC
         onAuthStateChanged(auth, async (user) => {
             const loader = document.getElementById('systemLoader');
             
             if (user) {
                 try {
-                    // Check if User is Blocked
                     const userRef = doc(db, "users", user.uid);
                     const userSnap = await getDoc(userRef);
                     
@@ -642,12 +668,11 @@
                         alert("⚠️ Access Denied: You have been BLOCKED by the Super Admin.");
                         signOut(auth);
                         if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
-                        return; // Stop execution completely
+                        return;
                     } else if (userSnap.exists()) {
                         currentStatus = userSnap.data().status;
                     }
 
-                    // Save or Update Session in Firestore
                     await setDoc(userRef, {
                         name: user.displayName || user.email.split('@')[0],
                         email: user.email,
@@ -670,7 +695,6 @@
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME;
                 document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
 
-                // SECURE UI TABS & LOAD DATA BASED ON ROLE
                 if(user.email === SUPER_ADMIN_EMAIL) {
                     window.IS_SUPER_ADMIN = true;
                     document.getElementById('roleText').innerText = "Super Admin";
@@ -678,7 +702,6 @@
                     document.getElementById('navAnalytics').style.display = 'flex';
                     document.getElementById('navUsers').style.display = 'flex';
 
-                    // LOAD ADMIN-ONLY DATA
                     onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snapshot) => {
                         dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs();
                     });
@@ -696,7 +719,6 @@
                     switchTab('add'); 
                 }
 
-                // LOAD BOOKS FOR EVERYONE (Super Admin & Contributor)
                 onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => {
                     dbBooks = []; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbBooks.push(d); }); renderBooks();
                 });
@@ -710,20 +732,17 @@
             }
         });
 
-        // LOGOUT LOGIC
         document.getElementById('navLogout').addEventListener('click', () => {
             if(confirm("Are you sure you want to exit and logout?")) {
                 signOut(auth).then(() => { showToast("Logged out successfully!"); }).catch((error) => {});
             }
         });
 
-        // GOOGLE LOGIN
         document.getElementById('googleSignInBtn').addEventListener('click', async () => {
             try { await signInWithPopup(auth, provider); showToast("Google Verification Successful!"); } 
             catch(error) { showToast("Error: " + error.message); }
         });
 
-        // EMAIL LOGIN
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
@@ -745,7 +764,6 @@
             } catch(e) {}
         }
 
-        // ADD BOOK
         document.getElementById('addBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
             const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
@@ -761,7 +779,6 @@
             btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Book to Database`;
         });
 
-        // RENDER BOOKS
         function renderBooks() {
             const tbody = document.getElementById('booksTableBody'); tbody.innerHTML = '';
             if (dbBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No records found. The vault is currently empty.</td></tr>`; return; }
@@ -779,7 +796,6 @@
             });
         }
 
-        // DELETE BOOK
         window.deleteBook = async function(id, title) {
             if(!window.IS_SUPER_ADMIN) return;
             if(confirm(`Are you sure you want to delete "${title}" permanently?`)) {
@@ -789,7 +805,6 @@
             }
         }
 
-        // EDIT BOOK
         window.openEditModal = function(index) {
             if(!window.IS_SUPER_ADMIN) return;
             const book = dbBooks[index]; 
@@ -809,7 +824,6 @@
             btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
 
-        // RESTORE DELETED BOOK
         window.restoreBook = async function(logId) {
             if(!window.IS_SUPER_ADMIN) return;
             const logEntry = dbLogs.find(l => l.id === logId); if(!logEntry || !logEntry.deletedData) return;
@@ -820,7 +834,6 @@
             }
         }
 
-        // RENDER LOGS
         function renderLogs() {
             const tbody = document.getElementById('logsTableBody'); tbody.innerHTML = '';
             if (dbLogs.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet. Logs will appear here.</td></tr>`; return; }
@@ -837,7 +850,6 @@
             });
         }
 
-        // RENDER USERS
         function renderUsersTable() {
             const tbody = document.getElementById('usersTableBody'); tbody.innerHTML = '';
             if (dbUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No users recorded yet.</td></tr>`; return; }
@@ -867,7 +879,6 @@
             });
         }
 
-        // BLOCK OR UNBLOCK USER
         window.toggleUserStatus = async function(uid, newStatus) {
             if(!window.IS_SUPER_ADMIN) return;
             if(confirm(`Are you sure you want to ${newStatus === 'Blocked' ? 'BLOCK' : 'UNBLOCK'} this user?`)) {
