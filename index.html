@@ -66,7 +66,7 @@
         /* --- PREMIUM LOGIN UI DESIGN --- */
         .login-container {
             display: none; position: fixed; inset: 0; z-index: 3000; flex-direction: column; justify-content: center; align-items: center;
-            background: #0d0f23; /* Dark Navy background */
+            background: #0d0f23;
             background-image: radial-gradient(circle at center, #151833 0%, #080a14 100%);
             padding: 20px; transition: opacity 0.5s ease; opacity: 0; overflow: hidden;
         }
@@ -74,10 +74,8 @@
         /* Background Shapes (Circles & Crosses) */
         .bg-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
         .shape { position: absolute; opacity: 0; animation: starBlink ease-in-out infinite alternate; }
-        
         .shape-circle { width: 45px; height: 45px; border: 2px solid rgba(255, 255, 255, 0.05); border-radius: 50%; }
         .shape-circle.small { width: 25px; height: 25px; }
-        
         .shape-cross { color: rgba(255, 255, 255, 0.08); font-size: 35px; font-weight: 300; line-height: 1; display: inline-block; }
         .shape-cross.rotate { transform: rotate(45deg); }
 
@@ -86,7 +84,6 @@
             100% { opacity: 0.6; transform: scale(1.1); text-shadow: 0 0 10px rgba(255,255,255,0.1); box-shadow: inset 0 0 15px rgba(255,255,255,0.03); }
         }
 
-        /* Shape Positions and Delays */
         .s1 { top: 15%; left: 15%; animation-duration: 3s; animation-delay: 0s; }
         .s2 { top: 25%; right: 20%; animation-duration: 4s; animation-delay: 1s; }
         .s3 { bottom: 18%; left: 12%; animation-duration: 3.5s; animation-delay: 0.5s; }
@@ -95,23 +92,20 @@
         .s6 { top: 55%; right: 8%; animation-duration: 3.8s; animation-delay: 0.8s; }
         .s7 { top: 8%; left: 50%; animation-duration: 4.2s; animation-delay: 0.3s; }
 
-        /* Floating Rectangles */
         .floating-bars { display: flex; justify-content: center; align-items: flex-end; gap: 8px; margin-bottom: 25px; height: 60px; position: relative; z-index: 10; }
         .bar { width: 22px; border-radius: 6px; animation: floatBar 2s ease-in-out infinite alternate; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .bar.c-cyan { background: linear-gradient(180deg, #00d2ff, #0088ff); height: 50px; animation-delay: 0s; }
         .bar.c-purple { background: linear-gradient(180deg, #9b51e0, #6100ff); height: 65px; animation-delay: 0.3s; }
         .bar.c-pink { background: linear-gradient(180deg, #ff007f, #cc0055); height: 45px; animation-delay: 0.6s; }
-        .bar.c-orange { background: linear-gradient(180deg, #ffafbd, #ffc3a0); background: #ffaa00; height: 55px; animation-delay: 0.9s; }
+        .bar.c-orange { background: #ffaa00; height: 55px; animation-delay: 0.9s; }
         
         @keyframes floatBar { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
 
-        /* Welcome Text */
         .welcome-header { text-align: center; margin-bottom: 25px; position: relative; z-index: 10; }
         .welcome-top { display: block; color: #8b5cf6; font-size: 1rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; }
         .welcome-title { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: #ffffff; letter-spacing: 1.5px; line-height: 1.2; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .welcome-subtitle { font-size: 0.8rem; color: #a1a1aa; text-align: center; margin-bottom: 30px; letter-spacing: 0.5px; position: relative; z-index: 10; }
 
-        /* Form Card */
         .login-card {
             background: transparent; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px;
             padding: 35px 25px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
@@ -126,7 +120,6 @@
             gap: 10px; font-weight: 600; font-size: 0.95rem; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.05);
         }
 
-        /* Inputs */
         .input-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 20px; }
         .input-wrapper i.left-icon { position: absolute; left: 20px; color: #a1a1aa; font-size: 1.1rem; }
         .input-wrapper .toggle-eye { position: absolute; right: 20px; color: #a1a1aa; cursor: pointer; font-size: 1.1rem; transition: 0.3s; padding: 5px; }
@@ -137,12 +130,9 @@
             padding: 18px 50px; color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
         }
         .input-wrapper input:focus { border-color: #8b5cf6; background: #1e2038; box-shadow: 0 0 15px rgba(139, 92, 246, 0.15); }
-        .input-wrapper input::placeholder { color: #6b7280; }
 
-        /* Buttons */
         .btn-login {
-            background: #6d5dfc; /* Purple */
-            color: #fff; width: 100%; padding: 16px; border-radius: 14px; border: none;
+            background: #6d5dfc; color: #fff; width: 100%; padding: 16px; border-radius: 14px; border: none;
             font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-bottom: 15px; margin-top: 10px;
             box-shadow: 0 10px 25px rgba(109, 93, 252, 0.4); transition: 0.3s;
         }
@@ -155,12 +145,10 @@
         }
         .btn-token-style:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
 
-        /* Form for Dashboard Add book elements */
         .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;}
         .form-label { font-size: 0.8rem; font-weight: 600; color: #d4d4d8; letter-spacing: 1.5px; text-transform: uppercase; }
         .form-input { background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); padding: 15px 20px; border-radius: 14px; color: #fff; font-size: 1.05rem; outline: none; transition: all 0.3s ease; width: 100%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
         .form-input:focus { border-color: rgba(255, 255, 255, 0.6); background: rgba(30, 30, 35, 0.9); box-shadow: 0 0 18px rgba(255, 255, 255, 0.15); }
-
 
         .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { display: block; opacity: 1; }
@@ -254,6 +242,15 @@
         #toast { position: fixed; bottom: 40px; right: 40px; background: #ffffff; color: #000; padding: 18px 30px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; transform: translateX(150%); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
         #toast.show { transform: translateX(0); }
 
+        /* --- NEW CSS FOR USER MANAGEMENT --- */
+        .btn-block { background: rgba(239, 68, 68, 0.15); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 12px; transition: 0.3s; margin-top: 5px; }
+        .btn-block:hover { background: var(--accent-danger); color: #fff; }
+        .btn-unblock { background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 12px; transition: 0.3s; margin-top: 5px; }
+        .btn-unblock:hover { background: var(--accent-success); color: #fff; }
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+        .status-active { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); }
+        .status-blocked { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); }
+
         @media (min-width: 1025px) { .sidebar { transform: translateX(0); } .main-content { margin-left: 280px; } .menu-toggle { display: none; } }
         @media (max-width: 1024px) { .dashboard-area { padding: 30px; } .books-table { min-width: 700px; } }
         @media (max-width: 768px) { 
@@ -274,7 +271,6 @@
     </div>
 
     <div id="loginOverlay" class="login-container">
-        
         <div class="bg-shapes">
             <div class="shape shape-circle s1"></div>
             <div class="shape shape-cross rotate s2">+</div>
@@ -284,20 +280,17 @@
             <div class="shape shape-circle small s6"></div>
             <div class="shape shape-circle s7"></div>
         </div>
-
         <div class="floating-bars">
             <div class="bar c-cyan"></div>
             <div class="bar c-purple"></div>
             <div class="bar c-pink"></div>
             <div class="bar c-orange"></div>
         </div>
-
         <div class="welcome-header">
             <span class="welcome-top">Welcome To</span>
             <h2 class="welcome-title">MULTIVERSE BOOKS</h2>
         </div>
         <p class="welcome-subtitle">Best Content | Vault Management | System Analytics</p>
-
         <div class="login-card">
             <div style="text-align: center;">
                 <div class="multiverse-badge">
@@ -310,16 +303,13 @@
                     <i class="fas fa-envelope left-icon"></i>
                     <input type="email" id="loginEmail" placeholder="Enter Admin Email" required autocomplete="off">
                 </div>
-                
                 <div class="input-wrapper">
                     <i class="fas fa-lock left-icon"></i>
                     <input type="password" id="loginPassword" placeholder="Enter Password" required>
                     <i class="fas fa-eye toggle-eye" id="toggleEye" onclick="togglePasswordVisibility()"></i>
                 </div>
-                
                 <button type="submit" id="loginBtn" class="btn-login">Login</button>
             </form>
-
             <button type="button" id="googleSignInBtn" class="btn-token-style">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width: 20px;">
                 Login with Google
@@ -344,6 +334,9 @@
             </div>
             <div class="nav-link" id="navAnalytics" onclick="switchTab('analytics')">
                 <i class="fas fa-chart-line"></i> System Logs
+            </div>
+            <div class="nav-link" id="navUsers" onclick="switchTab('users')">
+                <i class="fas fa-users-cog"></i> Manage Users
             </div>
             
             <div class="sidebar-bottom">
@@ -461,6 +454,27 @@
                     </div>
                 </div>
 
+                <div id="sectionUsers" class="section-container">
+                    <div class="admin-card">
+                        <div class="card-header"><i class="fas fa-users-shield"></i> User Access Management</div>
+                        <div class="table-responsive">
+                            <table class="books-table">
+                                <thead>
+                                    <tr>
+                                        <th>Profile</th>
+                                        <th>User Details</th>
+                                        <th>Login Device</th>
+                                        <th>Status & Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    <tr><td colspan="4" class="empty-state">Loading Users...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>
@@ -540,42 +554,38 @@
                 document.getElementById('sectionAnalytics').classList.add('active'); 
                 document.getElementById('navAnalytics').classList.add('active'); 
                 document.getElementById('topbarTitle').innerText = "System Logs"; 
+            } else if (tab === 'users') { 
+                document.getElementById('sectionUsers').classList.add('active'); 
+                document.getElementById('navUsers').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "Manage Users"; 
             }
             sidebar.classList.remove('active'); sidebarOverlay.classList.remove('active');
         }
 
         function showToast(message) {
             const toast = document.getElementById('toast'); document.getElementById('toastMsg').innerText = message;
-            if(message.includes("Deleted") || message.includes("Error")) { toast.style.background = "#ef4444"; toast.style.color = "#fff"; } 
+            if(message.includes("Deleted") || message.includes("Error") || message.includes("Block")) { toast.style.background = "#ef4444"; toast.style.color = "#fff"; } 
             else if (message.includes("Updated") || message.includes("Restored")) { toast.style.background = "#3b82f6"; toast.style.color = "#fff"; } 
             else { toast.style.background = "#10b981"; toast.style.color = "#fff"; }
             toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
         window.closeEditModal = function() { document.getElementById('editModal').classList.remove('active'); }
 
-        // PASSWORD VISIBILITY TOGGLE FUNCTION
         function togglePasswordVisibility() {
             const passInput = document.getElementById('loginPassword');
             const eyeIcon = document.getElementById('toggleEye');
-            
             if (passInput.type === 'password') {
-                passInput.type = 'text';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-                eyeIcon.style.color = '#8b5cf6'; // Highlight when visible
+                passInput.type = 'text'; eyeIcon.classList.remove('fa-eye'); eyeIcon.classList.add('fa-eye-slash'); eyeIcon.style.color = '#8b5cf6';
             } else {
-                passInput.type = 'password';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-                eyeIcon.style.color = '#a1a1aa'; // Normal color
+                passInput.type = 'password'; eyeIcon.classList.remove('fa-eye-slash'); eyeIcon.classList.add('fa-eye'); eyeIcon.style.color = '#a1a1aa';
             }
         }
     </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXBSGCZFdkSbk-Ireoo7sRY4mLzS25nyk",
@@ -594,13 +604,45 @@
         let CURRENT_ADMIN_NAME = "USER"; 
         let CURRENT_ADMIN_PHOTO = "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
         
-        // --- YAHAN APNA EMAIL DAALEIN JO SUPER ADMIN HOGA ---
         const SUPER_ADMIN_EMAIL = "princeyadav000261@gmail.com"; 
         window.IS_SUPER_ADMIN = false;
 
-        onAuthStateChanged(auth, (user) => {
+        function getDeviceType() {
+            const ua = navigator.userAgent;
+            if (/android/i.test(ua)) return "📱 Android Device";
+            if (/iPad|iPhone|iPod/.test(ua)) return "📱 Apple iOS";
+            if (/Windows/i.test(ua)) return "💻 Windows PC";
+            if (/Mac/i.test(ua)) return "💻 Mac OS";
+            return "🖥️ Web Browser";
+        }
+
+        onAuthStateChanged(auth, async (user) => {
             const loader = document.getElementById('systemLoader');
             if (user) {
+                // Check Block Status first
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                
+                let currentStatus = "Active";
+                if (userSnap.exists() && userSnap.data().status === "Blocked") {
+                    alert("⚠️ Access Denied: You have been BLOCKED by the Super Admin. If you think this is a mistake, contact support.");
+                    signOut(auth);
+                    return; // Stop execution
+                } else if (userSnap.exists()) {
+                    currentStatus = userSnap.data().status;
+                }
+
+                // Save or Update User Session Details
+                await setDoc(userRef, {
+                    name: user.displayName || user.email.split('@')[0],
+                    email: user.email,
+                    photo: user.photoURL || "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png",
+                    device: getDeviceType(),
+                    lastLogin: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }),
+                    status: currentStatus,
+                    role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin" : "Contributor"
+                }, { merge: true });
+
                 document.getElementById('appWrapper').classList.add('active');
                 
                 CURRENT_ADMIN_NAME = user.displayName ? user.displayName : user.email.split('@')[0];
@@ -609,18 +651,20 @@
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME;
                 document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
 
-                // CHECK ROLE
+                // CHECK ROLE & UPDATE UI TABS
                 if(user.email === SUPER_ADMIN_EMAIL) {
                     window.IS_SUPER_ADMIN = true;
                     document.getElementById('roleText').innerText = "Super Admin";
                     document.getElementById('navManageBooks').style.display = 'flex';
                     document.getElementById('navAnalytics').style.display = 'flex';
+                    document.getElementById('navUsers').style.display = 'flex';
                 } else {
                     window.IS_SUPER_ADMIN = false;
                     document.getElementById('roleText').innerText = "Contributor";
                     document.getElementById('navManageBooks').style.display = 'none';
                     document.getElementById('navAnalytics').style.display = 'none';
-                    switchTab('add'); // Force normal users to Add Book screen
+                    document.getElementById('navUsers').style.display = 'none';
+                    switchTab('add'); 
                 }
                 
                 if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
@@ -648,7 +692,7 @@
             btn.innerHTML = `Login`;
         });
 
-        let dbBooks = []; let dbLogs = [];
+        let dbBooks = []; let dbLogs = []; let dbUsers = [];
 
         onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => {
             dbBooks = []; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbBooks.push(d); }); renderBooks();
@@ -656,6 +700,12 @@
 
         onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snapshot) => {
             dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs();
+        });
+
+        onSnapshot(collection(db, "users"), (snapshot) => {
+            if(!window.IS_SUPER_ADMIN) return;
+            dbUsers = []; snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); 
+            renderUsersTable();
         });
 
         async function logActivity(actionType, bookTitle, imageUrl = "", deletedBookData = null) {
@@ -753,6 +803,46 @@
                 tbody.appendChild(tr);
             });
         }
+
+        function renderUsersTable() {
+            const tbody = document.getElementById('usersTableBody'); tbody.innerHTML = '';
+            if (dbUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No users recorded yet.</td></tr>`; return; }
+            dbUsers.forEach(u => {
+                const isSuper = u.email === SUPER_ADMIN_EMAIL;
+                const statusBadge = u.status === 'Blocked' ? `<span class="status-badge status-blocked"><i class="fas fa-ban"></i> Blocked</span>` : `<span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span>`;
+                
+                let actionBtn = "";
+                if(!isSuper) {
+                    if(u.status === 'Blocked') {
+                        actionBtn = `<button class="btn-unblock" onclick="toggleUserStatus('${u.uid}', 'Active')"><i class="fas fa-unlock"></i> Unblock User</button>`;
+                    } else {
+                        actionBtn = `<button class="btn-block" onclick="toggleUserStatus('${u.uid}', 'Blocked')"><i class="fas fa-ban"></i> Block Spam</button>`;
+                    }
+                } else {
+                    actionBtn = `<span style="color:#8b5cf6; font-size:0.8rem; font-weight:700;">Super Admin (Immune)</span>`;
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><img src="${u.photo}" style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); object-fit:cover;"></td>
+                    <td><strong style="color:#fff; display:block; font-size:1.05rem;">${u.name}</strong><span style="font-size:0.8rem; color:#a1a1aa;">${u.email}</span></td>
+                    <td><div style="color:#d4d4d8; font-size:0.9rem; margin-bottom:5px;">${u.device}</div><span style="font-size:0.75rem; color:#71717a;">Last Login: ${u.lastLogin}</span></td>
+                    <td>${statusBadge}<br>${actionBtn}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.toggleUserStatus = async function(uid, newStatus) {
+            if(!window.IS_SUPER_ADMIN) return;
+            if(confirm(`Are you sure you want to ${newStatus === 'Blocked' ? 'BLOCK' : 'UNBLOCK'} this user?`)) {
+                try {
+                    await updateDoc(doc(db, "users", uid), { status: newStatus });
+                    showToast(`User successfully ${newStatus}!`);
+                } catch(e) { showToast("Error updating user status."); }
+            }
+        }
     </script>
 </body>
 </html>
+
