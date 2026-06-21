@@ -6,6 +6,7 @@
     <title>Multiverse Books - Premium Admin Panel</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -116,7 +117,7 @@
             transform: translateY(-2vh); /* Keeps it perfectly balanced vertically */
         }
 
-        /* --- LOGO WITH IMAGE 2 GLOW --- */
+        /* --- LOGO WITH GLOW --- */
         .login-logo-container {
             display: flex;
             justify-content: center;
@@ -128,8 +129,7 @@
             height: 100px; 
             object-fit: cover;
             border-radius: 24px; 
-            border: 1px solid rgba(255, 255, 255, 0.15); /* Soft border instead of thick white */
-            /* Diffuse purple/blue glow matching Image 2 */
+            border: 1px solid rgba(255, 255, 255, 0.15); 
             box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4), 0 0 20px rgba(79, 70, 229, 0.2); 
             background: #0d0d12;
         }
@@ -151,7 +151,6 @@
             border-left: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 24px;
             padding: 35px 30px; width: 100%; 
-            /* Added pronounced inner white glow as requested */
             box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 25px rgba(255, 255, 255, 0.15);
             animation: fadeInTop 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
             position: relative; z-index: 10;
@@ -159,7 +158,7 @@
 
         @keyframes fadeInTop { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* IMAGE 1 KHAN GLOBAL STUDIES STYLE BADGE */
+        /* BADGE STYLE */
         .multiverse-badge {
             background: rgba(20, 20, 30, 0.9);
             border: 1px solid rgba(88, 101, 242, 0.4);
@@ -374,7 +373,7 @@
         .status-active { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); }
         .status-blocked { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); }
 
-        /* --- RESPONSIVE ADJUSTMENTS FOR NO-SCROLL --- */
+        /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-height: 800px) {
             .login-content-wrapper { padding: 10px 15px; transform: translateY(-1vh); }
             .login-logo { width: 85px; height: 85px; border-radius: 18px; } 
@@ -533,6 +532,7 @@
 
             <div class="dashboard-area">
                 
+                <!-- 1. ADD BOOK SECTION -->
                 <div id="sectionAddBook" class="section-container active">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-pen-nib"></i> Enter Book Details</div>
@@ -545,9 +545,19 @@
                                 <label class="form-label">Author Name</label>
                                 <input type="text" id="inAuthor" class="form-input" placeholder="e.g. Dr. Manish raj" required autocomplete="off">
                             </div>
+                            <!-- Publish Year Changed to Select Dropdown -->
                             <div class="form-group">
                                 <label class="form-label">Publish Year</label>
-                                <input type="text" id="inYear" class="form-input" placeholder="e.g. 2026" required autocomplete="off">
+                                <select id="inYear" class="form-input" required>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026" selected>2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Language</label>
@@ -569,7 +579,8 @@
                                 <label class="form-label">Direct PDF Link</label>
                                 <input type="url" id="inPdfUrl" class="form-input" placeholder="Google Drive or Direct Link" required autocomplete="off">
                             </div>
-                            <div class="form-group full-width">
+                            <!-- ID Added here to control visibility based on Admin Role -->
+                            <div class="form-group full-width" id="addYtLinkContainer">
                                 <label class="form-label">YouTube Tutorial Link (Optional)</label>
                                 <input type="url" id="inYtUrl" class="form-input" placeholder="https://youtube.com/watch?v=..." autocomplete="off">
                             </div>
@@ -580,6 +591,7 @@
                     </div>
                 </div>
 
+                <!-- 2. TUTORIAL SECTION -->
                 <div id="sectionTutorial" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-video"></i> Upload Guide & Tutorial</div>
@@ -600,6 +612,7 @@
                     </div>
                 </div>
 
+                <!-- 3. MANAGE BOOKS SECTION -->
                 <div id="sectionManageBooks" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-list"></i> Manage Vault Inventory</div>
@@ -639,6 +652,7 @@
                     </div>
                 </div>
 
+                <!-- 4. ANALYTICS & LOGS SECTION -->
                 <div id="sectionAnalytics" class="section-container">
                     <div class="admin-card" style="padding-bottom: 20px;">
                         <div class="card-header"><i class="fas fa-chart-line"></i> Dashboard Analytics</div>
@@ -672,6 +686,7 @@
                     </div>
                 </div>
 
+                <!-- 5. USERS SECTION -->
                 <div id="sectionUsers" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-users-shield"></i> User Access Management</div>
@@ -699,6 +714,7 @@
         </main>
     </div>
 
+    <!-- Edit Modal -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeEditModal()"></i>
@@ -717,9 +733,19 @@
                     <label class="form-label">Author Name</label>
                     <input type="text" id="edAuthor" class="form-input" required autocomplete="off">
                 </div>
+                <!-- Edit Modal Publish Year Changed to Select Dropdown -->
                 <div class="form-group">
                     <label class="form-label">Publish Year</label>
-                    <input type="text" id="edYear" class="form-input" required autocomplete="off">
+                    <select id="edYear" class="form-input" required>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Language</label>
@@ -855,9 +881,10 @@
     </script>
 
     <script type="module">
+        /* ADDED signInWithRedirect for better Mobile/Brave Browser support */
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXBSGCZFdkSbk-Ireoo7sRY4mLzS25nyk",
@@ -943,10 +970,12 @@
                     document.getElementById('roleText').innerText = "Super Admin";
                     document.getElementById('inPdfUrl').placeholder = "Google Drive or Direct Link"; 
                     
+                    // Show Super Admin options
                     document.getElementById('navManageBooks').style.display = 'flex'; 
                     document.getElementById('navAnalytics').style.display = 'flex';
                     document.getElementById('navUsers').style.display = 'flex'; 
                     document.getElementById('adminTutorialEdit').style.display = 'block';
+                    document.getElementById('addYtLinkContainer').style.display = 'flex'; // Show YouTube Field
 
                     onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snapshot) => { 
                         dbLogs = []; 
@@ -972,10 +1001,13 @@
                     document.getElementById('roleText').innerText = "Admin";
                     document.getElementById('inPdfUrl').placeholder = "Paste Google Drive Link Only";
 
+                    // Hide Super Admin options
                     document.getElementById('navManageBooks').style.display = 'none'; 
                     document.getElementById('navAnalytics').style.display = 'none';
                     document.getElementById('navUsers').style.display = 'none'; 
                     document.getElementById('adminTutorialEdit').style.display = 'none';
+                    document.getElementById('addYtLinkContainer').style.display = 'none'; // Hide YouTube Field
+                    
                     switchTab('add'); 
                 }
 
@@ -1035,7 +1067,8 @@
         
         document.getElementById('googleSignInBtn').addEventListener('click', async () => { 
             try { 
-                await signInWithPopup(auth, provider); 
+                // CHANGED: Using redirect instead of popup to fix Brave/Mobile back issue
+                await signInWithRedirect(auth, provider); 
             } catch(error) { 
                 showToast("Error: " + error.message); 
             } 
@@ -1114,7 +1147,7 @@
                 lang: document.getElementById('inLang').value, 
                 exams: document.getElementById('inExams').value, 
                 pdfLink: pdfInput, 
-                ytLink: document.getElementById('inYtUrl').value, 
+                ytLink: window.IS_SUPER_ADMIN ? document.getElementById('inYtUrl').value : "", 
                 dateAdded: new Date().toLocaleDateString('en-GB').toUpperCase(), 
                 createdAt: new Date().getTime() 
             };
