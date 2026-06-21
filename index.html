@@ -6,6 +6,7 @@
     <title>Multiverse Books - Premium Admin Panel</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -26,27 +27,57 @@
             --accent-purple: #8b5cf6; 
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Outfit', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+        }
         
         body { 
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100svh;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0; 
+            width: 100vw; 
+            height: 100svh;
             background-color: var(--bg-body); 
             background-image: radial-gradient(circle at top right, #27272a 0%, #000000 70%);
-            color: var(--text-primary); display: flex; overflow: hidden; 
+            color: var(--text-primary); 
+            display: flex; 
+            overflow: hidden; 
         }
 
         body::before {
-            content: ''; position: absolute; width: 600px; height: 600px; background: #ffffff;
-            border-radius: 50%; filter: blur(250px); opacity: 0.03; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); z-index: 0; pointer-events: none;
+            content: ''; 
+            position: absolute; 
+            width: 600px; 
+            height: 600px; 
+            background: #ffffff;
+            border-radius: 50%; 
+            filter: blur(250px); 
+            opacity: 0.03; 
+            top: 50%; 
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            z-index: 0; 
+            pointer-events: none;
         }
 
         #systemLoader {
-            position: fixed; inset: 0; z-index: 99999;
+            position: fixed; 
+            inset: 0; 
+            z-index: 99999;
             background-color: var(--bg-body);
             background-image: radial-gradient(circle at center, #1a1a1f 0%, #000000 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: #fff; transition: opacity 0.4s ease;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            color: #fff; 
+            transition: opacity 0.4s ease;
         }
         
         .dots-container { display: flex; gap: 12px; margin-bottom: 25px; }
@@ -65,34 +96,106 @@
         #appWrapper.active { display: flex; }
 
         /* --- CLEAN LOGIN CONTAINER --- */
-        .login-container { display: none; position: fixed; inset: 0; z-index: 3000; flex-direction: column; background: #050508; transition: opacity 0.5s ease; opacity: 0; overflow-y: auto; overflow-x: hidden; }
-        .login-container::before, .login-container::after { content: ''; position: absolute; border-radius: 50%; filter: blur(140px); z-index: 0; opacity: 0.3; pointer-events: none; }
+        .login-container {
+            display: none; position: fixed; inset: 0; z-index: 3000; flex-direction: column; 
+            background: #050508; 
+            transition: opacity 0.5s ease; opacity: 0; overflow-y: auto; overflow-x: hidden;
+        }
+
+        .login-container::before, .login-container::after {
+            content: ''; position: absolute; border-radius: 50%;
+            filter: blur(140px); z-index: 0; opacity: 0.3; pointer-events: none;
+        }
         .login-container::before { width: 50vw; height: 50vw; background: #6100ff; top: -20%; left: -10%; }
         .login-container::after { width: 40vw; height: 40vw; background: #00d2ff; bottom: -10%; right: -10%; }
 
-        .login-content-wrapper { margin: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; width: 100%; max-width: 450px; position: relative; z-index: 10; transform: translateY(-2vh); }
-        .login-logo-container { display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
-        .login-logo { width: 100px; height: 100px; object-fit: cover; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4), 0 0 20px rgba(79, 70, 229, 0.2); background: #0d0d12; }
+        .login-content-wrapper {
+            margin: auto; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; width: 100%; max-width: 450px; position: relative; z-index: 10;
+            transform: translateY(-2vh); 
+        }
 
+        /* --- LOGO WITH GLOW --- */
+        .login-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px; 
+        }
+        .login-logo {
+            width: 100px; 
+            height: 100px; 
+            object-fit: cover;
+            border-radius: 24px; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4), 0 0 20px rgba(79, 70, 229, 0.2); 
+            background: #0d0d12;
+        }
+
+        /* --- TEXT & SPACING REFINEMENTS --- */
         .welcome-header { text-align: center; margin-bottom: 12px; position: relative; z-index: 10; width: 100%;}
         .welcome-top { display: block; color: #8b5cf6; font-size: 0.95rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
         .welcome-title { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: #ffffff; letter-spacing: 2px; line-height: 1.2; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        
         .welcome-subtitle { font-size: 0.85rem; color: #a1a1aa; text-align: center; margin-bottom: 40px; letter-spacing: 0.5px; position: relative; z-index: 10; }
 
-        .login-card { background: rgba(15, 15, 20, 0.45); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid rgba(255, 255, 255, 0.3); border-left: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 35px 30px; width: 100%; box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 25px rgba(255, 255, 255, 0.15); animation: fadeInTop 0.8s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; }
+        /* Premium Glassmorphism Login Card */
+        .login-card {
+            background: rgba(15, 15, 20, 0.45);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 35px 30px; width: 100%; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 25px rgba(255, 255, 255, 0.15);
+            animation: fadeInTop 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative; z-index: 10;
+        }
+
         @keyframes fadeInTop { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .multiverse-badge { background: rgba(20, 20, 30, 0.9); border: 1px solid rgba(88, 101, 242, 0.4); color: #ffffff; padding: 12px 26px; border-radius: 14px; display: inline-flex; align-items: center; gap: 12px; font-weight: 600; font-size: 1.05rem; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(88, 101, 242, 0.15); }
+        /* BADGE STYLE */
+        .multiverse-badge {
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(88, 101, 242, 0.4);
+            color: #ffffff; 
+            padding: 12px 26px; 
+            border-radius: 14px; 
+            display: inline-flex; 
+            align-items: center;
+            gap: 12px; 
+            font-weight: 600; 
+            font-size: 1.05rem; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(88, 101, 242, 0.15);
+        }
+
         .input-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 18px; width: 100%;}
         .input-wrapper i.left-icon { position: absolute; left: 20px; color: #a1a1aa; font-size: 1.1rem; }
         .input-wrapper .toggle-eye { position: absolute; right: 20px; color: #a1a1aa; cursor: pointer; font-size: 1.1rem; transition: 0.3s; padding: 5px; }
         .input-wrapper .toggle-eye:hover { color: #fff; }
-        .input-wrapper input { width: 100%; background: #1a1c30; border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 18px 50px; color: #fff; font-size: 1rem; outline: none; transition: 0.3s; }
+        
+        .input-wrapper input {
+            width: 100%; background: #1a1c30; border: 1px solid rgba(255,255,255,0.06); border-radius: 14px;
+            padding: 18px 50px; color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
+        }
         .input-wrapper input:focus { border-color: #8b5cf6; background: #1e2038; box-shadow: 0 0 15px rgba(139, 92, 246, 0.15); }
 
-        .btn-login { background: #6d5dfc; color: #fff; width: 100%; padding: 16px; border-radius: 14px; border: none; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-bottom: 15px; margin-top: 5px; box-shadow: 0 10px 25px rgba(109, 93, 252, 0.4); transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-login {
+            background: #6d5dfc; color: #fff; width: 100%; padding: 16px; border-radius: 14px; border: none;
+            font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-bottom: 15px; margin-top: 5px;
+            box-shadow: 0 10px 25px rgba(109, 93, 252, 0.4); transition: 0.3s;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
         .btn-login:hover { background: #5a4bdf; transform: translateY(-2px); }
-        .btn-token-style { background: transparent; color: #fff; width: 100%; padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.15); font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; }
+
+        .btn-token-style {
+            background: transparent; color: #fff; width: 100%; padding: 16px; border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.15); font-size: 1.05rem; font-weight: 600;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s;
+        }
         .btn-token-style:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
 
         /* --- DASHBOARD ELEMENTS --- */
@@ -116,11 +219,6 @@
         .nav-link i { font-size: 1.2rem; width: 20px; text-align: center; }
         .nav-link.active i { color: var(--accent-primary); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         
-        /* God Mode Tab CSS */
-        .god-mode-tab { color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3); background: rgba(234, 179, 8, 0.05); margin-top: 15px; }
-        .god-mode-tab.active { background: rgba(234, 179, 8, 0.15); border-left: 4px solid #eab308; color: #fff;}
-        .god-mode-tab i { color: #eab308 !important; text-shadow: 0 0 10px rgba(234, 179, 8, 0.5) !important; }
-
         .sidebar-bottom { margin-top: auto; padding-top: 25px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .system-status { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 700; color: #ffffff; letter-spacing: 1.5px; text-transform: uppercase; }
         @keyframes blink { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); box-shadow: 0 0 12px var(--accent-success); } 100% { opacity: 1; transform: scale(1); } }
@@ -128,8 +226,10 @@
         .sidebar-footer-text { font-size: 0.65rem; color: #71717a; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
 
         .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; width: 100%; z-index: 1; margin-left: 0; }
+        
         .topbar { height: 80px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(10, 10, 12, 0.6); backdrop-filter: blur(20px); flex-shrink: 0; }
         .topbar-left { display: flex; align-items: center; gap: 20px; }
+        
         .menu-toggle { display: block; font-size: 1.4rem; color: var(--text-primary); cursor: pointer; background: rgba(255, 255, 255, 0.05); padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .menu-toggle:active { transform: scale(0.95); }
         .page-title { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; background: linear-gradient(to right, #ffffff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
@@ -142,15 +242,46 @@
         .admin-img { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.05); object-fit: cover; }
         .status-dot { position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--accent-success); border: 2px solid #000; border-radius: 50%; animation: blink 1.5s infinite ease-in-out; }
 
-        .dashboard-area { padding: 40px 50px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; align-items: center; scroll-behavior: smooth; width: 100%; overflow-x: hidden; }
+        .dashboard-area { 
+            padding: 40px 50px; 
+            overflow-y: auto; 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            scroll-behavior: smooth; 
+            width: 100%;
+            overflow-x: hidden; 
+        }
         .dashboard-area::-webkit-scrollbar { width: 8px; }
         .dashboard-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
         
-        .section-container { width: 100%; max-width: 1100px; display: none; margin: 0 auto; box-sizing: border-box; }
+        .section-container { 
+            width: 100%; 
+            max-width: 1100px; 
+            display: none; 
+            margin: 0 auto; 
+            box-sizing: border-box; 
+        }
         .section-container.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .admin-card { background: var(--bg-card); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid var(--border-glow); border-left: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 45px; box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 30px rgba(255, 255, 255, 0.05), inset 0 0 40px rgba(255, 255, 255, 0.1); margin-bottom: 30px; width: 100%; box-sizing: border-box; overflow: hidden; }
+        .admin-card { 
+            background: var(--bg-card); 
+            backdrop-filter: blur(40px); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-top: 1px solid var(--border-glow); 
+            border-left: 1px solid rgba(255, 255, 255, 0.2); 
+            border-radius: 28px; 
+            padding: 45px; 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 30px rgba(255, 255, 255, 0.05), inset 0 0 40px rgba(255, 255, 255, 0.1); 
+            margin-bottom: 30px; 
+            width: 100%; 
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden; 
+        }
+        
         .card-header { font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; letter-spacing: 1px;}
         .card-header i { padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5);}
         
@@ -162,23 +293,12 @@
         .btn-submit:hover { filter: brightness(1.1); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 255, 255, 0.35); }
         .btn-edit-submit { background: linear-gradient(135deg, #e4e4e7, #a1a1aa); box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15); }
 
-        /* --- BULK ACTION & TABLE STYLES --- */
-        .filter-row { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+        .filter-row { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
         .search-box { flex: 1; min-width: 250px; position: relative; }
         .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #a1a1aa; }
         .search-box input { width: 100%; background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); padding: 12px 15px 12px 40px; border-radius: 12px; color: #fff; outline: none; transition: 0.3s; }
         .search-box input:focus { border-color: #8b5cf6; }
-
-        .bulk-actions { display: flex; gap: 10px; }
-        .btn-export { background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s;}
-        .btn-export:hover { background: var(--accent-success); color: #fff; }
-        .btn-bulk-delete { background: rgba(239, 68, 68, 0.15); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.4); padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; display: none; align-items: center; gap: 8px; transition: 0.3s;}
-        .btn-bulk-delete:hover { background: var(--accent-danger); color: #fff; }
-        
-        /* Custom Checkbox */
-        .custom-checkbox { appearance: none; width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.3); border-radius: 6px; background: rgba(0,0,0,0.4); cursor: pointer; position: relative; transition: 0.2s;}
-        .custom-checkbox:checked { background: var(--accent-purple); border-color: var(--accent-purple); }
-        .custom-checkbox:checked::after { content: '✔'; position: absolute; color: white; font-size: 14px; top: -1px; left: 3px; font-weight: bold;}
+        .filter-select { background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 12px; color: #fff; outline: none; cursor: pointer; }
 
         .table-responsive { overflow-x: auto; margin-top: 10px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); position: relative; z-index: 2;}
         .books-table { width: 100%; border-collapse: collapse; min-width: 800px; text-align: left; }
@@ -198,28 +318,51 @@
         .action-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; font-size: 1rem; cursor: pointer; margin-right: 10px; padding: 8px 14px; color: #fff;}
         .btn-edit:hover { background: #ffffff; color: #000; border-color: #ffffff; transform: translateY(-2px);}
         .btn-delete:hover { background: var(--accent-danger); color: #fff; border-color: var(--accent-danger); transform: translateY(-2px); }
+        .btn-recover { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.4); font-size: 0.8rem; padding: 6px 12px; margin-top: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;}
+        .btn-recover:hover { background: var(--accent-purple); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);}
         
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 1.1rem; }
-        
-        /* Log Badges */
         .log-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: inline-flex; align-items: center; gap: 5px;}
         .log-add { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }
         .log-edit { background: rgba(59, 130, 246, 0.2); color: var(--accent-info); border: 1px solid rgba(59, 130, 246, 0.3); }
         .log-delete { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .log-restore { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
         .log-admin-name { display: flex; align-items: center; gap: 8px; font-weight: 600; color: #fff; text-transform: uppercase; }
         .log-admin-avatar { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
 
-        /* Charts */
-        .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; width: 100%; }
-        .chart-box { background: rgba(15, 15, 20, 0.5); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 20px; position: relative; width: 100%; height: 320px; box-sizing: border-box; box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.02); min-width: 0; }
-        .chart-full { grid-column: 1 / -1; height: 350px; }
+        /* CORRECTED CHART CSS FOR MOBILE */
+        .charts-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 25px; 
+            margin-bottom: 30px; 
+            width: 100%;
+        }
+        
+        .chart-box { 
+            background: rgba(15, 15, 20, 0.5); 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px; 
+            padding: 20px; 
+            position: relative; 
+            width: 100%; 
+            height: 320px; 
+            box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.02);
+            min-width: 0; 
+        }
+        
+        .chart-full { 
+            grid-column: 1 / -1; 
+            height: 350px; 
+        }
 
-        /* Tutorial section */
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         #adminTutorialEdit { background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); padding: 20px; border-radius: 16px; margin-top: 25px; display: none; }
 
-        /* Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; padding: 20px; }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-content { background: linear-gradient(145deg, rgba(25, 25, 30, 0.95), rgba(10, 10, 12, 0.98)); width: 100%; max-width: 800px; border-radius: 28px; border: 1px solid var(--border-glow); max-height: 90svh; overflow-y: auto; position: relative; padding: 35px;}
@@ -232,10 +375,25 @@
 
         .btn-block { background: rgba(239, 68, 68, 0.15); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 12px; transition: 0.3s; margin-top: 5px; }
         .btn-block:hover { background: var(--accent-danger); color: #fff; }
+        .btn-unblock { background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 12px; transition: 0.3s; margin-top: 5px; }
+        .btn-unblock:hover { background: var(--accent-success); color: #fff; }
         .status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
         .status-active { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); }
+        .status-blocked { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); }
+
+        /* --- GOD MODE STYLES INJECTED HERE --- */
+        .god-mode-tab { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 15px; border-radius: 0; }
+        .god-mode-tab { color: #eab308; background: rgba(234, 179, 8, 0.05); border: 1px solid rgba(234, 179, 8, 0.3); border-radius: 14px; margin-top: 15px;}
+        .god-mode-tab.active { background: rgba(234, 179, 8, 0.15); border-left: 4px solid #eab308; color: #fff;}
         
-        /* GOD MODE SPECIFIC STYLES */
+        .bulk-actions { display: flex; gap: 10px; align-items: center; margin-left: auto;}
+        .btn-export { background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 10px 18px; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;}
+        .btn-bulk-delete { background: rgba(239, 68, 68, 0.15); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.4); padding: 10px 18px; border-radius: 12px; font-weight: 700; cursor: pointer; display: none; align-items: center; gap: 8px; font-size: 0.9rem;}
+        
+        .custom-checkbox { appearance: none; width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.3); border-radius: 6px; background: rgba(0,0,0,0.4); cursor: pointer; position: relative; transition: 0.2s;}
+        .custom-checkbox:checked { background: var(--accent-purple); border-color: var(--accent-purple); }
+        .custom-checkbox:checked::after { content: '✔'; position: absolute; color: white; font-size: 14px; top: -1px; left: 3px; font-weight: bold;}
+
         .toggle-switch { position: relative; display: inline-block; width: 60px; height: 34px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); transition: .4s; border-radius: 34px; border: 1px solid rgba(255,255,255,0.2);}
@@ -246,6 +404,7 @@
         .category-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 50px; font-size: 0.9rem; margin: 5px; }
         .category-chip i { color: #ef4444; cursor: pointer; transition: 0.2s; }
         .category-chip i:hover { transform: scale(1.2); }
+        
         .add-cat-row { display: flex; gap: 10px; margin-bottom: 15px;}
         .add-cat-btn { background: var(--accent-purple); border: none; padding: 0 20px; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer;}
 
@@ -253,35 +412,55 @@
         @media (max-height: 800px) {
             .login-content-wrapper { padding: 10px 15px; transform: translateY(-1vh); }
             .login-logo { width: 85px; height: 85px; border-radius: 18px; } 
+            .login-logo-container { margin-bottom: 15px; }
+            .welcome-header { margin-bottom: 8px; }
             .welcome-title { font-size: 1.5rem; }
+            .welcome-subtitle { margin-bottom: 25px; font-size: 0.75rem; }
             .login-card { padding: 25px 20px; }
+            .multiverse-badge { padding: 10px 20px; margin-bottom: 20px; font-size: 0.95rem;}
+            .input-wrapper { margin-bottom: 15px; }
+            .input-wrapper input { padding: 15px 45px; font-size: 0.95rem;}
+            .btn-login { padding: 14px; margin-bottom: 12px; font-size: 1rem;}
+            .btn-token-style { padding: 14px; font-size: 0.95rem;}
         }
+
         @media (min-width: 1025px) { 
             .sidebar { transform: translateX(0); } 
             .main-content { margin-left: 280px; } 
             .menu-toggle { display: none; } 
         }
+        
         @media (max-width: 1024px) { 
             .dashboard-area { padding: 30px 20px; } 
             .books-table { min-width: 700px; } 
             .charts-grid { grid-template-columns: 1fr; } 
             .chart-box { height: 300px; }
             .chart-full { height: 320px; } 
+            .filter-row { flex-direction: column; align-items: stretch; }
+            .bulk-actions { margin-left: 0; margin-top: 10px; justify-content: space-between;}
         }
+        
         @media (max-width: 768px) { 
             .topbar { padding: 0 20px; height: 70px; } 
             .page-title { font-size: 1.2rem; }
             .admin-profile { border: none; background: transparent; padding: 0; } 
             .admin-info { display: none; } 
+            
             .dashboard-area { padding: 20px 15px; width: 100%; box-sizing: border-box; } 
             .section-container { max-width: 100%; box-sizing: border-box; }
             .admin-card { padding: 25px 20px; border-radius: 20px; width: 100%; box-sizing: border-box; } 
             .form-grid { grid-template-columns: 1fr; } 
+            
             .charts-grid { grid-template-columns: 1fr; gap: 20px; margin-bottom: 20px; width: 100%; box-sizing: border-box; }
+            /* Fixed Android chart disappearing issue here */
             .chart-box { height: 280px; padding: 10px; width: 100%; box-sizing: border-box; min-width: 0; } 
             .chart-full { height: 280px; }
+            
             .modal-content { padding: 20px; border-radius: 20px; max-height: 95svh; width: 98%; margin: 0 auto; } 
             .modal-grid { grid-template-columns: 1fr; gap: 12px; } 
+            .close-modal { top: 15px; right: 15px; width: 32px; height: 32px; font-size: 1.1rem; } 
+            .form-input { padding: 12px 15px; font-size: 1rem; } 
+            .btn-submit { padding: 15px; font-size: 1rem; }
         }
     </style>
 </head>
@@ -289,16 +468,22 @@
 
     <div id="systemLoader">
         <div class="dots-container">
-            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
         </div>
         <div class="loader-text">Verifying System...</div>
     </div>
 
     <div id="loginOverlay" class="login-container">
+        
         <div class="login-content-wrapper">
+            
             <div class="login-logo-container">
                 <img src="https://i.postimg.cc/cJdGqYHG/IMG-20260524-WA0004.jpg" alt="Multiverse Logo" class="login-logo">
             </div>
+
             <div class="welcome-header">
                 <span class="welcome-top">Welcome To</span>
                 <h2 class="welcome-title">MULTIVERSE BOOKS</h2>
@@ -307,7 +492,9 @@
             
             <div class="login-card">
                 <div style="text-align: center;">
-                    <div class="multiverse-badge"><i class="fas fa-graduation-cap" style="color: #8b5cf6;"></i> Multiverse Books</div>
+                    <div class="multiverse-badge">
+                        <i class="fas fa-graduation-cap" style="color: #8b5cf6; font-size: 1.2rem;"></i> Multiverse Books
+                    </div>
                 </div>
                 <form id="loginForm">
                     <div class="input-wrapper">
@@ -337,14 +524,25 @@
                 MULTIVERSE ADMIN
             </div>
             
-            <div class="nav-link active" id="navAddBook" onclick="switchTab('add')"><i class="fas fa-plus-circle"></i> Add New Book</div>
-            <div class="nav-link" id="navTutorial" onclick="switchTab('tutorial')"><i class="fas fa-play-circle"></i> How To Upload</div>
-            <div class="nav-link" id="navManageBooks" onclick="switchTab('manage')"><i class="fas fa-layer-group"></i> Manage Books</div>
-            <div class="nav-link" id="navAnalytics" onclick="switchTab('analytics')"><i class="fas fa-chart-pie"></i> System Analytics</div>
-            <div class="nav-link" id="navUsers" onclick="switchTab('users')"><i class="fas fa-users-cog"></i> Manage Users</div>
-            
+            <div class="nav-link active" id="navAddBook" onclick="switchTab('add')">
+                <i class="fas fa-plus-circle"></i> Add New Book
+            </div>
+            <div class="nav-link" id="navTutorial" onclick="switchTab('tutorial')">
+                <i class="fas fa-play-circle"></i> How To Upload Book
+            </div>
+            <div class="nav-link" id="navManageBooks" onclick="switchTab('manage')">
+                <i class="fas fa-layer-group"></i> Manage Books
+            </div>
+            <div class="nav-link" id="navAnalytics" onclick="switchTab('analytics')">
+                <i class="fas fa-chart-pie"></i> System Analytics
+            </div>
+            <div class="nav-link" id="navUsers" onclick="switchTab('users')">
+                <i class="fas fa-users-cog"></i> Manage Users
+            </div>
+
+            <!-- INJECTED GOD MODE TAB -->
             <div class="nav-link god-mode-tab" id="navSettings" onclick="switchTab('settings')" style="display:none;">
-                <i class="fas fa-radiation"></i> God Mode
+                <i class="fas fa-radiation"></i> God Mode Settings
             </div>
 
             <div class="nav-link" id="navLogout" style="color: #ef4444; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 15px;">
@@ -370,7 +568,7 @@
                             <span id="roleText">Active Session</span>
                         </div>
                         <div class="admin-img-wrapper">
-                            <img id="currentAdminImg" src="https://via.placeholder.com/42" class="admin-img" alt="Admin">
+                            <img id="currentAdminImg" src="https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png" class="admin-img" alt="Admin">
                             <span class="status-dot"></span>
                         </div>
                     </div>
@@ -379,44 +577,94 @@
 
             <div class="dashboard-area">
                 
+                <!-- 1. ADD BOOK SECTION -->
                 <div id="sectionAddBook" class="section-container active">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-pen-nib"></i> Enter Book Details</div>
                         <form id="addBookForm" class="form-grid">
-                            <div class="form-group full-width"><label class="form-label">Book Title</label><input type="text" id="inTitle" class="form-input" placeholder="e.g. PHYSICS MED EASY" required autocomplete="off"></div>
-                            <div class="form-group"><label class="form-label">Author Name</label><input type="text" id="inAuthor" class="form-input" placeholder="e.g. Dr. Manish raj" required autocomplete="off"></div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Book Title</label>
+                                <input type="text" id="inTitle" class="form-input" placeholder="e.g. PHYSICS MED EASY By Manish raj" required autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Author Name</label>
+                                <input type="text" id="inAuthor" class="form-input" placeholder="e.g. Dr. Manish raj" required autocomplete="off">
+                            </div>
+                            <!-- Publish Year -->
                             <div class="form-group">
                                 <label class="form-label">Publish Year</label>
                                 <select id="inYear" class="form-input" required>
-                                    <option value="2024">2024</option><option value="2025">2025</option><option value="2026" selected>2026</option><option value="2027">2027</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026" selected>2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
                                 </select>
                             </div>
-                            
-                            <div class="form-group"><label class="form-label">Language</label><select id="inLang" class="form-input" required></select></div>
-                            <div class="form-group"><label class="form-label">Exam Relevance</label><select id="inExams" class="form-input" required></select></div>
-                            
-                            <div class="form-group full-width"><label class="form-label">Cover Image URL</label><input type="url" id="inImage" class="form-input" placeholder="https://..." required autocomplete="off"></div>
-                            <div class="form-group full-width"><label class="form-label">Direct PDF Link</label><input type="url" id="inPdfUrl" class="form-input" placeholder="Google Drive Link" required autocomplete="off"></div>
-                            <div class="form-group full-width" id="addYtLinkContainer"><label class="form-label">YouTube Tutorial Link (Optional)</label><input type="url" id="inYtUrl" class="form-input" placeholder="https://youtube.com/..." autocomplete="off"></div>
-                            <button type="submit" class="btn-submit"><i class="fas fa-cloud-upload-alt"></i> Publish Book to Database</button>
+                            <div class="form-group">
+                                <label class="form-label">Language</label>
+                                <select id="inLang" class="form-input">
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="English">English</option>
+                                    <option value="Bilingual">Bilingual</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Exam Relevance</label>
+                                <select id="inExams" class="form-input">
+                                    <option value="SSC">SSC</option>
+                                    <option value="BPSC">BPSC</option>
+                                    <option value="UPSC">UPSC</option>
+                                    <option value="RRB">RRB</option>
+                                    <option value="NEET">NEET</option>
+                                    <option value="JEE">JEE</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Cover Image URL</label>
+                                <input type="url" id="inImage" class="form-input" placeholder="https://example.com/image.jpg" required autocomplete="off">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Direct PDF Link</label>
+                                <input type="url" id="inPdfUrl" class="form-input" placeholder="Google Drive or Direct Link" required autocomplete="off">
+                            </div>
+                            <!-- YouTube Link -->
+                            <div class="form-group full-width" id="addYtLinkContainer">
+                                <label class="form-label">YouTube Tutorial Link (Optional)</label>
+                                <input type="url" id="inYtUrl" class="form-input" placeholder="https://youtube.com/watch?v=..." autocomplete="off">
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-cloud-upload-alt"></i> Publish Book to Database
+                            </button>
                         </form>
                     </div>
                 </div>
 
+                <!-- 2. TUTORIAL SECTION -->
                 <div id="sectionTutorial" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-video"></i> Upload Guide & Tutorial</div>
+                        
                         <div class="video-wrapper">
-                            <iframe id="tutorialIframe" src="" frameborder="0" allowfullscreen></iframe>
+                            <iframe id="tutorialIframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
+
                         <div id="adminTutorialEdit">
                             <h4 style="margin-bottom: 15px; color: #d8b4fe;"><i class="fas fa-cogs"></i> Super Admin Action: Update Tutorial Video</h4>
-                            <div class="form-group full-width" style="margin: 0;"><input type="url" id="newTutorialUrl" class="form-input" placeholder="Paste YouTube URL Here" autocomplete="off"></div>
-                            <button type="button" id="btnUpdateVideo" class="btn-submit" onclick="updateTutorialLink()" style="margin-top: 10px; padding: 12px; font-size: 1rem;"><i class="fas fa-sync-alt"></i> Update Video For All</button>
+                            <div class="form-group full-width" style="margin: 0;">
+                                <input type="url" id="newTutorialUrl" class="form-input" placeholder="Paste YouTube OR Shorts URL Here" autocomplete="off">
+                            </div>
+                            <button type="button" id="btnUpdateVideo" class="btn-submit" onclick="updateTutorialLink()" style="margin-top: 10px; padding: 12px; font-size: 1rem;">
+                                <i class="fas fa-sync-alt"></i> Update Video For All Users
+                            </button>
                         </div>
                     </div>
                 </div>
 
+                <!-- 3. MANAGE BOOKS SECTION -->
                 <div id="sectionManageBooks" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-list"></i> Manage Vault Inventory</div>
@@ -426,6 +674,8 @@
                                 <i class="fas fa-search"></i>
                                 <input type="text" id="searchBook" placeholder="Search by Title or Author..." onkeyup="handleFilterChange()">
                             </div>
+                            
+                            <!-- INJECTED BULK ACTIONS -->
                             <div class="bulk-actions">
                                 <button class="btn-bulk-delete" id="btnBulkDelete" onclick="deleteSelectedBooks()">
                                     <i class="fas fa-trash-alt"></i> Delete Selected (<span id="selCount">0</span>)
@@ -434,6 +684,13 @@
                                     <i class="fas fa-file-excel"></i> Export CSV
                                 </button>
                             </div>
+                            
+                            <select id="filterLang" class="filter-select" onchange="handleFilterChange()" style="margin-left: 10px;">
+                                <option value="All">All Languages</option>
+                                <option value="Hindi">Hindi</option>
+                                <option value="English">English</option>
+                                <option value="Bilingual">Bilingual</option>
+                            </select>
                         </div>
 
                         <div class="table-responsive">
@@ -459,9 +716,12 @@
                     </div>
                 </div>
 
+                <!-- 4. ANALYTICS & LOGS SECTION -->
                 <div id="sectionAnalytics" class="section-container">
                     <div class="admin-card" style="padding-bottom: 20px;">
                         <div class="card-header"><i class="fas fa-chart-line"></i> Dashboard Analytics</div>
+                        
+                        <!-- REMOVED CANVAS WRAPPER, DIRECTLY PLACED CANVAS -->
                         <div class="charts-grid">
                             <div class="chart-box"><canvas id="langChart"></canvas></div>
                             <div class="chart-box"><canvas id="activityChart"></canvas></div>
@@ -478,17 +738,20 @@
                                         <th>Action Taken</th>
                                         <th>Modified File / Book</th>
                                         <th>Admin Authority</th>
-                                        <th>Date & Time</th>
+                                        <th>Date & Recovery</th>
                                     </tr>
                                 </thead>
                                 <tbody id="logsTableBody">
-                                    <tr><td colspan="4" class="empty-state">Loading Activity Logs...</td></tr>
+                                    <tr>
+                                        <td colspan="4" class="empty-state">Loading Activity Logs...</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <!-- 5. USERS SECTION -->
                 <div id="sectionUsers" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-users-shield"></i> User Access Management</div>
@@ -503,17 +766,21 @@
                                     </tr>
                                 </thead>
                                 <tbody id="usersTableBody">
-                                    <tr><td colspan="4" class="empty-state">Loading Users...</td></tr>
+                                    <tr>
+                                        <td colspan="4" class="empty-state">Loading Users...</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <!-- 6. INJECTED GOD MODE SETTINGS SECTION -->
                 <div id="sectionSettings" class="section-container">
                     <div class="admin-card" style="border-color: #eab308; box-shadow: 0 10px 30px rgba(234, 179, 8, 0.1);">
                         <div class="card-header" style="color: #eab308;"><i class="fas fa-radiation"></i> Main Server Control (God Mode)</div>
                         
+                        <!-- Maintenance Toggle -->
                         <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.5); padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px;">
                             <div>
                                 <h3 style="margin-bottom: 5px;">Enable Maintenance Mode</h3>
@@ -525,7 +792,9 @@
                             </label>
                         </div>
 
+                        <!-- Manage Dynamic Categories -->
                         <div class="form-grid">
+                            <!-- Languages -->
                             <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
                                 <h4><i class="fas fa-language"></i> Manage Languages</h4>
                                 <div class="add-cat-row" style="margin-top: 15px;">
@@ -535,6 +804,7 @@
                                 <div id="langChipsContainer"></div>
                             </div>
                             
+                            <!-- Exams -->
                             <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
                                 <h4><i class="fas fa-graduation-cap"></i> Manage Exams</h4>
                                 <div class="add-cat-row" style="margin-top: 15px;">
@@ -544,6 +814,7 @@
                                 <div id="examChipsContainer"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -551,86 +822,175 @@
         </main>
     </div>
 
+    <!-- Edit Modal -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeEditModal()"></i>
             <div class="card-header" style="margin-bottom: 20px;"><i class="fas fa-pen"></i> Edit Vault Record</div>
             <form id="editBookForm" class="modal-grid">
                 <input type="hidden" id="editDocId"> 
-                <div class="form-group full-width"><label class="form-label">Book Title</label><input type="text" id="edTitle" class="form-input" required autocomplete="off"></div>
-                <div class="form-group full-width"><label class="form-label">Cover Image URL</label><input type="url" id="edImage" class="form-input" required autocomplete="off"></div>
-                <div class="form-group"><label class="form-label">Author Name</label><input type="text" id="edAuthor" class="form-input" required autocomplete="off"></div>
-                <div class="form-group"><label class="form-label">Publish Year</label><input type="number" id="edYear" class="form-input" required></div>
-                <div class="form-group"><label class="form-label">Language</label><select id="edLang" class="form-input" required></select></div>
-                <div class="form-group"><label class="form-label">Exam Relevance</label><select id="edExams" class="form-input" required></select></div>
-                
-                <div class="form-group full-width"><label class="form-label">Direct PDF Link</label><input type="url" id="edPdfUrl" class="form-input" required autocomplete="off"></div>
-                <div class="form-group full-width"><label class="form-label">YouTube Link (Optional)</label><input type="url" id="edYtUrl" class="form-input" autocomplete="off"></div>
-                <button type="submit" class="btn-submit btn-edit-submit"><i class="fas fa-save"></i> Save Changes</button>
+                <div class="form-group full-width">
+                    <label class="form-label">Book Title</label>
+                    <input type="text" id="edTitle" class="form-input" required autocomplete="off">
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">Cover Image URL</label>
+                    <input type="url" id="edImage" class="form-input" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Author Name</label>
+                    <input type="text" id="edAuthor" class="form-input" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Publish Year</label>
+                    <select id="edYear" class="form-input" required>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Language</label>
+                    <select id="edLang" class="form-input">
+                        <!-- Dynamic options will load here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Exam Relevance</label>
+                    <select id="edExams" class="form-input">
+                        <!-- Dynamic options will load here -->
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">Direct PDF Link</label>
+                    <input type="url" id="edPdfUrl" class="form-input" required autocomplete="off">
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">YouTube Link (Optional)</label>
+                    <input type="url" id="edYtUrl" class="form-input" autocomplete="off">
+                </div>
+                <button type="submit" class="btn-submit btn-edit-submit">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
             </form>
         </div>
     </div>
 
-    <div id="toast"><i class="fas fa-check-circle" id="toastIcon"></i> <span id="toastMsg">Action Successful!</span></div>
+    <div id="toast">
+        <i class="fas fa-check-circle"></i> 
+        <span id="toastMsg">Action Successful!</span>
+    </div>
 
     <script>
         const menuToggle = document.getElementById('menuToggle'); 
         const sidebar = document.getElementById('sidebar'); 
         const sidebarOverlay = document.getElementById('sidebarOverlay');
         
-        function toggleMenu() { sidebar.classList.toggle('active'); sidebarOverlay.classList.toggle('active'); }
-        menuToggle.addEventListener('click', toggleMenu); sidebarOverlay.addEventListener('click', toggleMenu);
+        function toggleMenu() { 
+            sidebar.classList.toggle('active'); 
+            sidebarOverlay.classList.toggle('active'); 
+        }
+        
+        menuToggle.addEventListener('click', toggleMenu); 
+        sidebarOverlay.addEventListener('click', toggleMenu);
 
         function switchTab(tab) {
             document.querySelectorAll('.section-container').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
             
-            const titles = {
-                'add': "Add New Book", 'tutorial': "How To Upload Book", 'manage': "Manage Vault",
-                'analytics': "System Analytics", 'users': "Manage Users", 'settings': "God Mode Settings"
-            };
-            
-            const tabMap = {
-                'add': 'sectionAddBook', 'tutorial': 'sectionTutorial', 'manage': 'sectionManageBooks',
-                'analytics': 'sectionAnalytics', 'users': 'sectionUsers', 'settings': 'sectionSettings'
-            };
-            
-            document.getElementById(tabMap[tab]).classList.add('active'); 
-            document.getElementById('nav' + tab.charAt(0).toUpperCase() + tab.slice(1).replace('Manage','ManageBooks')).classList.add('active'); 
-            document.getElementById('topbarTitle').innerText = titles[tab]; 
-            
-            sidebar.classList.remove('active'); sidebarOverlay.classList.remove('active');
+            if(tab === 'add') { 
+                document.getElementById('sectionAddBook').classList.add('active'); 
+                document.getElementById('navAddBook').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "Add New Book"; 
+            } else if(tab === 'tutorial') {
+                document.getElementById('sectionTutorial').classList.add('active'); 
+                document.getElementById('navTutorial').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "How To Upload Book"; 
+            } else if (tab === 'manage') { 
+                document.getElementById('sectionManageBooks').classList.add('active'); 
+                document.getElementById('navManageBooks').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "Manage Vault"; 
+            } else if (tab === 'analytics') { 
+                document.getElementById('sectionAnalytics').classList.add('active'); 
+                document.getElementById('navAnalytics').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "System Analytics"; 
+            } else if (tab === 'users') { 
+                document.getElementById('sectionUsers').classList.add('active'); 
+                document.getElementById('navUsers').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "Manage Users"; 
+            } else if (tab === 'settings') { 
+                document.getElementById('sectionSettings').classList.add('active'); 
+                document.getElementById('navSettings').classList.add('active'); 
+                document.getElementById('topbarTitle').innerText = "God Mode Settings"; 
+            }
+            sidebar.classList.remove('active'); 
+            sidebarOverlay.classList.remove('active');
         }
 
-        window.showToast = function(message, isError=false) {
+        function showToast(message) {
             const toast = document.getElementById('toast'); 
             document.getElementById('toastMsg').innerText = message;
-            const icon = document.getElementById('toastIcon');
             
-            if(isError || message.includes("Error")) { 
-                toast.style.background = "#ef4444"; toast.style.color = "#fff"; icon.className = "fas fa-exclamation-circle";
+            const icon = toast.querySelector('i');
+            if(message.includes("Error") || message.includes("Denied")) { 
+                toast.style.background = "#ef4444"; 
+                toast.style.color = "#fff"; 
+                icon.className = "fas fa-exclamation-circle";
             } else if (message.includes("Updated")) { 
-                toast.style.background = "#3b82f6"; toast.style.color = "#fff"; icon.className = "fas fa-info-circle";
+                toast.style.background = "#3b82f6"; 
+                toast.style.color = "#fff"; 
+                icon.className = "fas fa-info-circle";
             } else { 
-                toast.style.background = "#10b981"; toast.style.color = "#fff"; icon.className = "fas fa-check-circle";
+                toast.style.background = "#10b981"; 
+                toast.style.color = "#fff"; 
+                icon.className = "fas fa-check-circle";
             }
-            toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 4000);
+            
+            toast.classList.add('show'); 
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+            }, 4000);
         }
         
-        window.closeEditModal = function() { document.getElementById('editModal').classList.remove('active'); }
+        window.closeEditModal = function() { 
+            document.getElementById('editModal').classList.remove('active'); 
+        }
+
         function togglePasswordVisibility() {
-            const passInput = document.getElementById('loginPassword'); const eyeIcon = document.getElementById('toggleEye');
-            if (passInput.type === 'password') { passInput.type = 'text'; eyeIcon.className = 'fas fa-eye-slash toggle-eye'; eyeIcon.style.color = '#8b5cf6'; } 
-            else { passInput.type = 'password'; eyeIcon.className = 'fas fa-eye toggle-eye'; eyeIcon.style.color = '#a1a1aa'; }
+            const passInput = document.getElementById('loginPassword');
+            const eyeIcon = document.getElementById('toggleEye');
+            
+            if (passInput.type === 'password') {
+                passInput.type = 'text'; 
+                eyeIcon.classList.remove('fa-eye'); 
+                eyeIcon.classList.add('fa-eye-slash'); 
+                eyeIcon.style.color = '#8b5cf6';
+            } else {
+                passInput.type = 'password'; 
+                eyeIcon.classList.remove('fa-eye-slash'); 
+                eyeIcon.classList.add('fa-eye'); 
+                eyeIcon.style.color = '#a1a1aa';
+            }
         }
 
         function getYouTubeEmbedUrl(url) {
             let videoId = "";
             try {
-                if(url.includes("v=")) videoId = url.split("v=")[1].split("&")[0]; 
-                else if(url.includes("youtu.be/")) videoId = url.split("youtu.be/")[1].split("?")[0]; 
-                else if(url.includes("/shorts/")) videoId = url.split("/shorts/")[1].split("?")[0]; 
-            } catch(e) {}
+                if(url.includes("v=")) { 
+                    videoId = url.split("v=")[1].split("&")[0]; 
+                } else if(url.includes("youtu.be/")) { 
+                    videoId = url.split("youtu.be/")[1].split("?")[0]; 
+                } else if(url.includes("/shorts/")) { 
+                    videoId = url.split("/shorts/")[1].split("?")[0]; 
+                }
+            } catch(e) { 
+                console.error("URL Parse error", e); 
+            }
             return videoId ? `https://www.youtube.com/embed/${videoId}?controls=1&rel=0` : url;
         }
     </script>
@@ -654,37 +1014,54 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider(); 
 
-        let CURRENT_ADMIN_NAME = "USER"; let CURRENT_ADMIN_PHOTO = "https://via.placeholder.com/42";
+        let CURRENT_ADMIN_NAME = "USER"; 
+        let CURRENT_ADMIN_PHOTO = "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
+        
         const SUPER_ADMIN_EMAIL = "princeyadav000261@gmail.com"; 
         window.IS_SUPER_ADMIN = false;
 
-        let dbBooks = [], filteredBooks = [], dbLogs = [], dbUsers = [];
-        let systemCategories = { languages: ['Hindi', 'English', 'Bilingual'], exams: ['SSC', 'BPSC', 'RRB'] };
-        let currentPage = 1; const booksPerPage = 10;
-        let myLangChart = null, myActivityChart = null, myDownloadsChart = null;
+        let dbBooks = []; 
+        let filteredBooks = []; 
+        let dbLogs = []; 
+        let dbUsers = [];
+        let systemCategories = { languages: ['Hindi', 'English', 'Bilingual'], exams: ['SSC', 'BPSC', 'UPSC', 'RRB', 'NEET', 'JEE'] };
 
-        // Hardware Tracking
+        let currentPage = 1; 
+        const booksPerPage = 10;
+        
+        let myLangChart = null; 
+        let myActivityChart = null; 
+        let myDownloadsChart = null;
+
+        // INJECTED HARDWARE TRACKING
         async function getRealIP() {
-            try { let r = await fetch('https://api.ipify.org?format=json'); let d = await r.json(); return d.ip; } 
-            catch(e) { return "Hidden/Proxy IP"; }
+            try { 
+                let r = await fetch('https://api.ipify.org?format=json'); 
+                let d = await r.json(); 
+                return d.ip; 
+            } catch(e) { return "Hidden/Proxy IP"; }
         }
 
         function getHardwareModel() {
             const ua = navigator.userAgent;
             if (/android/i.test(ua)) {
                 let match = ua.match(/\(Linux; Android.*?; (.*?)\)/);
-                if (match && match[1]) { let model = match[1].split('Build')[0].trim(); return `📱 Android (${model})`; }
+                if (match && match[1]) {
+                    let model = match[1].split('Build')[0].trim();
+                    return `📱 Android (${model})`;
+                }
                 return "📱 Android Device";
             }
             if (/iPhone/.test(ua)) return "📱 Apple iPhone";
             if (/iPad/.test(ua)) return "📱 Apple iPad";
             if (/Windows/.test(ua)) return "💻 Windows PC";
-            if (/Mac OS/.test(ua)) return "💻 Mac OS / MacBook";
+            if (/Mac OS/.test(ua)) return "💻 Mac OS";
             return "🖥️ Web Browser";
         }
 
         onAuthStateChanged(auth, async (user) => {
             const loader = document.getElementById('systemLoader');
+            
             if (user) {
                 try {
                     const userRef = doc(db, "users", user.uid); 
@@ -692,76 +1069,116 @@
                     let currentStatus = "Active";
                     
                     if (userSnap.exists() && userSnap.data().status === "Blocked") { 
-                        alert("⚠️ Access Denied: BLOCKED"); signOut(auth); if (loader) loader.style.display = 'none'; return; 
-                    } else if (userSnap.exists()) { currentStatus = userSnap.data().status; }
+                        alert("⚠️ Access Denied: BLOCKED"); 
+                        signOut(auth); 
+                        if (loader) { loader.style.display = 'none'; } 
+                        return; 
+                    } else if (userSnap.exists()) { 
+                        currentStatus = userSnap.data().status; 
+                    }
 
+                    // Fetch exact IP and Device Info
                     const ipStr = await getRealIP();
                     const deviceStr = getHardwareModel();
 
                     await setDoc(userRef, {
-                        name: user.displayName || user.email.split('@')[0], email: user.email, 
+                        name: user.displayName || user.email.split('@')[0], 
+                        email: user.email, 
                         photo: user.photoURL || CURRENT_ADMIN_PHOTO,
-                        device: deviceStr, ipAddress: ipStr,
+                        device: deviceStr, 
+                        ipAddress: ipStr,
                         lastLogin: new Date().toLocaleString('en-IN'), 
                         status: currentStatus, 
-                        role: (user.email === SUPER_ADMIN_EMAIL) ? "God Mode" : "Admin"
+                        role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin (God Mode)" : "Admin"
                     }, { merge: true });
-                } catch (error) { console.error("Session Update Error", error); }
+                } catch (error) { 
+                    console.error("Session Update Error:", error); 
+                }
 
                 document.getElementById('appWrapper').classList.add('active');
                 
                 CURRENT_ADMIN_NAME = user.displayName ? user.displayName : user.email.split('@')[0];
                 if(user.photoURL) { CURRENT_ADMIN_PHOTO = user.photoURL; }
-                document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME.toUpperCase(); 
+                
+                document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME; 
                 document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
 
                 if(user.email === SUPER_ADMIN_EMAIL) {
                     window.IS_SUPER_ADMIN = true;
-                    document.getElementById('roleText').innerText = "Super Admin (God)";
+                    document.getElementById('roleText').innerText = "Super Admin (God Mode)";
+                    document.getElementById('inPdfUrl').placeholder = "Google Drive or Direct Link"; 
+                    
                     document.getElementById('navManageBooks').style.display = 'flex'; 
                     document.getElementById('navAnalytics').style.display = 'flex';
                     document.getElementById('navUsers').style.display = 'flex'; 
-                    document.getElementById('navSettings').style.display = 'flex'; 
+                    document.getElementById('navSettings').style.display = 'flex'; // INJECTED
                     document.getElementById('adminTutorialEdit').style.display = 'block';
                     document.getElementById('addYtLinkContainer').style.display = 'flex'; 
 
-                    onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snap) => { 
-                        dbLogs = []; snap.forEach(d => { let l = d.data(); l.id = d.id; dbLogs.push(l); }); renderLogs(); 
+                    onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snapshot) => { 
+                        dbLogs = []; 
+                        snapshot.forEach(doc => { 
+                            let l = doc.data(); 
+                            l.id = doc.id; 
+                            dbLogs.push(l); 
+                        }); 
+                        renderLogs(); 
                     });
                     
-                    onSnapshot(collection(db, "users"), (snap) => { 
-                        dbUsers = []; snap.forEach(d => { let u = d.data(); u.uid = d.id; dbUsers.push(u); }); renderUsersTable(); 
+                    onSnapshot(collection(db, "users"), (snapshot) => { 
+                        dbUsers = []; 
+                        snapshot.forEach(doc => { 
+                            let d = doc.data(); 
+                            d.uid = doc.id; 
+                            dbUsers.push(d); 
+                        }); 
+                        renderUsersTable(); 
                     });
                 } else {
                     window.IS_SUPER_ADMIN = false;
-                    document.getElementById('roleText').innerText = "Moderator";
+                    document.getElementById('roleText').innerText = "Admin";
+                    document.getElementById('inPdfUrl').placeholder = "Paste Google Drive Link Only";
+
                     document.getElementById('navManageBooks').style.display = 'none'; 
                     document.getElementById('navAnalytics').style.display = 'none';
                     document.getElementById('navUsers').style.display = 'none'; 
-                    document.getElementById('navSettings').style.display = 'none'; 
+                    document.getElementById('navSettings').style.display = 'none'; // INJECTED
                     document.getElementById('adminTutorialEdit').style.display = 'none';
                     document.getElementById('addYtLinkContainer').style.display = 'none'; 
+                    
                     switchTab('add'); 
                 }
 
-                // Global Settings & Categories
+                // INJECTED GLOBAL SETTINGS LISTENER
                 onSnapshot(doc(db, "settings", "global"), (docSnap) => {
                     if (docSnap.exists()) {
-                        if(docSnap.data().tutorialVideoUrl) {
-                            document.getElementById('tutorialIframe').src = getYouTubeEmbedUrl(docSnap.data().tutorialVideoUrl);
+                        if (docSnap.data().tutorialVideoUrl) {
+                            const embedUrl = getYouTubeEmbedUrl(docSnap.data().tutorialVideoUrl);
+                            document.getElementById('tutorialIframe').src = embedUrl;
                         }
+                        // Maintenance state update
                         document.getElementById('maintenanceToggle').checked = docSnap.data().isMaintenance || false;
                     }
                 });
 
+                // INJECTED CATEGORIES LISTENER
                 onSnapshot(doc(db, "settings", "categories"), (docSnap) => {
-                    if(docSnap.exists()) { systemCategories = docSnap.data(); } 
-                    else { setDoc(doc(db, "settings", "categories"), systemCategories); }
-                    renderCategoryChips(); renderDropdowns();
+                    if (docSnap.exists()) {
+                        systemCategories = docSnap.data();
+                    } else {
+                        setDoc(doc(db, "settings", "categories"), systemCategories);
+                    }
+                    renderCategoryChips();
+                    renderDropdowns();
                 });
 
-                onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snap) => {
-                    dbBooks = []; snap.forEach(d => { let b = d.data(); b.id = d.id; dbBooks.push(b); }); 
+                onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => {
+                    dbBooks = []; 
+                    snapshot.forEach(doc => { 
+                        let d = doc.data(); 
+                        d.id = doc.id; 
+                        dbBooks.push(d); 
+                    }); 
                     window.handleFilterChange(); 
                 });
                 
@@ -770,50 +1187,96 @@
                     let downloadDataArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                     if (docSnap.exists()) {
                         const data = docSnap.data();
-                        downloadDataArray = [ data.jan||0, data.feb||0, data.mar||0, data.apr||0, data.may||0, data.jun||0, data.jul||0, data.aug||0, data.sep||0, data.oct||0, data.nov||0, data.dec||0 ];
+                        downloadDataArray = [ 
+                            data.jan||0, data.feb||0, data.mar||0, data.apr||0, 
+                            data.may||0, data.jun||0, data.jul||0, data.aug||0, 
+                            data.sep||0, data.oct||0, data.nov||0, data.dec||0 
+                        ];
                     }
                     updateDownloadsChart(currentYearStr, downloadDataArray);
                 });
 
-                if (loader) { loader.style.opacity = '0'; setTimeout(() => { loader.style.display = 'none'; }, 400); }
+                if (loader) { 
+                    loader.style.opacity = '0'; 
+                    setTimeout(() => { loader.style.display = 'none'; }, 400); 
+                }
             } else {
                 document.getElementById('appWrapper').classList.remove('active'); 
                 document.getElementById('loginOverlay').style.display = 'flex';
-                setTimeout(() => { document.getElementById('loginOverlay').style.opacity = '1'; }, 50); 
+                setTimeout(() => { 
+                    document.getElementById('loginOverlay').style.opacity = '1'; 
+                }, 50); 
                 if (loader) { loader.style.display = 'none'; }
             }
         });
 
-        document.getElementById('navLogout').addEventListener('click', () => { if(confirm("Are you sure you want to exit?")) { signOut(auth); } });
-        document.getElementById('googleSignInBtn').addEventListener('click', async () => { try { await signInWithRedirect(auth, provider); } catch(error) { showToast("Error: " + error.message, true); } });
+        document.getElementById('navLogout').addEventListener('click', () => { 
+            if(confirm("Are you sure you want to exit and logout?")) { 
+                signOut(auth).catch(() => {}); 
+            } 
+        });
+        
+        document.getElementById('googleSignInBtn').addEventListener('click', async () => { 
+            try { 
+                await signInWithRedirect(auth, provider); 
+            } catch(error) { 
+                showToast("Error: " + error.message); 
+            } 
+        });
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            const btn = document.getElementById('loginBtn'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Authenticating...`;
+            const email = document.getElementById('loginEmail').value; 
+            const pass = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn'); 
+            
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Authenticating...`;
+            
             try { 
-                await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPassword').value); 
-                e.target.reset(); showToast("Login Successfully!"); 
-            } catch(error) { showToast("Error: Invalid Login Credentials!", true); }
+                await signInWithEmailAndPassword(auth, email, pass); 
+                e.target.reset(); 
+                showToast("Login Successfully!"); 
+            } catch(error) { 
+                let errorMsg = "Invalid Login Credentials!";
+                if(error.code === 'auth/invalid-credential') errorMsg = "Wrong Email or Password!";
+                else if(error.code === 'auth/user-not-found') errorMsg = "Account does not exist!";
+                else if(error.code === 'auth/wrong-password') errorMsg = "Incorrect Password!";
+                else if(error.code === 'auth/network-request-failed') errorMsg = "Network Error! Check Internet.";
+                
+                showToast("Error: " + errorMsg); 
+            }
             btn.innerHTML = `Login`; 
         });
 
         window.updateTutorialLink = async function() {
             if(!window.IS_SUPER_ADMIN) return;
             const newUrl = document.getElementById('newTutorialUrl').value;
+            
             if(!newUrl) return showToast("Please enter a valid YouTube URL!");
-            const btn = document.getElementById('btnUpdateVideo'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Updating...`;
+            
+            const btn = document.getElementById('btnUpdateVideo');
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Updating...`;
+            
             try {
                 await setDoc(doc(db, "settings", "global"), { tutorialVideoUrl: newUrl }, { merge: true });
-                showToast("Tutorial Video Updated!"); document.getElementById('newTutorialUrl').value = '';
-            } catch(e) { showToast(`Error: ${e.message}`, true); }
-            btn.innerHTML = `<i class="fas fa-sync-alt"></i> Update Video For All`;
+                showToast("Tutorial Video Updated Successfully!"); 
+                document.getElementById('newTutorialUrl').value = '';
+            } catch(e) { 
+                showToast(`Error: ${e.message}`); 
+            }
+            btn.innerHTML = `<i class="fas fa-sync-alt"></i> Update Video For All Users`;
         }
 
         async function logActivity(actionType, bookTitle, imageUrl = "", deletedBookData = null) {
             try { 
                 await addDoc(collection(db, "activity_logs"), { 
-                    action: actionType, bookTitle: bookTitle, image: imageUrl, deletedData: deletedBookData, 
-                    adminName: CURRENT_ADMIN_NAME, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), 
+                    action: actionType, 
+                    bookTitle: bookTitle, 
+                    image: imageUrl, 
+                    deletedData: deletedBookData, 
+                    adminName: CURRENT_ADMIN_NAME, 
+                    adminPhoto: CURRENT_ADMIN_PHOTO, 
+                    timestamp: new Date().getTime(), 
                     dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) 
                 }); 
             } catch(e) {}
@@ -822,38 +1285,65 @@
         document.getElementById('addBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
             const pdfInput = document.getElementById('inPdfUrl').value;
-            const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
+
+            if(!window.IS_SUPER_ADMIN && !pdfInput.includes("drive.google.com")) {
+                showToast("Error: You can only upload Google Drive links!");
+                return; 
+            }
+
+            const btn = e.target.querySelector('button'); 
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
             
             const titleInput = document.getElementById('inTitle').value; 
             const imgInput = document.getElementById('inImage').value;
             
+            const newBook = { 
+                title: titleInput, 
+                author: document.getElementById('inAuthor').value, 
+                image: imgInput, 
+                year: document.getElementById('inYear').value, 
+                lang: document.getElementById('inLang').value, 
+                exams: document.getElementById('inExams').value, 
+                pdfLink: pdfInput, 
+                ytLink: window.IS_SUPER_ADMIN ? document.getElementById('inYtUrl').value : "", 
+                dateAdded: new Date().toLocaleDateString('en-GB').toUpperCase(), 
+                createdAt: new Date().getTime() 
+            };
+            
             try { 
-                await addDoc(collection(db, "books"), { 
-                    title: titleInput, author: document.getElementById('inAuthor').value, image: imgInput, 
-                    year: document.getElementById('inYear').value, lang: document.getElementById('inLang').value, 
-                    exams: document.getElementById('inExams').value, pdfLink: pdfInput, 
-                    ytLink: window.IS_SUPER_ADMIN ? document.getElementById('inYtUrl').value : "", 
-                    dateAdded: new Date().toLocaleDateString('en-GB').toUpperCase(), createdAt: new Date().getTime() 
-                }); 
+                await addDoc(collection(db, "books"), newBook); 
                 await logActivity("ADD", titleInput, imgInput); 
-                showToast("Book Published Successfully!"); e.target.reset(); 
-            } catch (error) { showToast("Error saving to database.", true); }
+                showToast("Book Published Successfully!"); 
+                e.target.reset(); 
+            } catch (error) { 
+                showToast("Error saving to database."); 
+            }
             btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Book to Database`;
         });
 
-        // Pagination & Rendering Books (Original Logic + Checkboxes)
         window.handleFilterChange = function() {
             currentPage = 1;
             const search = document.getElementById('searchBook') ? document.getElementById('searchBook').value.toLowerCase() : "";
-            filteredBooks = dbBooks.filter(b => b.title.toLowerCase().includes(search) || b.author.toLowerCase().includes(search));
-            renderBooks(); updateCharts();
+            const langFilter = document.getElementById('filterLang') ? document.getElementById('filterLang').value : "All";
+            
+            filteredBooks = dbBooks.filter(b => { 
+                const matchSearch = b.title.toLowerCase().includes(search) || b.author.toLowerCase().includes(search);
+                const matchLang = langFilter === "All" || b.lang === langFilter;
+                return matchSearch && matchLang; 
+            });
+            renderBooks(); 
+            updateCharts();
         }
 
-        window.changePage = function(direction) { currentPage += direction; renderBooks(); }
+        window.changePage = function(direction) { 
+            currentPage += direction; 
+            renderBooks(); 
+        }
 
         function renderBooks() {
             if(!document.getElementById('booksTableBody')) return;
             const tbody = document.getElementById('booksTableBody'); 
+            
             const totalPages = Math.ceil(filteredBooks.length / booksPerPage) || 1;
             document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${totalPages}`;
             document.getElementById('prevPageBtn').disabled = currentPage === 1; 
@@ -862,26 +1352,37 @@
             const startIdx = (currentPage - 1) * booksPerPage; 
             const paginatedBooks = filteredBooks.slice(startIdx, startIdx + booksPerPage);
 
-            if (paginatedBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No records found.</td></tr>`; return; }
+            if (paginatedBooks.length === 0) { 
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No records found.</td></tr>`; 
+                return; 
+            }
             
-            tbody.innerHTML = paginatedBooks.map(book => `
-                <tr>
-                    <td><input type="checkbox" class="custom-checkbox row-checkbox" value="${book.id}" onchange="checkBulkState()"></td>
-                    <td><img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td>
-                    <td>
-                        <strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${book.title}</strong>
-                        <span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${book.year}</span>
-                    </td>
-                    <td>
-                        <div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div>
-                        <span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span>
-                    </td>
-                    <td>
-                        <button class="action-btn btn-edit" onclick="openEditModal('${book.id}')"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button>
-                    </td>
-                </tr>
-            `).join('');
+            let htmlString = "";
+            paginatedBooks.forEach((book) => {
+                htmlString += `
+                    <tr>
+                        <td><input type="checkbox" class="custom-checkbox row-checkbox" value="${book.id}" onchange="checkBulkState()"></td>
+                        <td>
+                            <img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'">
+                        </td>
+                        <td>
+                            <strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${book.title}</strong>
+                            <span style="font-size: 0.85rem; color: #a1a1aa;">
+                                <i class="fas fa-pen-nib"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${book.year}
+                            </span>
+                        </td>
+                        <td>
+                            <div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div>
+                            <span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span>
+                        </td>
+                        <td>
+                            <button class="action-btn btn-edit" onclick="openEditModal('${book.id}')"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = htmlString;
             checkBulkState();
         }
 
@@ -889,66 +1390,130 @@
             if(!window.IS_SUPER_ADMIN) return;
             if(confirm(`Are you sure you want to delete "${title}" permanently?`)) {
                 const b = dbBooks.find(x => x.id === id); 
-                try { await deleteDoc(doc(db, "books", id)); await logActivity("DELETE", title, b.image, b); showToast("Record Deleted!"); } 
-                catch (e) { showToast("Error deleting document.", true); }
+                try { 
+                    await deleteDoc(doc(db, "books", id)); 
+                    await logActivity("DELETE", title, b.image, b); 
+                    showToast("Record Deleted!"); 
+                } catch (e) { 
+                    showToast("Error deleting document."); 
+                }
             }
         }
 
         window.openEditModal = function(id) {
             if(!window.IS_SUPER_ADMIN) return;
             const book = dbBooks.find(x => x.id === id); 
+            
             document.getElementById('editDocId').value = book.id; 
             document.getElementById('edTitle').value = book.title; 
             document.getElementById('edAuthor').value = book.author;
             document.getElementById('edYear').value = book.year; 
-            document.getElementById('edLang').value = book.lang; 
-            document.getElementById('edExams').value = book.exams;
+            
+            // Set dynamic values safely
+            setTimeout(() => {
+                document.getElementById('edLang').value = book.lang; 
+                document.getElementById('edExams').value = book.exams;
+            }, 50);
+
             document.getElementById('edImage').value = book.image; 
             document.getElementById('edPdfUrl').value = book.pdfLink; 
             document.getElementById('edYtUrl').value = book.ytLink || "";
+            
             document.getElementById('editModal').classList.add('active');
         }
 
         document.getElementById('editBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
-            const docId = document.getElementById('editDocId').value; const updatedTitle = document.getElementById('edTitle').value; const updatedImage = document.getElementById('edImage').value;
+            const btn = e.target.querySelector('button'); 
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+            
+            const docId = document.getElementById('editDocId').value; 
+            const updatedTitle = document.getElementById('edTitle').value; 
+            const updatedImage = document.getElementById('edImage').value;
+            
+            const updatedData = { 
+                title: updatedTitle, 
+                author: document.getElementById('edAuthor').value, 
+                image: updatedImage, 
+                year: document.getElementById('edYear').value, 
+                lang: document.getElementById('edLang').value, 
+                exams: document.getElementById('edExams').value, 
+                pdfLink: document.getElementById('edPdfUrl').value, 
+                ytLink: document.getElementById('edYtUrl').value 
+            };
             
             try { 
-                await updateDoc(doc(db, "books", docId), { 
-                    title: updatedTitle, author: document.getElementById('edAuthor').value, image: updatedImage, 
-                    year: document.getElementById('edYear').value, lang: document.getElementById('edLang').value, 
-                    exams: document.getElementById('edExams').value, pdfLink: document.getElementById('edPdfUrl').value, ytLink: document.getElementById('edYtUrl').value 
-                }); 
-                await logActivity("EDIT", updatedTitle, updatedImage); closeEditModal(); showToast("Vault Record Updated!"); 
-            } catch (error) { showToast("Error updating document.", true); }
+                await updateDoc(doc(db, "books", docId), updatedData); 
+                await logActivity("EDIT", updatedTitle, updatedImage); 
+                closeEditModal(); 
+                showToast("Vault Record Updated!"); 
+            } catch (error) { 
+                showToast("Error updating document."); 
+            }
             btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
 
-        // Original Charts
         function updateCharts() {
             if(!window.IS_SUPER_ADMIN) return;
-            const langCounts = {}; 
-            dbBooks.forEach(b => { if(!langCounts[b.lang]) langCounts[b.lang]=0; langCounts[b.lang]++; });
             
-            Chart.defaults.color = '#a1a1aa'; Chart.defaults.font.family = 'Outfit';
+            const langCounts = { 'Hindi': 0, 'English': 0, 'Bilingual': 0 }; 
+            dbBooks.forEach(b => { 
+                if(langCounts[b.lang] !== undefined) { 
+                    langCounts[b.lang]++; 
+                } else {
+                    langCounts[b.lang] = 1;
+                }
+            });
+            
+            Chart.defaults.color = '#a1a1aa'; 
+            Chart.defaults.font.family = 'Outfit';
+            
             const ctxLang = document.getElementById('langChart');
             if(ctxLang) {
                 if(myLangChart) myLangChart.destroy();
                 myLangChart = new Chart(ctxLang, { 
                     type: 'doughnut', 
-                    data: { labels: Object.keys(langCounts), datasets: [{ data: Object.values(langCounts), backgroundColor: ['#ef4444', '#3b82f6', '#8b5cf6', '#eab308'], borderColor: 'rgba(255,255,255,0.05)', borderWidth: 2 }] }, 
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#fff' } }, title: { display: true, text: 'Books by Language', color: '#fff', font: { size: 16 } } }, cutout: '75%' } 
+                    data: { 
+                        labels: Object.keys(langCounts), 
+                        datasets: [{ 
+                            data: Object.values(langCounts), 
+                            backgroundColor: ['#ef4444', '#3b82f6', '#8b5cf6', '#eab308', '#10b981'], 
+                            borderColor: 'rgba(255,255,255,0.05)',
+                            borderWidth: 2,
+                            hoverOffset: 5
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { position: 'bottom', labels: { color: '#fff', padding: 15 } }, 
+                            title: { display: true, text: 'Books by Language', color: '#fff', font: { size: 16 }, padding: {bottom: 15} } 
+                        }, 
+                        cutout: '75%' 
+                    } 
                 });
             }
 
-            let last7Labels = [], last7Data = [0,0,0,0,0,0,0]; let todayDate = new Date(); todayDate.setHours(0,0,0,0); 
-            for(let i = 6; i >= 0; i--) { let t = new Date(todayDate); t.setDate(todayDate.getDate() - i); last7Labels.push(t.toLocaleDateString('en-US', {weekday: 'short'})); }
+            let last7Labels = [];
+            let last7Data = [0, 0, 0, 0, 0, 0, 0];
+            let todayDate = new Date();
+            todayDate.setHours(0,0,0,0); 
+            
+            for(let i = 6; i >= 0; i--) {
+                let tempDate = new Date(todayDate);
+                tempDate.setDate(todayDate.getDate() - i);
+                last7Labels.push(tempDate.toLocaleDateString('en-US', {weekday: 'short'}));
+            }
+            
             dbBooks.forEach(b => {
                 if(b.createdAt) {
-                    let bDate = new Date(b.createdAt); bDate.setHours(0,0,0,0);
+                    let bDate = new Date(b.createdAt);
+                    bDate.setHours(0,0,0,0);
                     let diff = Math.round((todayDate - bDate) / (1000 * 60 * 60 * 24));
-                    if(diff >= 0 && diff <= 6) last7Data[6 - diff]++;
+                    if(diff >= 0 && diff <= 6) {
+                        last7Data[6 - diff]++;
+                    }
                 }
             });
 
@@ -956,82 +1521,266 @@
             if(ctxActivity) {
                 if(myActivityChart) myActivityChart.destroy();
                 myActivityChart = new Chart(ctxActivity, { 
-                    type: 'bar', data: { labels: last7Labels, datasets: [{ label: 'Added', data: last7Data, backgroundColor: '#10b981', borderRadius: 6 }] }, 
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, title: { display: true, text: 'Uploads (Last 7 Days)', color: '#fff', font: { size: 16 } } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)'}, ticks: { stepSize: 1 } }, x: { grid: { display: false } } } } 
+                    type: 'bar', 
+                    data: { 
+                        labels: last7Labels, 
+                        datasets: [{ 
+                            label: 'Books Added', 
+                            data: last7Data, 
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)', 
+                            hoverBackgroundColor: '#10b981',
+                            borderRadius: 6 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { display: false }, 
+                            title: { display: true, text: 'Real-time Vault Uploads (Last 7 Days)', color: '#fff', font: { size: 16 }, padding: {bottom: 15} } 
+                        }, 
+                        scales: { 
+                            y: { 
+                                grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
+                                ticks: { font: { size: 11 }, stepSize: 1 }
+                            }, 
+                            x: { 
+                                grid: { display: false, drawBorder: false },
+                                ticks: { font: { size: 11 } }
+                            } 
+                        } 
+                    } 
                 });
             }
         }
 
         window.updateDownloadsChart = function(yearStr, dataArray) {
             if(!window.IS_SUPER_ADMIN) return;
-            const ctxD = document.getElementById('downloadsChart');
-            if(ctxD) {
+            
+            const ctxDownloads = document.getElementById('downloadsChart');
+            if(ctxDownloads) {
                 if(myDownloadsChart) myDownloadsChart.destroy();
-                myDownloadsChart = new Chart(ctxD, { 
-                    type: 'line', data: { labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], datasets: [{ data: dataArray, borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.15)', borderWidth: 3, pointBackgroundColor: '#fff', fill: true, tension: 0.4 }] }, 
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, title: { display: true, text: `Monthly Downloads (${yearStr})`, color: '#fff', font: { size: 16 } } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false } } } } 
+                myDownloadsChart = new Chart(ctxDownloads, { 
+                    type: 'line', 
+                    data: { 
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], 
+                        datasets: [{ 
+                            label: `Downloads`, 
+                            data: dataArray, 
+                            borderColor: '#8b5cf6', 
+                            backgroundColor: 'rgba(139, 92, 246, 0.15)', 
+                            borderWidth: 3, 
+                            pointBackgroundColor: '#ffffff', 
+                            pointBorderColor: '#8b5cf6',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            fill: true, 
+                            tension: 0.4 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { display: false }, 
+                            title: { display: true, text: `Monthly Book Downloads (${yearStr})`, color: '#fff', font: { size: 16 }, padding: {bottom: 15} }, 
+                            tooltip: { 
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                padding: 12,
+                                titleFont: { size: 13 },
+                                bodyFont: { size: 14, weight: 'bold' },
+                                callbacks: { 
+                                    label: function(context) { return ` Exact Downloads: ${context.raw}`; } 
+                                } 
+                            } 
+                        }, 
+                        scales: { 
+                            y: { 
+                                grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false }, 
+                                ticks: { 
+                                    font: { size: 11 },
+                                    callback: function(value) { 
+                                        return value >= 1000 ? (value / 1000).toFixed(1) + 'k' : value; 
+                                    } 
+                                } 
+                            }, 
+                            x: { 
+                                grid: { display: false, drawBorder: false },
+                                ticks: { font: { size: 11 } }
+                            } 
+                        } 
+                    } 
                 });
             }
         }
 
-        // Original Logs Table
         function renderLogs() {
             const tbody = document.getElementById('logsTableBody'); 
-            if (dbLogs.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet.</td></tr>`; return; }
-            tbody.innerHTML = dbLogs.map(log => {
-                let badge = log.action === 'ADD' ? `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>` : log.action === 'EDIT' ? `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>` : `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; 
+            
+            if (dbLogs.length === 0) { 
+                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet.</td></tr>`; 
+                return; 
+            }
+            
+            let htmlString = "";
+            dbLogs.forEach(log => {
+                let badge = ''; 
+                if(log.action === 'ADD') {
+                    badge = `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>`; 
+                } else if(log.action === 'EDIT') {
+                    badge = `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>`; 
+                } else if(log.action === 'DELETE') { 
+                    badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; 
+                } else if (log.action === 'RESTORE') {
+                    badge = `<span class="log-badge log-restore"><i class="fas fa-trash-restore"></i> Restored</span>`;
+                }
+                
                 let img = log.image ? `<img src="${log.image}" class="log-table-img" onerror="this.src='https://via.placeholder.com/40x55?text=Img'">` : ''; 
-                return `<tr><td>${badge}</td><td style="display:flex;align-items:center;">${img}<span style="color:#fff;font-weight:500;">${log.bookTitle}</span></td><td><div class="log-admin-name"><img src="${log.adminPhoto||'https://via.placeholder.com/24'}" class="log-admin-avatar"> ${log.adminName}</div></td><td><div style="color:#a1a1aa;font-size:0.9rem;"><i class="far fa-clock"></i> ${log.dateStr}</div></td></tr>`;
-            }).join('');
+                let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
+                
+                htmlString += `
+                    <tr>
+                        <td>${badge}</td>
+                        <td style="display: flex; align-items: center;">
+                            ${img}
+                            <span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span>
+                        </td>
+                        <td>
+                            <div class="log-admin-name">
+                                <img src="${avatar}" class="log-admin-avatar" onerror="this.src='https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png'"> ${log.adminName}
+                            </div>
+                        </td>
+                        <td>
+                            <div style="color: #a1a1aa; font-size: 0.9rem;">
+                                <i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = htmlString;
         }
 
-        // Advanced Tracking Users Table
         function renderUsersTable() {
             const tbody = document.getElementById('usersTableBody'); 
-            if (dbUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No users recorded.</td></tr>`; return; }
-            tbody.innerHTML = dbUsers.map(u => {
-                const isCorrupted = !u.email || u.email === 'undefined';
-                if(isCorrupted) {
-                    return `<tr>
-                        <td><strong style="color:#ef4444;display:block;">Invalid Data</strong></td>
-                        <td>Unknown Hardware</td><td>Missing IP</td>
-                        <td><button class="btn-block" onclick="deleteUserRecord('${u.uid}')"><i class="fas fa-trash-alt"></i> Delete Faltu Card</button></td>
-                    </tr>`;
-                }
-                let statusBadge = u.status === 'Blocked' ? `<span class="status-badge status-blocked"><i class="fas fa-ban"></i> Blocked</span>` : `<span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span>`; 
-                let actionBtn = "";
-                if(u.email !== SUPER_ADMIN_EMAIL) {
-                    actionBtn = u.status === 'Blocked' ? `<button class="btn-block" style="background:rgba(16,185,129,0.15);color:#10b981;border-color:#10b981;" onclick="toggleUserStatus('${u.uid}', 'Active')"><i class="fas fa-unlock"></i> Unblock</button>` : `<button class="btn-block" onclick="toggleUserStatus('${u.uid}', 'Blocked')"><i class="fas fa-ban"></i> Block</button>`;
-                } else { actionBtn = `<span style="color:#8b5cf6;font-size:0.8rem;font-weight:700;">Super Admin (Immune)</span>`; }
+            
+            if (dbUsers.length === 0) { 
+                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No users recorded yet.</td></tr>`; 
+                return; 
+            }
+            
+            let htmlString = "";
+            dbUsers.forEach(u => {
+                const isSuper = u.email === SUPER_ADMIN_EMAIL; 
+                const isCorrupted = !u.email || u.email === 'undefined' || !u.name || u.name === 'undefined';
 
-                return `<tr>
-                    <td><div style="display:flex;align-items:center;gap:10px;"><img src="${u.photo}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;"><div><strong style="color:#fff;display:block;">${u.name}</strong><span style="font-size:0.8rem;color:#a1a1aa;">${u.email}</span></div></div></td>
-                    <td><div style="color:#d4d4d8;font-size:0.9rem;">${u.device || 'Legacy Device'}</div></td>
-                    <td><div style="color:#10b981;font-family:monospace;">${u.ipAddress || 'Not Captured'}</div><span style="font-size:0.75rem;color:#71717a;">Last Login: ${u.lastLogin}</span></td>
-                    <td>${statusBadge}<br>${actionBtn}</td>
-                </tr>`;
-            }).join('');
+                let statusBadge = "";
+                let actionBtn = "";
+                let userDisplay = "";
+                let deviceDisplay = "";
+                let ipDisplay = "";
+                let imgDisplay = "";
+
+                if (isCorrupted) {
+                    imgDisplay = `<div style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); background:#1a1a24; display:flex; align-items:center; justify-content:center;"><i class="fas fa-user-slash" style="color:#ef4444;"></i></div>`;
+                    userDisplay = `<strong style="color:#ef4444; display:block; font-size:1.05rem;">Invalid Data</strong><span style="font-size:0.8rem; color:#a1a1aa;">Missing / Corrupted</span>`;
+                    deviceDisplay = `<div style="color:#a1a1aa; font-size:0.9rem;">Unknown Hardware</div>`;
+                    ipDisplay = `<div style="color:#a1a1aa; font-size:0.9rem;">Missing IP</div>`;
+                    statusBadge = `<span class="status-badge status-blocked" style="background:transparent; border:1px solid #ef4444;"><i class="fas fa-exclamation-triangle"></i> Error</span>`;
+                    
+                    actionBtn = `<button class="btn-block" onclick="deleteUserRecord('${u.uid}')"><i class="fas fa-trash-alt"></i> Delete Faltu Card</button>`;
+                } else {
+                    // FIXED IMAGE ERROR - Default image if google URL breaks
+                    let validPhoto = (u.photo && u.photo !== 'undefined') ? u.photo : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
+                    
+                    imgDisplay = `<img src="${validPhoto}" onerror="this.src='https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png'" style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); object-fit:cover;">`;
+                    userDisplay = `<strong style="color:#fff; display:block; font-size:1.05rem;">${u.name}</strong><span style="font-size:0.8rem; color:#a1a1aa;">${u.email}</span>`;
+                    deviceDisplay = `<div style="color:#d4d4d8; font-size:0.9rem; font-weight:600;"><i class="fas fa-mobile-alt" style="color:#3b82f6;"></i> ${u.device || 'Web Browser'}</div>`;
+                    
+                    // Display IP address and Login Time
+                    ipDisplay = `<div style="color:#10b981; font-family:monospace; font-size:1rem;">${u.ipAddress || 'Not Captured'}</div><span style="font-size:0.75rem; color:#71717a;">Last Login: ${u.lastLogin || ''}</span>`;
+                    
+                    statusBadge = u.status === 'Blocked' ? `<span class="status-badge status-blocked"><i class="fas fa-ban"></i> Blocked</span>` : `<span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span>`; 
+                    
+                    if(!isSuper) { 
+                        if(u.status === 'Blocked') { 
+                            actionBtn = `<button class="btn-unblock" onclick="toggleUserStatus('${u.uid}', 'Active')"><i class="fas fa-unlock"></i> Unblock User</button>`; 
+                        } else { 
+                            actionBtn = `<button class="btn-block" onclick="toggleUserStatus('${u.uid}', 'Blocked')"><i class="fas fa-ban"></i> Block User</button>`; 
+                        } 
+                    } else { 
+                        actionBtn = `<span style="color:#8b5cf6; font-size:0.8rem; font-weight:700;">Super Admin (Immune)</span>`; 
+                    }
+                }
+                
+                htmlString += `
+                    <tr>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                ${imgDisplay}
+                                <div>${userDisplay}</div>
+                            </div>
+                        </td>
+                        <td>${deviceDisplay}</td>
+                        <td>${ipDisplay}</td>
+                        <td>${statusBadge}<br>${actionBtn}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = htmlString;
         }
 
-        window.toggleUserStatus = async function(uid, newStatus) { if(confirm(`Are you sure you want to ${newStatus === 'Blocked' ? 'BLOCK' : 'UNBLOCK'} this user?`)) { try { await updateDoc(doc(db, "users", uid), { status: newStatus }); showToast(`User ${newStatus}!`); } catch(e) { showToast("Error updating status", true); } } }
-        window.deleteUserRecord = async function(uid) { if(confirm("Delete corrupted record?")) { try { await deleteDoc(doc(db, "users", uid)); showToast("Deleted!"); } catch(e) {} } }
+        window.toggleUserStatus = async function(uid, newStatus) { 
+            if(!window.IS_SUPER_ADMIN) return; 
+            if(confirm(`Are you sure you want to ${newStatus === 'Blocked' ? 'BLOCK' : 'UNBLOCK'} this user?`)) { 
+                try { 
+                    await updateDoc(doc(db, "users", uid), { status: newStatus }); 
+                    showToast(`User successfully ${newStatus}!`); 
+                } catch(e) { 
+                    showToast("Error updating user status."); 
+                } 
+            } 
+        }
 
-        // ================= GOD MODE SPECIFIC LOGIC ================= //
-        
+        window.deleteUserRecord = async function(uid) {
+            if(!window.IS_SUPER_ADMIN) return;
+            if(confirm("Are you sure you want to delete this corrupted/undefined record?")) {
+                try {
+                    await deleteDoc(doc(db, "users", uid));
+                    showToast("Faltu Record Deleted!");
+                } catch(e) {
+                    showToast("Error deleting record.");
+                }
+            }
+        }
+
+        // ================= GOD MODE SPECIFIC FUNCTIONS ================= //
+
         window.toggleMaintenance = async function() {
             if(!window.IS_SUPER_ADMIN) return;
             const isChecked = document.getElementById('maintenanceToggle').checked;
-            try { await setDoc(doc(db, "settings", "global"), { isMaintenance: isChecked }, { merge: true }); showToast(isChecked ? "MAINTENANCE ON - App Locked" : "MAINTENANCE OFF - App Live"); } catch(e) { showToast("Error", true); }
+            try {
+                await setDoc(doc(db, "settings", "global"), { isMaintenance: isChecked }, { merge: true });
+                showToast(isChecked ? "Maintenance Mode ENABLED!" : "App is LIVE again!");
+                logActivity("SYSTEM", isChecked ? "App Disabled (Maintenance)" : "App Enabled (Live)");
+            } catch(e) {
+                showToast("Error updating settings.");
+            }
         }
 
         function renderCategoryChips() {
-            document.getElementById('langChipsContainer').innerHTML = (systemCategories.languages || []).map(x => `<span class="category-chip">${x} <i class="fas fa-times-circle" onclick="delCategory('languages', '${x}')"></i></span>`).join('');
-            document.getElementById('examChipsContainer').innerHTML = (systemCategories.exams || []).map(x => `<span class="category-chip">${x} <i class="fas fa-times-circle" onclick="delCategory('exams', '${x}')"></i></span>`).join('');
+            const lContainer = document.getElementById('langChipsContainer');
+            const eContainer = document.getElementById('examChipsContainer');
+            
+            lContainer.innerHTML = (systemCategories.languages || []).map(x => `<span class="category-chip">${x} <i class="fas fa-times-circle" onclick="delCategory('languages', '${x}')"></i></span>`).join('');
+            eContainer.innerHTML = (systemCategories.exams || []).map(x => `<span class="category-chip">${x} <i class="fas fa-times-circle" onclick="delCategory('exams', '${x}')"></i></span>`).join('');
         }
 
         function renderDropdowns() {
             const langHtml = (systemCategories.languages || []).map(x => `<option value="${x}">${x}</option>`).join('');
             const examHtml = (systemCategories.exams || []).map(x => `<option value="${x}">${x}</option>`).join('');
+            
             if(document.getElementById('inLang')) document.getElementById('inLang').innerHTML = langHtml;
             if(document.getElementById('edLang')) document.getElementById('edLang').innerHTML = langHtml;
             if(document.getElementById('inExams')) document.getElementById('inExams').innerHTML = examHtml;
@@ -1039,29 +1788,47 @@
         }
 
         window.addCategory = async function(type, inputId) {
-            const val = document.getElementById(inputId).value.trim(); if(!val) return;
+            const val = document.getElementById(inputId).value.trim();
+            if(!val) return;
             let arr = systemCategories[type] || [];
-            if(!arr.includes(val)) { arr.push(val); await setDoc(doc(db, "settings", "categories"), { [type]: arr }, { merge: true }); document.getElementById(inputId).value = ''; showToast("Category Added"); }
-        }
-        window.delCategory = async function(type, val) {
-            let arr = systemCategories[type] || []; arr = arr.filter(x => x !== val);
-            await setDoc(doc(db, "settings", "categories"), { [type]: arr }, { merge: true }); showToast("Category Removed");
+            if(!arr.includes(val)) {
+                arr.push(val);
+                await setDoc(doc(db, "settings", "categories"), { [type]: arr }, { merge: true });
+                document.getElementById(inputId).value = '';
+                showToast("Category Added Successfully");
+            }
         }
 
-        // Bulk Delete & Checkboxes
+        window.delCategory = async function(type, val) {
+            let arr = systemCategories[type] || [];
+            arr = arr.filter(x => x !== val);
+            await setDoc(doc(db, "settings", "categories"), { [type]: arr }, { merge: true });
+            showToast("Category Removed");
+        }
+
+        // Bulk Actions
         window.toggleSelectAll = function() {
             const isChecked = document.getElementById('selectAllCheckbox').checked;
-            document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = isChecked); checkBulkState();
+            document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = isChecked);
+            checkBulkState();
         }
 
         window.checkBulkState = function() {
             const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
-            const allBoxes = document.querySelectorAll('.row-checkbox');
             const btn = document.getElementById('btnBulkDelete');
+            const count = document.getElementById('selCount');
             
-            if(checkedBoxes.length > 0) { btn.style.display = 'flex'; document.getElementById('selCount').innerText = checkedBoxes.length; } 
-            else { btn.style.display = 'none'; }
-            if(allBoxes.length > 0) { document.getElementById('selectAllCheckbox').checked = (checkedBoxes.length === allBoxes.length); }
+            if(checkedBoxes.length > 0) {
+                btn.style.display = 'flex';
+                count.innerText = checkedBoxes.length;
+            } else {
+                btn.style.display = 'none';
+            }
+            
+            const allBoxes = document.querySelectorAll('.row-checkbox');
+            if(allBoxes.length > 0) {
+                document.getElementById('selectAllCheckbox').checked = (checkedBoxes.length === allBoxes.length);
+            }
         }
 
         window.deleteSelectedBooks = async function() {
@@ -1069,23 +1836,47 @@
             const checked = document.querySelectorAll('.row-checkbox:checked');
             if(confirm(`WARNING: Are you sure you want to permanently delete ${checked.length} files from the database?`)) {
                 let deletedCount = 0;
-                for(let cb of checked) { await deleteDoc(doc(db, "books", cb.value)); deletedCount++; }
-                await logActivity("DELETE", `Bulk Deleted ${deletedCount} Books`, "");
+                for(let cb of checked) {
+                    await deleteDoc(doc(db, "books", cb.value));
+                    deletedCount++;
+                }
+                await logActivity("DELETE", `Bulk Deleted ${deletedCount} Files`, "");
                 showToast(`Mass Deletion Complete: ${deletedCount} Files Nuked!`);
-                document.getElementById('selectAllCheckbox').checked = false; document.getElementById('btnBulkDelete').style.display = 'none';
+                document.getElementById('selectAllCheckbox').checked = false;
+                document.getElementById('btnBulkDelete').style.display = 'none';
             }
         }
 
         window.exportToCSV = function() {
-            if(dbBooks.length === 0) return showToast("No data to export", true);
-            let csv = "Title,Author,Year,Language,Exams,Added Date\n";
-            dbBooks.forEach(b => {
-                let safeTitle = b.title.replace(/,/g, " "); let safeAuthor = b.author.replace(/,/g, " ");
-                csv += `${safeTitle},${safeAuthor},${b.year},${b.lang},${b.exams},${b.dateAdded}\n`;
+            if(!window.IS_SUPER_ADMIN) {
+                showToast("Error: Only Super Admin can export data!");
+                return;
+            }
+            if(dbBooks.length === 0) {
+                showToast("Error: No data to export!");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Title,Author,Year,Language,Exams,Added Date\n";
+
+            dbBooks.forEach(function(rowArray) {
+                let title = rowArray.title.replace(/,/g, " "); 
+                let author = rowArray.author.replace(/,/g, " ");
+                let row = `${title},${author},${rowArray.year},${rowArray.lang},${rowArray.exams},${rowArray.dateAdded}`;
+                csvContent += row + "\n";
             });
-            const link = document.createElement("a"); link.href = encodeURI("data:text/csv;charset=utf-8," + csv);
-            link.download = "Multiverse_Vault_Backup.csv"; link.click();
-            logActivity("EXPORT", "Database CSV Backup Downloaded"); showToast("Database Exported to Excel!");
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Multiverse_Vault_Backup.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            logActivity("EXPORT", "Database CSV Backup Downloaded");
+            showToast("Data Exported Successfully!");
         }
     </script>
 </body>
