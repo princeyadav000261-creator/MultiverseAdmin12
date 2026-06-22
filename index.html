@@ -151,11 +151,16 @@
         .btn-edit:hover { background: #ffffff; color: #000; border-color: #ffffff; transform: translateY(-2px);}
         .btn-delete:hover { background: var(--accent-danger); color: #fff; border-color: var(--accent-danger); transform: translateY(-2px); }
         
+        /* Recovery Button */
+        .btn-recover { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 6px 12px; transition: 0.3s; margin-top: 8px; display: inline-block; }
+        .btn-recover:hover { background: #10b981; color: #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); transform: translateY(-2px); }
+
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 1.1rem; }
         .log-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: inline-flex; align-items: center; gap: 5px;}
         .log-add { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }
         .log-edit { background: rgba(59, 130, 246, 0.2); color: var(--accent-info); border: 1px solid rgba(59, 130, 246, 0.3); }
         .log-delete { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .log-restore { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
         .log-admin-name { display: flex; align-items: center; gap: 8px; font-weight: 600; color: #fff; text-transform: uppercase; }
         .log-admin-avatar { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
 
@@ -203,20 +208,19 @@
         .slider.round:before { border-radius: 50%; }
 
         /* ALL SUPER ADMIN IP TRACKER BOX */
-        .ip-details { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: 100%; max-height: 350px; overflow-y: auto; }
+        .ip-details { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: 100%; max-height: 400px; overflow-y: auto; }
         .ip-details::-webkit-scrollbar { width: 5px; }
         .ip-details::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
         
         .ip-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 15px; margin-bottom: 12px; }
         .ip-card:last-child { margin-bottom: 0; }
         .ip-card-header { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px; }
-        .ip-card-header img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
-        .ip-card-header span { color: #fff; font-weight: 600; font-size: 0.95rem; }
+        .ip-card-header img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+        .admin-email-text { color: #fff; font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; display: inline-block; }
+        .shield-icon { color: #10b981; font-size: 1.1rem; flex-shrink: 0; }
         
         .ip-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; align-items: flex-start; gap: 15px; }
         .ip-row span { color: #a1a1aa; white-space: nowrap; }
-        
-        /* THIS FIXES THE MOBILE OVERFLOW BUG FOR LONG IPV6 ADDRESSES */
         .ip-row strong { color: #8b5cf6; font-family: monospace; font-size: 0.9rem; text-align: right; word-break: break-all; } 
 
         /* ======== MAINTENANCE OVERLAY CSS ======== */
@@ -270,6 +274,7 @@
 </head>
 <body>
 
+    <!-- MAINTENANCE OVERLAY -->
     <div id="maintenanceOverlay">
         <button class="admin-bypass-btn" onclick="document.getElementById('maintenanceOverlay').style.display='none'">
             <i class="fas fa-times"></i> Hide Preview (Admin)
@@ -298,11 +303,13 @@
         </div>
     </div>
 
+    <!-- SYSTEM LOADER -->
     <div id="systemLoader">
         <div class="dots-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
         <div class="loader-text">Verifying System...</div>
     </div>
 
+    <!-- LOGIN UI -->
     <div id="loginOverlay" class="login-container">
         <div class="login-content-wrapper">
             <div class="login-logo-container"><img src="https://i.postimg.cc/cJdGqYHG/IMG-20260524-WA0004.jpg" alt="Multiverse Logo" class="login-logo"></div>
@@ -320,6 +327,7 @@
         </div>
     </div>
 
+    <!-- MAIN APP WRAPPER -->
     <div id="appWrapper">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <aside class="sidebar" id="sidebar">
@@ -342,6 +350,7 @@
 
             <div class="dashboard-area">
                 
+                <!-- 1. ADD BOOK -->
                 <div id="sectionAddBook" class="section-container active">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-pen-nib"></i> Enter Book Details</div>
@@ -359,6 +368,7 @@
                     </div>
                 </div>
 
+                <!-- 2. TUTORIAL -->
                 <div id="sectionTutorial" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-video"></i> Upload Guide & Tutorial</div>
@@ -371,6 +381,7 @@
                     </div>
                 </div>
 
+                <!-- 3. MANAGE BOOKS -->
                 <div id="sectionManageBooks" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-list"></i> Manage Vault Inventory</div>
@@ -392,6 +403,7 @@
                     </div>
                 </div>
 
+                <!-- 4. ANALYTICS -->
                 <div id="sectionAnalytics" class="section-container">
                     <div class="admin-card" style="padding-bottom: 20px;">
                         <div class="card-header"><i class="fas fa-chart-line"></i> Dashboard Analytics</div>
@@ -412,6 +424,7 @@
                     </div>
                 </div>
 
+                <!-- 5. USERS -->
                 <div id="sectionUsers" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-users-shield"></i> User Access & Network Management</div>
@@ -424,6 +437,7 @@
                     </div>
                 </div>
 
+                <!-- 6. SETTINGS -->
                 <div id="sectionSettings" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-cog"></i> Platform Settings</div>
@@ -440,6 +454,7 @@
                                 </div>
                             </div>
 
+                            <!-- ALL SUPER ADMINS IP TRACKER -->
                             <div class="premium-setting-card" style="align-items: flex-start; flex-direction: column;">
                                 <div class="setting-info" style="width: 100%; margin-bottom: 15px;">
                                     <h3><i class="fas fa-network-wired" style="color: #3b82f6;"></i> Super Admin Network Logs</h3>
@@ -458,6 +473,7 @@
         </main>
     </div>
 
+    <!-- Edit Modal -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeEditModal()"></i>
@@ -479,6 +495,7 @@
 
     <div id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Action Successful!</span></div>
 
+    <!-- UI Scripts -->
     <script>
         const menuToggle = document.getElementById('menuToggle'); 
         const sidebar = document.getElementById('sidebar'); 
@@ -504,7 +521,7 @@
             const toast = document.getElementById('toast'); document.getElementById('toastMsg').innerText = message;
             const icon = toast.querySelector('i');
             if(message.includes("Error")) { toast.style.background = "#ef4444"; toast.style.color = "#fff"; icon.className = "fas fa-exclamation-circle"; } 
-            else if (message.includes("Updated")) { toast.style.background = "#3b82f6"; toast.style.color = "#fff"; icon.className = "fas fa-info-circle"; } 
+            else if (message.includes("Restored") || message.includes("Updated")) { toast.style.background = "#3b82f6"; toast.style.color = "#fff"; icon.className = "fas fa-info-circle"; } 
             else { toast.style.background = "#10b981"; toast.style.color = "#fff"; icon.className = "fas fa-check-circle"; }
             toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 4000);
         }
@@ -524,6 +541,7 @@
         }
     </script>
 
+    <!-- FIREBASE & MAIN LOGIC SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -562,15 +580,22 @@
             return "🖥️ Web Browser";
         }
 
+        // Highly Detailed Real Network Fetcher
         async function getClientNetworkInfo() {
             try {
                 const res = await fetch('https://ipapi.co/json/');
                 const data = await res.json();
                 if (data.ip) {
-                    return `${data.ip} (${data.city || 'Unknown'})`;
+                    return {
+                        ip: data.ip,
+                        city: data.city || 'N/A',
+                        state: data.region || 'N/A',
+                        country: data.country_name || 'N/A',
+                        isp: data.org || 'Unknown ISP'
+                    };
                 }
-                return "Tracking Blocked";
-            } catch (err) { return "Hidden / VPN"; }
+                return null;
+            } catch (err) { return null; }
         }
 
         window.toggleMaintenanceMode = async function() {
@@ -582,30 +607,41 @@
             } catch (e) { showToast("Error updating settings."); }
         }
 
-        // Renders Super Admins specific IPs in Settings Tab
+        // Renders Detailed Super Admin Cards in Settings
         window.renderSuperAdminIPs = function() {
             const box = document.getElementById('superAdminIpsBox');
             if(!box) return;
             
             const superAdmins = dbUsers.filter(u => u.role === "Super Admin" || u.email === SUPER_ADMIN_EMAIL);
-            
             if(superAdmins.length === 0) {
-                box.innerHTML = `<p style="color:#a1a1aa;">No Super Admin data available.</p>`;
-                return;
+                box.innerHTML = `<p style="color:#a1a1aa;">No Super Admin data available.</p>`; return;
             }
 
             let html = "";
             superAdmins.forEach(admin => {
-                const ipText = admin.ipAddress || "Not Captured";
+                let ipDisplay = "Not Captured";
+                let locDisplay = "Location Unavailable";
+                let ispDisplay = "N/A";
+                
+                if (admin.networkData) {
+                    ipDisplay = admin.networkData.ip;
+                    locDisplay = `${admin.networkData.city}, ${admin.networkData.state}, ${admin.networkData.country}`;
+                    ispDisplay = admin.networkData.isp;
+                } else if (admin.ipAddress) {
+                    ipDisplay = admin.ipAddress; // fallback
+                }
+
                 html += `
                     <div class="ip-card">
                         <div class="ip-card-header">
                             <img src="${admin.photo || 'https://via.placeholder.com/28'}" alt="Admin">
-                            <span>${admin.name}</span>
-                            <span style="margin-left:auto; background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem;"><i class="fas fa-shield-alt"></i> Safe</span>
+                            <span class="admin-email-text">${admin.email || admin.name}</span>
+                            <i class="fas fa-shield-alt shield-icon" title="Secure Super Admin"></i>
                         </div>
                         <div class="ip-row"><span>Device:</span> <strong style="color: #d4d4d8; word-break: normal;">${admin.device || 'Unknown'}</strong></div>
-                        <div class="ip-row"><span>IP & Loc:</span> <strong>${ipText}</strong></div>
+                        <div class="ip-row"><span>IP Address:</span> <strong>${ipDisplay}</strong></div>
+                        <div class="ip-row"><span>Location:</span> <strong style="color: #a1a1aa; font-weight: 500; font-size: 0.8rem; text-align: right; word-break: break-word; white-space: normal;">${locDisplay}</strong></div>
+                        <div class="ip-row"><span>ISP:</span> <strong style="color: #a1a1aa; font-weight: 500; font-size: 0.8rem; text-align: right; word-break: break-word; white-space: normal;">${ispDisplay}</strong></div>
                         <div class="ip-row" style="margin-bottom:0;"><span>Last Login:</span> <strong style="color: #71717a; font-family: inherit; font-size: 0.8rem; word-break: normal;">${admin.lastLogin}</strong></div>
                     </div>
                 `;
@@ -624,18 +660,23 @@
                         alert("⚠️ Access Denied: BLOCKED BY ADMIN"); signOut(auth); if (loader) { loader.style.display = 'none'; } return; 
                     } else if (userSnap.exists()) { currentStatus = userSnap.data().status; }
 
-                    let userIPAddress = await getClientNetworkInfo();
+                    let networkData = await getClientNetworkInfo();
 
-                    await setDoc(userRef, { 
+                    let userUpdatePayload = { 
                         name: user.displayName || user.email.split('@')[0], 
                         email: user.email, 
                         photo: user.photoURL || CURRENT_ADMIN_PHOTO, 
                         device: getDeviceType(), 
-                        ipAddress: userIPAddress, 
                         lastLogin: new Date().toLocaleString('en-GB'), 
                         status: currentStatus, 
                         role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin" : "Admin" 
-                    }, { merge: true });
+                    };
+                    
+                    if(networkData) {
+                        userUpdatePayload.networkData = networkData;
+                    }
+
+                    await setDoc(userRef, userUpdatePayload, { merge: true });
                 } catch (error) { console.error("Session Update Error:", error); }
 
                 document.getElementById('appWrapper').classList.add('active');
@@ -658,12 +699,11 @@
 
                     onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snapshot) => { dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs(); });
                     
-                    // Listening to All Users
                     onSnapshot(collection(db, "users"), (snapshot) => { 
                         dbUsers = []; 
                         snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); 
                         renderUsersTable(); 
-                        renderSuperAdminIPs(); // Calling the Settings Tab UI Update
+                        renderSuperAdminIPs(); 
                     });
                 } else {
                     window.IS_SUPER_ADMIN = false;
@@ -731,6 +771,21 @@
         window.updateTutorialLink = async function() { if(!window.IS_SUPER_ADMIN) return; const newUrl = document.getElementById('newTutorialUrl').value; if(!newUrl) return showToast("Please enter a valid YouTube URL!"); const btn = document.getElementById('btnUpdateVideo'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Updating...`; try { await setDoc(doc(db, "settings", "global"), { tutorialVideoUrl: newUrl }, { merge: true }); showToast("Tutorial Video Updated Successfully!"); document.getElementById('newTutorialUrl').value = ''; } catch(e) { showToast(`Error: ${e.message}`); } btn.innerHTML = `<i class="fas fa-sync-alt"></i> Update Video For All Users`; }
         async function logActivity(actionType, bookTitle, imageUrl = "", deletedBookData = null) { try { await addDoc(collection(db, "activity_logs"), { action: actionType, bookTitle: bookTitle, image: imageUrl, deletedData: deletedBookData, adminName: CURRENT_ADMIN_NAME, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) {} }
 
+        // RECOVER BOOK FUNCTION
+        window.recoverBook = async function(logId) {
+            if(!window.IS_SUPER_ADMIN) return;
+            const log = dbLogs.find(l => l.id === logId);
+            if(!log || !log.deletedData) return showToast("Error: Recovery data missing.");
+            
+            if(confirm(`Are you sure you want to recover "${log.bookTitle}"?`)) {
+                try {
+                    await setDoc(doc(db, "books", log.deletedData.id), log.deletedData);
+                    await logActivity("RESTORE", log.bookTitle, log.image);
+                    showToast("Book Restored Successfully!");
+                } catch(e) { showToast("Error recovering book."); }
+            }
+        }
+
         document.getElementById('addBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
             const pdfInput = document.getElementById('inPdfUrl').value;
@@ -795,10 +850,30 @@
             if (dbLogs.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet.</td></tr>`; return; }
             let htmlString = "";
             dbLogs.forEach(log => {
-                let badge = ''; if(log.action === 'ADD') { badge = `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>`; } else if(log.action === 'EDIT') { badge = `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>`; } else if(log.action === 'DELETE') { badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; } else if (log.action === 'RESTORE') { badge = `<span class="log-badge log-restore"><i class="fas fa-trash-restore"></i> Restored</span>`; }
-                let img = log.image ? `<img src="${log.image}" class="log-table-img" onerror="this.src='https://via.placeholder.com/40x55?text=Img'">` : ''; let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
-                htmlString += `<tr><td>${badge}</td><td style="display: flex; align-items: center;">${img}<span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span></td><td><div class="log-admin-name"><img src="${avatar}" class="log-admin-avatar"> ${log.adminName}</div></td><td><div style="color: #a1a1aa; font-size: 0.9rem;"><i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}</div></td></tr>`;
-            }); tbody.innerHTML = htmlString;
+                let badge = ''; 
+                let recoveryBtn = '';
+                
+                if(log.action === 'ADD') { badge = `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>`; } 
+                else if(log.action === 'EDIT') { badge = `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>`; } 
+                else if(log.action === 'DELETE') { 
+                    badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; 
+                    if(log.deletedData) {
+                        recoveryBtn = `<br><button class="btn-recover" onclick="recoverBook('${log.id}')"><i class="fas fa-undo"></i> Recover Vault</button>`;
+                    }
+                } 
+                else if (log.action === 'RESTORE') { badge = `<span class="log-badge log-restore"><i class="fas fa-trash-restore"></i> Restored</span>`; }
+                
+                let img = log.image ? `<img src="${log.image}" class="log-table-img" onerror="this.src='https://via.placeholder.com/40x55?text=Img'">` : ''; 
+                let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
+                
+                htmlString += `<tr>
+                    <td>${badge}</td>
+                    <td style="display: flex; align-items: center;">${img}<span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span></td>
+                    <td><div class="log-admin-name"><img src="${avatar}" class="log-admin-avatar"> ${log.adminName}</div></td>
+                    <td><div style="color: #a1a1aa; font-size: 0.9rem;"><i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}</div>${recoveryBtn}</td>
+                </tr>`;
+            }); 
+            tbody.innerHTML = htmlString;
         }
 
         function renderUsersTable() {
@@ -820,13 +895,26 @@
                     actionBtn = `<button class="btn-block" onclick="deleteUserRecord('${u.uid}')"><i class="fas fa-trash-alt"></i> Delete Faltu Card</button>`;
                 } else {
                     imgDisplay = `<img src="${u.photo}" onerror="this.src='https://via.placeholder.com/45'" style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); object-fit:cover;">`;
-                    userDisplay = `<strong style="color:#fff; display:block; font-size:1.05rem;">${u.name}</strong><span style="font-size:0.8rem; color:#a1a1aa;">${u.email}</span>`; 
+                    userDisplay = `<strong style="color:#fff; display:block; font-size:1.05rem;">${u.name}</strong><span style="font-size:0.8rem; color:#a1a1aa; word-break: break-all;">${u.email}</span>`; 
                     
-                    const ipText = u.ipAddress ? u.ipAddress : "IP Not Captured";
+                    let ipText = "Not Captured";
+                    let locHtml = "";
+                    let ispHtml = "";
+                    
+                    if(u.networkData) {
+                        ipText = u.networkData.ip;
+                        locHtml = `<div style="color:#a1a1aa; font-size:0.75rem; line-height: 1.3; margin-bottom:4px; word-break: break-word; white-space: normal;"><i class="fas fa-map-marker-alt" style="width:12px;"></i> ${u.networkData.city}, ${u.networkData.state}, ${u.networkData.country}</div>`;
+                        ispHtml = `<div style="color:#71717a; font-size:0.75rem; margin-bottom:4px; word-break: break-word; white-space: normal;"><i class="fas fa-wifi" style="width:12px;"></i> ${u.networkData.isp}</div>`;
+                    } else if(u.ipAddress) {
+                        ipText = u.ipAddress;
+                    }
+
                     deviceDisplay = `
                         <div style="color:#d4d4d8; font-size:0.9rem; margin-bottom:6px;"><i class="fas fa-laptop" style="color:#a1a1aa; width:15px;"></i> ${u.device}</div>
-                        <div style="color:#8b5cf6; font-size:0.85rem; font-family:monospace; margin-bottom:6px; background: rgba(139, 92, 246, 0.1); padding: 4px 8px; border-radius: 6px; display: inline-block; border: 1px solid rgba(139,92,246,0.3); word-break: break-all; max-width: 250px;"><i class="fas fa-network-wired"></i> ${ipText}</div>
-                        <div style="font-size:0.75rem; color:#71717a;"><i class="far fa-clock"></i> Last Login: ${u.lastLogin}</div>
+                        <div style="color:#8b5cf6; font-size:0.85rem; font-family:monospace; margin-bottom:4px; background: rgba(139, 92, 246, 0.1); padding: 4px 8px; border-radius: 6px; display: inline-block; border: 1px solid rgba(139,92,246,0.3); word-break: break-all; max-width: 250px;"><i class="fas fa-network-wired"></i> ${ipText}</div>
+                        ${locHtml}
+                        ${ispHtml}
+                        <div style="font-size:0.75rem; color:#71717a; margin-top: 4px;"><i class="far fa-clock"></i> Last Login: ${u.lastLogin}</div>
                     `;
                     
                     statusBadge = u.status === 'Blocked' ? `<span class="status-badge status-blocked"><i class="fas fa-ban"></i> Blocked</span>` : `<span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span>`; 
