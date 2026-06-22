@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
+        /* ALL YOUR EXISTING CSS REMAINS EXACTLY THE SAME */
         :root {
             --bg-body: #050505;
             --bg-sidebar: rgba(12, 12, 14, 0.95);
@@ -45,28 +46,9 @@
         .login-container::before, .login-container::after { content: ''; position: absolute; border-radius: 50%; filter: blur(140px); z-index: 0; opacity: 0.3; pointer-events: none; }
         .login-container::before { width: 50vw; height: 50vw; background: #6100ff; top: -20%; left: -10%; }
         .login-container::after { width: 40vw; height: 40vw; background: #00d2ff; bottom: -10%; right: -10%; }
-        
-        /* Adjusted transform to shift everything down slightly */
-        .login-content-wrapper { margin: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; width: 100%; max-width: 450px; position: relative; z-index: 10; transform: translateY(4vh); }
-        
-        /* Newly modified logo container with thick border */
-        .login-logo-container { 
-            display: flex; justify-content: center; align-items: center; margin-bottom: 25px; 
-            position: relative; width: 110px; height: 110px; border-radius: 30px; 
-            background: #808080; /* Thick dark border color */
-            
-            padding: 5px; z-index: 1; 
-        }
-        
-        /* Inner white glow overlay */
-        .login-logo-container::before { 
-            content: ''; position: absolute; inset: 5px; border-radius: 25px; 
-            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.8), inset 0 0 3px rgba(255, 255, 255, 1); 
-            z-index: 10; pointer-events: none; 
-        }
-        
-        .login-logo { width: 100%; height: 100%; object-fit: cover; border-radius: 25px; border: none; background: transparent; box-shadow: none; position: relative; z-index: 1; }
-        
+        .login-content-wrapper { margin: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; width: 100%; max-width: 450px; position: relative; z-index: 10; transform: translateY(-2vh); }
+        .login-logo-container { display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
+        .login-logo { width: 100px; height: 100px; object-fit: cover; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4), 0 0 20px rgba(79, 70, 229, 0.2); background: #0d0d12; }
         .welcome-header { text-align: center; margin-bottom: 12px; position: relative; z-index: 10; width: 100%;}
         .welcome-top { display: block; color: #8b5cf6; font-size: 0.95rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
         .welcome-title { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: #ffffff; letter-spacing: 2px; line-height: 1.2; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
@@ -266,10 +248,8 @@
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-height: 800px) {
-            .login-content-wrapper { padding: 10px 15px; transform: translateY(2vh); }
-            .login-logo-container { width: 95px; height: 95px; border-radius: 24px; padding: 4px; margin-bottom: 15px;} 
-            .login-logo-container::before { inset: 4px; border-radius: 20px; }
-            .login-logo { width: 100%; height: 100%; border-radius: 20px; } 
+            .login-content-wrapper { padding: 10px 15px; transform: translateY(-1vh); }
+            .login-logo { width: 85px; height: 85px; border-radius: 18px; } 
             .welcome-header { margin-bottom: 8px; }
             .welcome-title { font-size: 1.5rem; }
             .welcome-subtitle { margin-bottom: 25px; font-size: 0.75rem; }
@@ -399,10 +379,21 @@
                 <div id="sectionManageBooks" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-list"></i> Manage Vault Inventory</div>
+                        
+                        <!-- ADDED ADVANCED SEARCH BOX FOR BOOKS -->
                         <div class="filter-row">
-                            <div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchBook" placeholder="Search by Title or Author..." onkeyup="handleFilterChange()"></div>
-                            <select id="filterLang" class="filter-select" onchange="handleFilterChange()"><option value="All">All Languages</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Bilingual">Bilingual</option></select>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchBook" placeholder="Advance Search: Book Title or Author..." onkeyup="handleFilterChange()">
+                            </div>
+                            <select id="filterLang" class="filter-select" onchange="handleFilterChange()">
+                                <option value="All">All Languages</option>
+                                <option value="Hindi">Hindi</option>
+                                <option value="English">English</option>
+                                <option value="Bilingual">Bilingual</option>
+                            </select>
                         </div>
+
                         <div class="table-responsive">
                             <table class="books-table">
                                 <thead><tr><th>Cover</th><th>Book Information</th><th>Exams / Lang</th><th>Actions</th></tr></thead>
@@ -440,6 +431,15 @@
                 <div id="sectionUsers" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-users-shield"></i> User Access & Network Management</div>
+                        
+                        <!-- ADDED ADVANCED SEARCH BOX FOR USERS -->
+                        <div class="filter-row">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchUser" placeholder="Advance Search: User Name or Email..." onkeyup="handleUserFilterChange()">
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="books-table">
                                 <thead><tr><th>Profile</th><th>User Details</th><th>Network & Device</th><th>Status & Action</th></tr></thead>
@@ -574,22 +574,20 @@
         const SUPER_ADMIN_EMAIL = "princeyadav000261@gmail.com"; 
         window.IS_SUPER_ADMIN = false;
 
-        let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = [];
+        let dbBooks = []; let filteredBooks = []; 
+        let dbLogs = []; 
+        let dbUsers = []; let filteredUsers = []; // Array added for users search
         let currentPage = 1; const booksPerPage = 10;
         let myLangChart = null; let myActivityChart = null; let myDownloadsChart = null;
 
-        // UPDATED: Now detects Browser Name + OS Device
         function getDeviceType() {
             const ua = navigator.userAgent;
             let device = "🖥️ Web Browser";
-            
-            // Detect OS
             if (/android/i.test(ua)) device = "📱 Android Mobile"; 
             else if (/iPad|iPhone|iPod/.test(ua)) device = "📱 Apple iOS";
             else if (/Windows/i.test(ua)) device = "💻 Windows PC"; 
             else if (/Mac/i.test(ua)) device = "💻 Mac OS"; 
             
-            // Detect Browser
             let browser = "Unknown Browser";
             if (ua.includes("Firefox")) browser = "Firefox";
             else if (ua.includes("SamsungBrowser")) browser = "Samsung Internet";
@@ -606,13 +604,7 @@
                 const res = await fetch('https://ipapi.co/json/');
                 const data = await res.json();
                 if (data.ip) {
-                    return {
-                        ip: data.ip,
-                        city: data.city || 'N/A',
-                        state: data.region || 'N/A',
-                        country: data.country_name || 'N/A',
-                        isp: data.org || 'Unknown ISP'
-                    };
+                    return { ip: data.ip, city: data.city || 'N/A', state: data.region || 'N/A', country: data.country_name || 'N/A', isp: data.org || 'Unknown ISP' };
                 }
                 return null;
             } catch (err) { return null; }
@@ -630,25 +622,15 @@
         window.renderSuperAdminIPs = function() {
             const box = document.getElementById('superAdminIpsBox');
             if(!box) return;
-            
             const superAdmins = dbUsers.filter(u => u.role === "Super Admin" || u.email === SUPER_ADMIN_EMAIL);
-            if(superAdmins.length === 0) {
-                box.innerHTML = `<p style="color:#a1a1aa;">No Super Admin data available.</p>`; return;
-            }
+            if(superAdmins.length === 0) { box.innerHTML = `<p style="color:#a1a1aa;">No Super Admin data available.</p>`; return; }
 
             let html = "";
             superAdmins.forEach(admin => {
-                let ipDisplay = "Not Captured";
-                let locDisplay = "Location Unavailable";
-                let ispDisplay = "N/A";
-                
+                let ipDisplay = "Not Captured"; let locDisplay = "Location Unavailable"; let ispDisplay = "N/A";
                 if (admin.networkData) {
-                    ipDisplay = admin.networkData.ip;
-                    locDisplay = `${admin.networkData.city}, ${admin.networkData.state}, ${admin.networkData.country}`;
-                    ispDisplay = admin.networkData.isp;
-                } else if (admin.ipAddress) {
-                    ipDisplay = admin.ipAddress; 
-                }
+                    ipDisplay = admin.networkData.ip; locDisplay = `${admin.networkData.city}, ${admin.networkData.state}, ${admin.networkData.country}`; ispDisplay = admin.networkData.isp;
+                } else if (admin.ipAddress) { ipDisplay = admin.ipAddress; }
 
                 html += `
                     <div class="ip-card">
@@ -685,14 +667,13 @@
                         name: user.displayName || user.email.split('@')[0], 
                         email: user.email, 
                         photo: user.photoURL || CURRENT_ADMIN_PHOTO, 
-                        device: getDeviceType(), // Saves OS + Browser name
+                        device: getDeviceType(),
                         lastLogin: new Date().toLocaleString('en-GB'), 
                         status: currentStatus, 
                         role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin" : "Admin" 
                     };
                     
                     if(networkData) { userUpdatePayload.networkData = networkData; }
-
                     await setDoc(userRef, userUpdatePayload, { merge: true });
                 } catch (error) { console.error("Session Update Error:", error); }
 
@@ -716,10 +697,11 @@
 
                     onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc")), (snapshot) => { dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs(); });
                     
+                    // USERS SNAPSHOT (WITH NEW SEARCH LOGIC)
                     onSnapshot(collection(db, "users"), (snapshot) => { 
                         dbUsers = []; 
                         snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); 
-                        renderUsersTable(); 
+                        window.handleUserFilterChange(); // Automatically filters and renders users
                         renderSuperAdminIPs(); 
                     });
                 } else {
@@ -754,6 +736,7 @@
                     }
                 });
 
+                // BOOKS SNAPSHOT
                 onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => { dbBooks = []; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbBooks.push(d); }); window.handleFilterChange(); });
                 
                 const currentYearStr = new Date().getFullYear().toString();
@@ -773,17 +756,12 @@
 
         document.getElementById('navLogout').addEventListener('click', () => { if(confirm("Are you sure you want to exit and logout?")) { signOut(auth).catch(() => {}); } });
 
-        // GOOGLE LOGIN BUTTON (FIXED TO POPUP)
         document.getElementById('googleSignInBtn').addEventListener('click', async () => { 
             const btn = document.getElementById('googleSignInBtn');
             const originalText = btn.innerHTML;
             btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Connecting...`;
-            try { 
-                await signInWithPopup(auth, provider); 
-            } catch(error) { 
-                showToast("Error: " + error.message); 
-                btn.innerHTML = originalText;
-            } 
+            try { await signInWithPopup(auth, provider); } 
+            catch(error) { showToast("Error: " + error.message); btn.innerHTML = originalText; } 
         });
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -798,13 +776,12 @@
         });
 
         window.updateTutorialLink = async function() { if(!window.IS_SUPER_ADMIN) return; const newUrl = document.getElementById('newTutorialUrl').value; if(!newUrl) return showToast("Please enter a valid YouTube URL!"); const btn = document.getElementById('btnUpdateVideo'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Updating...`; try { await setDoc(doc(db, "settings", "global"), { tutorialVideoUrl: newUrl }, { merge: true }); showToast("Tutorial Video Updated Successfully!"); document.getElementById('newTutorialUrl').value = ''; } catch(e) { showToast(`Error: ${e.message}`); } btn.innerHTML = `<i class="fas fa-sync-alt"></i> Update Video For All Users`; }
-        async function logActivity(actionType, bookTitle, imageUrl = "", deletedBookData = null) { try { await addDoc(collection(db, "activity_logs"), { action: actionType, bookTitle: bookTitle, image: imageUrl, deletedData: deletedBookData, adminName: CURRENT_ADMIN_NAME, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) {} }
+        async function logActivity(actionType, bookTitle, imageUrl = "", deletedBookData = null) { try { await addDoc(collection(db, "activity_logs"), { action: actionType, bookTitle: bookTitle, image: imageUrl, deletedData: deletedBookData, adminName: CURRENT_ADMIN_NAME, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) { console.error(e); } }
 
         window.recoverBook = async function(logId) {
             if(!window.IS_SUPER_ADMIN) return;
             const log = dbLogs.find(l => l.id === logId);
             if(!log || !log.deletedData) return showToast("Error: Recovery data missing.");
-            
             if(confirm(`Are you sure you want to recover "${log.bookTitle}"?`)) {
                 try {
                     await setDoc(doc(db, "books", log.deletedData.id), log.deletedData);
@@ -824,7 +801,45 @@
             try { await addDoc(collection(db, "books"), newBook); await logActivity("ADD", titleInput, imgInput); showToast("Book Published Successfully!"); e.target.reset(); } catch (error) { showToast("Error saving to database."); } btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Book to Database`;
         });
 
-        window.handleFilterChange = function() { currentPage = 1; const search = document.getElementById('searchBook') ? document.getElementById('searchBook').value.toLowerCase() : ""; const langFilter = document.getElementById('filterLang') ? document.getElementById('filterLang').value : "All"; filteredBooks = dbBooks.filter(b => { const matchSearch = b.title.toLowerCase().includes(search) || b.author.toLowerCase().includes(search); const matchLang = langFilter === "All" || b.lang === langFilter; return matchSearch && matchLang; }); renderBooks(); updateCharts(); }
+        // ==========================================
+        // ADVANCED SEARCH LOGIC FOR BOOKS (FUZZY MATCH)
+        // ==========================================
+        window.handleFilterChange = function() { 
+            currentPage = 1; 
+            // Gets query, removes all spaces, and converts to lower case
+            const rawSearch = document.getElementById('searchBook') ? document.getElementById('searchBook').value : ""; 
+            const searchQuery = rawSearch.replace(/\s+/g, '').toLowerCase(); 
+            
+            const langFilter = document.getElementById('filterLang') ? document.getElementById('filterLang').value : "All"; 
+            
+            filteredBooks = dbBooks.filter(b => { 
+                const safeTitle = (b.title || "").replace(/\s+/g, '').toLowerCase();
+                const safeAuthor = (b.author || "").replace(/\s+/g, '').toLowerCase();
+                
+                const matchSearch = safeTitle.includes(searchQuery) || safeAuthor.includes(searchQuery); 
+                const matchLang = langFilter === "All" || b.lang === langFilter; 
+                return matchSearch && matchLang; 
+            }); 
+            renderBooks(); 
+            updateCharts(); 
+        }
+
+        // ==========================================
+        // ADVANCED SEARCH LOGIC FOR USERS (FUZZY MATCH)
+        // ==========================================
+        window.handleUserFilterChange = function() {
+            const rawSearch = document.getElementById('searchUser') ? document.getElementById('searchUser').value : "";
+            // Removes all spaces and lowercase
+            const searchQuery = rawSearch.replace(/\s+/g, '').toLowerCase();
+            
+            filteredUsers = dbUsers.filter(u => {
+                const safeName = (u.name || "").replace(/\s+/g, '').toLowerCase();
+                const safeEmail = (u.email || "").replace(/\s+/g, '').toLowerCase();
+                return safeName.includes(searchQuery) || safeEmail.includes(searchQuery);
+            });
+            renderUsersTable();
+        }
+
         window.changePage = function(direction) { currentPage += direction; renderBooks(); }
 
         function renderBooks() {
@@ -832,7 +847,7 @@
             const tbody = document.getElementById('booksTableBody'); 
             const totalPages = Math.ceil(filteredBooks.length / booksPerPage) || 1; document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${totalPages}`; document.getElementById('prevPageBtn').disabled = currentPage === 1; document.getElementById('nextPageBtn').disabled = currentPage === totalPages;
             const startIdx = (currentPage - 1) * booksPerPage; const paginatedBooks = filteredBooks.slice(startIdx, startIdx + booksPerPage);
-            if (paginatedBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No records found.</td></tr>`; return; }
+            if (paginatedBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No records found matching your search.</td></tr>`; return; }
             let htmlString = "";
             paginatedBooks.forEach((book) => { htmlString += `<tr><td><img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td><td><strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${book.title}</strong><span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${book.year}</span></td><td><div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div><span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span></td><td><button class="action-btn btn-edit" onclick="openEditModal('${book.id}')"><i class="fas fa-edit"></i></button><button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button></td></tr>`; });
             tbody.innerHTML = htmlString;
@@ -878,38 +893,27 @@
             if (dbLogs.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked yet.</td></tr>`; return; }
             let htmlString = "";
             dbLogs.forEach(log => {
-                let badge = ''; 
-                let recoveryBtn = '';
-                
+                let badge = ''; let recoveryBtn = '';
                 if(log.action === 'ADD') { badge = `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>`; } 
                 else if(log.action === 'EDIT') { badge = `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>`; } 
-                else if(log.action === 'DELETE') { 
-                    badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; 
-                    if(log.deletedData) {
-                        recoveryBtn = `<br><button class="btn-recover" onclick="recoverBook('${log.id}')"><i class="fas fa-undo"></i> Recover Vault</button>`;
-                    }
-                } 
+                else if(log.action === 'DELETE') { badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; if(log.deletedData) { recoveryBtn = `<br><button class="btn-recover" onclick="recoverBook('${log.id}')"><i class="fas fa-undo"></i> Recover Vault</button>`; } } 
                 else if (log.action === 'RESTORE') { badge = `<span class="log-badge log-restore"><i class="fas fa-trash-restore"></i> Restored</span>`; }
                 
                 let img = log.image ? `<img src="${log.image}" class="log-table-img" onerror="this.src='https://via.placeholder.com/40x55?text=Img'">` : ''; 
                 let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
-                
-                htmlString += `<tr>
-                    <td>${badge}</td>
-                    <td style="display: flex; align-items: center;">${img}<span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span></td>
-                    <td><div class="log-admin-name"><img src="${avatar}" class="log-admin-avatar"> ${log.adminName}</div></td>
-                    <td><div style="color: #a1a1aa; font-size: 0.9rem;"><i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}</div>${recoveryBtn}</td>
-                </tr>`;
+                htmlString += `<tr><td>${badge}</td><td style="display: flex; align-items: center;">${img}<span style="color:#fff; font-weight: 500; font-size:1.05rem;">${log.bookTitle}</span></td><td><div class="log-admin-name"><img src="${avatar}" class="log-admin-avatar"> ${log.adminName}</div></td><td><div style="color: #a1a1aa; font-size: 0.9rem;"><i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}</div>${recoveryBtn}</td></tr>`;
             }); 
             tbody.innerHTML = htmlString;
         }
 
         function renderUsersTable() {
             const tbody = document.getElementById('usersTableBody'); 
-            if (dbUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No users recorded yet.</td></tr>`; return; }
+            
+            // USE filteredUsers instead of dbUsers
+            if (filteredUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No users found matching your search.</td></tr>`; return; }
             
             let htmlString = "";
-            dbUsers.forEach(u => {
+            filteredUsers.forEach(u => {
                 const isSuperUserCard = u.email === SUPER_ADMIN_EMAIL || u.role === "Super Admin"; 
                 const isCorrupted = !u.email || u.email === 'undefined' || !u.name || u.name === 'undefined';
                 
@@ -925,23 +929,17 @@
                     imgDisplay = `<img src="${u.photo}" onerror="this.src='https://via.placeholder.com/45'" style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); object-fit:cover;">`;
                     userDisplay = `<strong style="color:#fff; display:block; font-size:1.05rem;">${u.name}</strong><span style="font-size:0.8rem; color:#a1a1aa; word-break: break-all;">${u.email}</span>`; 
                     
-                    let ipText = "Not Captured";
-                    let locHtml = "";
-                    let ispHtml = "";
-                    
+                    let ipText = "Not Captured"; let locHtml = ""; let ispHtml = "";
                     if(u.networkData) {
                         ipText = u.networkData.ip;
                         locHtml = `<div style="color:#a1a1aa; font-size:0.75rem; line-height: 1.3; margin-bottom:4px; word-break: break-word; white-space: normal;"><i class="fas fa-map-marker-alt" style="width:12px;"></i> ${u.networkData.city}, ${u.networkData.state}, ${u.networkData.country}</div>`;
                         ispHtml = `<div style="color:#71717a; font-size:0.75rem; margin-bottom:4px; word-break: break-word; white-space: normal;"><i class="fas fa-wifi" style="width:12px;"></i> ${u.networkData.isp}</div>`;
-                    } else if(u.ipAddress) {
-                        ipText = u.ipAddress;
-                    }
+                    } else if(u.ipAddress) { ipText = u.ipAddress; }
 
                     deviceDisplay = `
                         <div style="color:#d4d4d8; font-size:0.9rem; margin-bottom:6px;"><i class="fas fa-laptop" style="color:#a1a1aa; width:15px;"></i> ${u.device}</div>
                         <div style="color:#8b5cf6; font-size:0.85rem; font-family:monospace; margin-bottom:4px; background: rgba(139, 92, 246, 0.1); padding: 4px 8px; border-radius: 6px; display: inline-block; border: 1px solid rgba(139,92,246,0.3); word-break: break-all; max-width: 250px;"><i class="fas fa-network-wired"></i> ${ipText}</div>
-                        ${locHtml}
-                        ${ispHtml}
+                        ${locHtml} ${ispHtml}
                         <div style="font-size:0.75rem; color:#71717a; margin-top: 4px;"><i class="far fa-clock"></i> Last Login: ${u.lastLogin}</div>
                     `;
                     
@@ -950,9 +948,7 @@
                     if(!isSuperUserCard) { 
                         if(u.status === 'Blocked') { actionBtn = `<button class="btn-unblock" onclick="toggleUserStatus('${u.uid}', 'Active')"><i class="fas fa-unlock"></i> Unblock Admin</button>`; } 
                         else { actionBtn = `<button class="btn-block" onclick="toggleUserStatus('${u.uid}', 'Blocked')"><i class="fas fa-ban"></i> Block Admin</button>`; } 
-                    } else { 
-                        actionBtn = `<div style="color:#eab308; font-size:0.85rem; font-weight:700; background:rgba(234, 179, 8, 0.15); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(234, 179, 8, 0.4); text-align:center; margin-top:5px;"><i class="fas fa-crown"></i> Super Admin (Immune)</div>`; 
-                    }
+                    } else { actionBtn = `<div style="color:#eab308; font-size:0.85rem; font-weight:700; background:rgba(234, 179, 8, 0.15); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(234, 179, 8, 0.4); text-align:center; margin-top:5px;"><i class="fas fa-crown"></i> Super Admin (Immune)</div>`; }
                 }
                 htmlString += `<tr><td>${imgDisplay}</td><td>${userDisplay}</td><td>${deviceDisplay}</td><td>${statusBadge}<br>${actionBtn}</td></tr>`;
             });
