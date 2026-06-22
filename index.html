@@ -45,9 +45,28 @@
         .login-container::before, .login-container::after { content: ''; position: absolute; border-radius: 50%; filter: blur(140px); z-index: 0; opacity: 0.3; pointer-events: none; }
         .login-container::before { width: 50vw; height: 50vw; background: #6100ff; top: -20%; left: -10%; }
         .login-container::after { width: 40vw; height: 40vw; background: #00d2ff; bottom: -10%; right: -10%; }
-        .login-content-wrapper { margin: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; width: 100%; max-width: 450px; position: relative; z-index: 10; transform: translateY(-2vh); }
-        .login-logo-container { display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
-        .login-logo { width: 100px; height: 100px; object-fit: cover; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4), 0 0 20px rgba(79, 70, 229, 0.2); background: #0d0d12; }
+        
+        /* Adjusted transform to shift everything down slightly */
+        .login-content-wrapper { margin: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; width: 100%; max-width: 450px; position: relative; z-index: 10; transform: translateY(4vh); }
+        
+        /* Newly modified logo container with thick border */
+        .login-logo-container { 
+            display: flex; justify-content: center; align-items: center; margin-bottom: 25px; 
+            position: relative; width: 110px; height: 110px; border-radius: 30px; 
+            background: #111111; /* Thick dark border color */
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4), 0 0 20px rgba(79, 70, 229, 0.2); 
+            padding: 5px; z-index: 1; 
+        }
+        
+        /* Inner white glow overlay */
+        .login-logo-container::before { 
+            content: ''; position: absolute; inset: 5px; border-radius: 25px; 
+            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.8), inset 0 0 3px rgba(255, 255, 255, 1); 
+            z-index: 10; pointer-events: none; 
+        }
+        
+        .login-logo { width: 100%; height: 100%; object-fit: cover; border-radius: 25px; border: none; background: transparent; box-shadow: none; position: relative; z-index: 1; }
+        
         .welcome-header { text-align: center; margin-bottom: 12px; position: relative; z-index: 10; width: 100%;}
         .welcome-top { display: block; color: #8b5cf6; font-size: 0.95rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
         .welcome-title { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: #ffffff; letter-spacing: 2px; line-height: 1.2; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
@@ -247,8 +266,10 @@
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-height: 800px) {
-            .login-content-wrapper { padding: 10px 15px; transform: translateY(-1vh); }
-            .login-logo { width: 85px; height: 85px; border-radius: 18px; } 
+            .login-content-wrapper { padding: 10px 15px; transform: translateY(2vh); }
+            .login-logo-container { width: 95px; height: 95px; border-radius: 24px; padding: 4px; margin-bottom: 15px;} 
+            .login-logo-container::before { inset: 4px; border-radius: 20px; }
+            .login-logo { width: 100%; height: 100%; border-radius: 20px; } 
             .welcome-header { margin-bottom: 8px; }
             .welcome-title { font-size: 1.5rem; }
             .welcome-subtitle { margin-bottom: 25px; font-size: 0.75rem; }
