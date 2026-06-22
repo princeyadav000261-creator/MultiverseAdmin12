@@ -274,7 +274,6 @@
 </head>
 <body>
 
-    <!-- MAINTENANCE OVERLAY -->
     <div id="maintenanceOverlay">
         <button class="admin-bypass-btn" onclick="document.getElementById('maintenanceOverlay').style.display='none'">
             <i class="fas fa-times"></i> Hide Preview (Admin)
@@ -303,13 +302,11 @@
         </div>
     </div>
 
-    <!-- SYSTEM LOADER -->
     <div id="systemLoader">
         <div class="dots-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
         <div class="loader-text">Verifying System...</div>
     </div>
 
-    <!-- LOGIN UI -->
     <div id="loginOverlay" class="login-container">
         <div class="login-content-wrapper">
             <div class="login-logo-container"><img src="https://i.postimg.cc/cJdGqYHG/IMG-20260524-WA0004.jpg" alt="Multiverse Logo" class="login-logo"></div>
@@ -327,7 +324,6 @@
         </div>
     </div>
 
-    <!-- MAIN APP WRAPPER -->
     <div id="appWrapper">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <aside class="sidebar" id="sidebar">
@@ -350,7 +346,6 @@
 
             <div class="dashboard-area">
                 
-                <!-- 1. ADD BOOK -->
                 <div id="sectionAddBook" class="section-container active">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-pen-nib"></i> Enter Book Details</div>
@@ -368,7 +363,6 @@
                     </div>
                 </div>
 
-                <!-- 2. TUTORIAL -->
                 <div id="sectionTutorial" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-video"></i> Upload Guide & Tutorial</div>
@@ -381,7 +375,6 @@
                     </div>
                 </div>
 
-                <!-- 3. MANAGE BOOKS -->
                 <div id="sectionManageBooks" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-list"></i> Manage Vault Inventory</div>
@@ -403,7 +396,6 @@
                     </div>
                 </div>
 
-                <!-- 4. ANALYTICS -->
                 <div id="sectionAnalytics" class="section-container">
                     <div class="admin-card" style="padding-bottom: 20px;">
                         <div class="card-header"><i class="fas fa-chart-line"></i> Dashboard Analytics</div>
@@ -424,7 +416,6 @@
                     </div>
                 </div>
 
-                <!-- 5. USERS -->
                 <div id="sectionUsers" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-users-shield"></i> User Access & Network Management</div>
@@ -437,7 +428,6 @@
                     </div>
                 </div>
 
-                <!-- 6. SETTINGS -->
                 <div id="sectionSettings" class="section-container">
                     <div class="admin-card">
                         <div class="card-header"><i class="fas fa-cog"></i> Platform Settings</div>
@@ -454,7 +444,6 @@
                                 </div>
                             </div>
 
-                            <!-- ALL SUPER ADMINS IP TRACKER -->
                             <div class="premium-setting-card" style="align-items: flex-start; flex-direction: column;">
                                 <div class="setting-info" style="width: 100%; margin-bottom: 15px;">
                                     <h3><i class="fas fa-network-wired" style="color: #3b82f6;"></i> Super Admin Network Logs</h3>
@@ -473,7 +462,6 @@
         </main>
     </div>
 
-    <!-- Edit Modal -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeEditModal()"></i>
@@ -495,7 +483,6 @@
 
     <div id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Action Successful!</span></div>
 
-    <!-- UI Scripts -->
     <script>
         const menuToggle = document.getElementById('menuToggle'); 
         const sidebar = document.getElementById('sidebar'); 
@@ -541,11 +528,11 @@
         }
     </script>
 
-    <!-- FIREBASE & MAIN LOGIC SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        // Google popup changed from redirect to signInWithPopup
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXBSGCZFdkSbk-Ireoo7sRY4mLzS25nyk",
@@ -580,7 +567,6 @@
             return "🖥️ Web Browser";
         }
 
-        // Highly Detailed Real Network Fetcher
         async function getClientNetworkInfo() {
             try {
                 const res = await fetch('https://ipapi.co/json/');
@@ -607,7 +593,6 @@
             } catch (e) { showToast("Error updating settings."); }
         }
 
-        // Renders Detailed Super Admin Cards in Settings
         window.renderSuperAdminIPs = function() {
             const box = document.getElementById('superAdminIpsBox');
             if(!box) return;
@@ -628,7 +613,7 @@
                     locDisplay = `${admin.networkData.city}, ${admin.networkData.state}, ${admin.networkData.country}`;
                     ispDisplay = admin.networkData.isp;
                 } else if (admin.ipAddress) {
-                    ipDisplay = admin.ipAddress; // fallback
+                    ipDisplay = admin.ipAddress; 
                 }
 
                 html += `
@@ -672,9 +657,7 @@
                         role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin" : "Admin" 
                     };
                     
-                    if(networkData) {
-                        userUpdatePayload.networkData = networkData;
-                    }
+                    if(networkData) { userUpdatePayload.networkData = networkData; }
 
                     await setDoc(userRef, userUpdatePayload, { merge: true });
                 } catch (error) { console.error("Session Update Error:", error); }
@@ -755,7 +738,19 @@
         });
 
         document.getElementById('navLogout').addEventListener('click', () => { if(confirm("Are you sure you want to exit and logout?")) { signOut(auth).catch(() => {}); } });
-        document.getElementById('googleSignInBtn').addEventListener('click', async () => { try { await signInWithRedirect(auth, provider); } catch(error) { showToast("Error: " + error.message); } });
+
+        // BUG FIX: Changed from redirect to popup to avoid page reload losing state
+        document.getElementById('googleSignInBtn').addEventListener('click', async () => { 
+            const btn = document.getElementById('googleSignInBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Connecting...`;
+            try { 
+                await signInWithPopup(auth, provider); 
+            } catch(error) { 
+                showToast("Error: " + error.message); 
+                btn.innerHTML = originalText;
+            } 
+        });
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
@@ -771,7 +766,6 @@
         window.updateTutorialLink = async function() { if(!window.IS_SUPER_ADMIN) return; const newUrl = document.getElementById('newTutorialUrl').value; if(!newUrl) return showToast("Please enter a valid YouTube URL!"); const btn = document.getElementById('btnUpdateVideo'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Updating...`; try { await setDoc(doc(db, "settings", "global"), { tutorialVideoUrl: newUrl }, { merge: true }); showToast("Tutorial Video Updated Successfully!"); document.getElementById('newTutorialUrl').value = ''; } catch(e) { showToast(`Error: ${e.message}`); } btn.innerHTML = `<i class="fas fa-sync-alt"></i> Update Video For All Users`; }
         async function logActivity(actionType, bookTitle, imageUrl = "", deletedBookData = null) { try { await addDoc(collection(db, "activity_logs"), { action: actionType, bookTitle: bookTitle, image: imageUrl, deletedData: deletedBookData, adminName: CURRENT_ADMIN_NAME, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) {} }
 
-        // RECOVER BOOK FUNCTION
         window.recoverBook = async function(logId) {
             if(!window.IS_SUPER_ADMIN) return;
             const log = dbLogs.find(l => l.id === logId);
