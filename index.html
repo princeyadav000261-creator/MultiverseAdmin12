@@ -531,7 +531,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        // Google popup changed from redirect to signInWithPopup
         import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -558,13 +557,27 @@
         let currentPage = 1; const booksPerPage = 10;
         let myLangChart = null; let myActivityChart = null; let myDownloadsChart = null;
 
+        // UPDATED: Now detects Browser Name + OS Device
         function getDeviceType() {
             const ua = navigator.userAgent;
-            if (/android/i.test(ua)) return "📱 Android Mobile"; 
-            if (/iPad|iPhone|iPod/.test(ua)) return "📱 Apple iOS";
-            if (/Windows/i.test(ua)) return "💻 Windows PC"; 
-            if (/Mac/i.test(ua)) return "💻 Mac OS"; 
-            return "🖥️ Web Browser";
+            let device = "🖥️ Web Browser";
+            
+            // Detect OS
+            if (/android/i.test(ua)) device = "📱 Android Mobile"; 
+            else if (/iPad|iPhone|iPod/.test(ua)) device = "📱 Apple iOS";
+            else if (/Windows/i.test(ua)) device = "💻 Windows PC"; 
+            else if (/Mac/i.test(ua)) device = "💻 Mac OS"; 
+            
+            // Detect Browser
+            let browser = "Unknown Browser";
+            if (ua.includes("Firefox")) browser = "Firefox";
+            else if (ua.includes("SamsungBrowser")) browser = "Samsung Internet";
+            else if (ua.includes("Opera") || ua.includes("OPR")) browser = "Opera";
+            else if (ua.includes("Edg")) browser = "Edge";
+            else if (ua.includes("Chrome")) browser = "Chrome"; 
+            else if (ua.includes("Safari")) browser = "Safari"; 
+
+            return `${device} (${browser})`;
         }
 
         async function getClientNetworkInfo() {
@@ -623,7 +636,7 @@
                             <span class="admin-email-text">${admin.email || admin.name}</span>
                             <i class="fas fa-shield-alt shield-icon" title="Secure Super Admin"></i>
                         </div>
-                        <div class="ip-row"><span>Device:</span> <strong style="color: #d4d4d8; word-break: normal;">${admin.device || 'Unknown'}</strong></div>
+                        <div class="ip-row"><span>System & App:</span> <strong style="color: #d4d4d8; word-break: normal; max-width: 150px; text-align: right;">${admin.device || 'Unknown'}</strong></div>
                         <div class="ip-row"><span>IP Address:</span> <strong>${ipDisplay}</strong></div>
                         <div class="ip-row"><span>Location:</span> <strong style="color: #a1a1aa; font-weight: 500; font-size: 0.8rem; text-align: right; word-break: break-word; white-space: normal;">${locDisplay}</strong></div>
                         <div class="ip-row"><span>ISP:</span> <strong style="color: #a1a1aa; font-weight: 500; font-size: 0.8rem; text-align: right; word-break: break-word; white-space: normal;">${ispDisplay}</strong></div>
@@ -651,7 +664,7 @@
                         name: user.displayName || user.email.split('@')[0], 
                         email: user.email, 
                         photo: user.photoURL || CURRENT_ADMIN_PHOTO, 
-                        device: getDeviceType(), 
+                        device: getDeviceType(), // Saves OS + Browser name
                         lastLogin: new Date().toLocaleString('en-GB'), 
                         status: currentStatus, 
                         role: (user.email === SUPER_ADMIN_EMAIL) ? "Super Admin" : "Admin" 
@@ -739,7 +752,7 @@
 
         document.getElementById('navLogout').addEventListener('click', () => { if(confirm("Are you sure you want to exit and logout?")) { signOut(auth).catch(() => {}); } });
 
-        // BUG FIX: Changed from redirect to popup to avoid page reload losing state
+        // GOOGLE LOGIN BUTTON (FIXED TO POPUP)
         document.getElementById('googleSignInBtn').addEventListener('click', async () => { 
             const btn = document.getElementById('googleSignInBtn');
             const originalText = btn.innerHTML;
