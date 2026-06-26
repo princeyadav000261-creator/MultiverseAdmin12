@@ -17,7 +17,7 @@
             --border-glow: rgba(255, 255, 255, 0.15);
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
-            --accent-primary: #8b5cf6; /* Updated to Match the Screenshot Purple */
+            --accent-primary: #8b5cf6; 
             --accent-success: #10b981; 
             --accent-warning: #eab308; 
             --accent-danger: #ef4444; 
@@ -40,7 +40,7 @@
         #appWrapper { display: none; width: 100%; height: 100%; flex-direction: column; position: relative; z-index: 1; }
         #appWrapper.active { display: flex; }
 
-        /* --- LOGIN --- (Unchanged) */
+        /* --- LOGIN --- */
         .login-container { display: none; position: fixed; inset: 0; z-index: 3000; flex-direction: column; background: #050508; transition: opacity 0.5s ease; opacity: 0; overflow-y: auto; overflow-x: hidden; }
         .login-container::before, .login-container::after { content: ''; position: absolute; border-radius: 50%; filter: blur(140px); z-index: 0; opacity: 0.3; pointer-events: none; }
         .login-container::before { width: 50vw; height: 50vw; background: #6100ff; top: -20%; left: -10%; }
@@ -66,11 +66,16 @@
         .btn-token-style { background: transparent; color: #fff; width: 100%; padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.15); font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; }
         .btn-token-style:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
 
-        /* --- NEW HEADER & TOP NAVIGATION --- */
+        /* --- HEADER & TOP NAVIGATION --- */
         .app-header {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 20px; background: rgba(10, 10, 12, 0.8); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 100;
+        }
+        .header-logo {
+            width: 42px; height: 42px; border-radius: 12px; object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: #0d0d12;
         }
         .header-btn {
             width: 42px; height: 42px; border-radius: 50%;
@@ -92,7 +97,6 @@
             overflow-x: auto; white-space: nowrap; flex-shrink: 0;
             border-bottom: 1px solid var(--border-color);
             background: rgba(15, 15, 18, 0.5); z-index: 99;
-            /* Hide Scrollbar */
             scrollbar-width: none; -ms-overflow-style: none;
         }
         .top-nav-tabs::-webkit-scrollbar { display: none; }
@@ -145,7 +149,7 @@
         .filter-select { background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; outline: none; cursor: pointer; appearance: none; -webkit-appearance: none; padding: 12px 40px 12px 20px !important; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a1a1aa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; }
 
         .table-responsive { overflow-x: auto; margin-top: 10px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); position: relative; z-index: 2;}
-        .books-table { width: 100%; border-collapse: collapse; min-width: 800px; text-align: left; }
+        .books-table { width: 100%; border-collapse: collapse; min-width: 600px; text-align: left; }
         .books-table th { background: rgba(255,255,255,0.05); padding: 18px 25px; font-size: 0.85rem; font-weight: 600; color: #d4d4d8; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .books-table td { padding: 18px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1rem; vertical-align: middle; }
         .books-table tbody tr { transition: 0.3s; }
@@ -229,7 +233,7 @@
         .ip-row span { color: #a1a1aa; white-space: nowrap; }
         .ip-row strong { color: #8b5cf6; font-family: monospace; font-size: 0.9rem; text-align: right; word-break: break-all; } 
 
-        /* ======== MAINTENANCE OVERLAY CSS (Unchanged) ======== */
+        /* ======== MAINTENANCE OVERLAY ======== */
         #maintenanceOverlay { position: fixed; inset: 0; z-index: 999999; display: none; justify-content: center; align-items: center; padding: 15px; background: radial-gradient(circle at 80% -10%, #4a206b 0%, transparent 40%), radial-gradient(circle at 10% 110%, #35103a 0%, transparent 40%), #0c0914; }
         .admin-bypass-btn { position: absolute; top: 20px; right: 20px; background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; z-index: 10; transition: 0.3s; }
         .admin-bypass-btn:hover { background: #ef4444; color: #fff; }
@@ -268,7 +272,7 @@
 
         @media (max-width: 1024px) { 
             .main-content { padding: 20px 15px; } 
-            .books-table { min-width: 700px; } 
+            .books-table { min-width: 500px; } 
             .charts-grid { grid-template-columns: 1fr; } 
             .chart-box { height: 300px; } .chart-full { height: 320px; } 
         }
@@ -348,12 +352,14 @@
 
     <div id="appWrapper">
         
+        <!-- TOP HEADER - LOGO REPLACED THE BACK BUTTON -->
         <header class="app-header">
-            <button class="header-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+            <img src="https://i.postimg.cc/cJdGqYHG/IMG-20260524-WA0004.jpg" alt="Logo" class="header-logo">
             <h1 class="header-title">VAULT PANEL</h1>
             <button class="header-btn power-btn" id="headerLogoutBtn"><i class="fas fa-power-off"></i></button>
         </header>
 
+        <!-- HORIZONTAL SCROLLING NAV -->
         <nav class="top-nav-tabs">
             <button class="tab-btn active" id="navManage" onclick="switchTab('manage')">
                 <i class="fas fa-layer-group"></i> Manage Vault
@@ -371,6 +377,7 @@
 
         <main class="main-content">
             
+            <!-- MANAGE BOOKS SECTION -->
             <div id="sectionManageBooks" class="section-container active">
                 <div class="admin-card">
                     <div class="card-header"><i class="fas fa-list"></i> Manage Vault Inventory</div>
@@ -390,7 +397,8 @@
 
                     <div class="table-responsive">
                         <table class="books-table">
-                            <thead><tr><th>Cover</th><th>Book Information</th><th>Exams / Lang</th><th>Actions</th></tr></thead>
+                            <!-- EXAMS / LANG REMOVED FROM THE TABLE HEADER -->
+                            <thead><tr><th>Cover</th><th>Book Information</th><th>Actions</th></tr></thead>
                             <tbody id="booksTableBody"></tbody>
                         </table>
                     </div>
@@ -402,6 +410,7 @@
                 </div>
             </div>
 
+            <!-- ANALYTICS SECTION -->
             <div id="sectionAnalytics" class="section-container">
                 <div class="admin-card" style="padding-bottom: 20px;">
                     <div class="card-header"><i class="fas fa-chart-line"></i> Dashboard Analytics</div>
@@ -422,6 +431,7 @@
                 </div>
             </div>
 
+            <!-- USERS SECTION -->
             <div id="sectionUsers" class="section-container">
                 <div class="admin-card">
                     <div class="card-header"><i class="fas fa-users-shield"></i> User Access & Network Management</div>
@@ -442,6 +452,7 @@
                 </div>
             </div>
 
+            <!-- SETTINGS SECTION -->
             <div id="sectionSettings" class="section-container">
                 <div class="admin-card">
                     <div class="card-header"><i class="fas fa-cog"></i> Platform Settings</div>
@@ -475,6 +486,7 @@
         </main>
     </div>
 
+    <!-- EDIT MODAL - EXAMS AND LANG WILL STILL SHOW HERE FOR EDITING -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeEditModal()"></i>
@@ -668,7 +680,6 @@
                 CURRENT_ADMIN_NAME = user.displayName ? user.displayName : user.email.split('@')[0];
                 if(user.photoURL) { CURRENT_ADMIN_PHOTO = user.photoURL; }
                 
-                // Silent update for context
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME; 
                 document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
 
@@ -699,7 +710,6 @@
                     document.getElementById('navSettings').style.display = 'none';
                 }
                 
-                // Default Tab set to Manage Books since Add Book is removed
                 switchTab('manage'); 
 
                 onSnapshot(doc(db, "settings", "global"), (docSnap) => {
@@ -733,7 +743,6 @@
             }
         });
 
-        // Linked to the specific button inside the Header block
         document.getElementById('headerLogoutBtn').addEventListener('click', () => { if(confirm("Are you sure you want to exit and logout?")) { signOut(auth).catch(() => {}); } });
 
         document.getElementById('googleSignInBtn').addEventListener('click', async () => { 
@@ -808,9 +817,16 @@
             const tbody = document.getElementById('booksTableBody'); 
             const totalPages = Math.ceil(filteredBooks.length / booksPerPage) || 1; document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${totalPages}`; document.getElementById('prevPageBtn').disabled = currentPage === 1; document.getElementById('nextPageBtn').disabled = currentPage === totalPages;
             const startIdx = (currentPage - 1) * booksPerPage; const paginatedBooks = filteredBooks.slice(startIdx, startIdx + booksPerPage);
-            if (paginatedBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No records found matching your search.</td></tr>`; return; }
+            if (paginatedBooks.length === 0) { tbody.innerHTML = `<tr><td colspan="3" class="empty-state">No records found matching your search.</td></tr>`; return; }
             let htmlString = "";
-            paginatedBooks.forEach((book) => { htmlString += `<tr><td><img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td><td><strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${book.title}</strong><span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${book.year}</span></td><td><div style="font-size:0.9rem; color:#d4d4d8; margin-bottom:6px;">${book.exams}</div><span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 10px; border-radius:8px; font-size:0.8rem;">${book.lang}</span></td><td><button class="action-btn btn-edit" onclick="openEditModal('${book.id}')"><i class="fas fa-edit"></i></button><button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button></td></tr>`; });
+            paginatedBooks.forEach((book) => { 
+                /* EXAMS / LANG HTML REMOVED FROM HERE */
+                htmlString += `<tr>
+                    <td><img src="${book.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td>
+                    <td><strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${book.title}</strong><span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib"></i> ${book.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${book.year}</span></td>
+                    <td><button class="action-btn btn-edit" onclick="openEditModal('${book.id}')"><i class="fas fa-edit"></i></button><button class="action-btn btn-delete" onclick="deleteBook('${book.id}', '${book.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button></td>
+                </tr>`; 
+            });
             tbody.innerHTML = htmlString;
         }
 
