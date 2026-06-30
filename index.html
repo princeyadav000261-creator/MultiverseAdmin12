@@ -47,7 +47,7 @@
         #authScreen {
             position: fixed; inset: 0; z-index: 99999;
             background: linear-gradient(135deg, rgba(15, 15, 25, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
-            display: none; /* Hidden by default, controlled by JS */
+            display: none;
             flex-direction: column; justify-content: center; align-items: center;
         }
         .login-wrapper { position: relative; z-index: 10; width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; padding: 20px; }
@@ -55,7 +55,7 @@
         .brand-logo { width: 115px; height: 115px; border-radius: 22px; object-fit: cover; margin-bottom: 20px; border: 6px solid #71717a; box-shadow: 0 15px 40px rgba(0,0,0,0.9); transition: transform 0.3s ease; }
         .brand-logo:hover { transform: scale(1.05); }
         .brand-title { font-size: 35px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; text-shadow: 0 4px 15px rgba(0,0,0,0.8); margin-top: 10px; color: #fff;}
-        .brand-subtitle { font-size: 14px; letter-spacing: 1px; color: #71717a; margin-top: 10px; text-transform: uppercase; font-weight: 900; white-space: nowrap; width: 100%; }
+        .brand-subtitle { font-size: 10px; letter-spacing: 1px; color: #71717a; margin-top: 10px; text-transform: uppercase; font-weight: 900; white-space: nowrap; width: 100%; }
         
         .glass-card { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 16px; padding: 40px 30px; width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.45); border-left: 1px solid rgba(255, 255, 255, 0.3); border-bottom: 1px solid rgba(255, 255, 255, 0.05); border-right: 1px solid rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.08), inset 0 4px 12px rgba(255, 255, 255, 0.2), 0 30px 60px rgba(0, 0, 0, 0.7); position: relative; overflow: hidden; }
         .form-header { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 22px; font-weight: 600; margin-bottom: 35px; color: #fff; letter-spacing: 1px; }
@@ -102,7 +102,7 @@
 
         /* Admin Tables */
         .admin-card { background: var(--bg-card); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 28px; padding: 45px; box-shadow: 0 40px 80px rgba(0,0,0,0.8); margin-bottom: 30px; width: 100%; }
-        .card-header-large { font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .card-header-large { font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
         .card-header-large .title-left { display: flex; align-items: center; gap: 12px; }
         .card-header-large i { padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; color: #fff;}
         .filter-row { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
@@ -111,9 +111,9 @@
         .search-box input { width: 100%; background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); padding: 12px 15px 12px 40px; border-radius: 12px; color: #fff; outline: none; }
         .filter-select { background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; outline: none; padding: 12px 40px 12px 20px !important; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a1a1aa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; }
 
-        .table-responsive { overflow-x: auto; margin-top: 10px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); }
+        .table-responsive { overflow-x: auto; margin-top: 10px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); -webkit-overflow-scrolling: touch; }
         .books-table { width: 100%; border-collapse: collapse; min-width: 600px; text-align: left; }
-        .books-table th { background: rgba(255,255,255,0.05); padding: 18px 25px; font-size: 0.85rem; color: #d4d4d8; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .books-table th { background: rgba(255,255,255,0.05); padding: 18px 25px; font-size: 0.85rem; color: #d4d4d8; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); white-space: nowrap; }
         .books-table td { padding: 18px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1rem; vertical-align: middle; }
         .table-img { width: 50px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); }
         
@@ -123,9 +123,9 @@
         .action-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; font-size: 1rem; cursor: pointer; margin-right: 10px; padding: 8px 14px; color: #fff;}
         .btn-edit:hover { background: #ffffff; color: #000; }
         .btn-delete:hover { background: var(--accent-danger); border-color: var(--accent-danger); }
-        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 1.1rem; }
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 1.1rem; width: 100%; }
 
-        /* RESTORED: Activity Logs Badges & Recovery */
+        /* RESTORED & UPGRADED: Activity Logs Badges & Recovery */
         .log-table-img { width: 40px; height: 55px; object-fit: cover; border-radius: 6px; margin-right: 15px;}
         .log-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;}
         .log-add { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }
@@ -139,8 +139,31 @@
         .log-admin-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2);}
         .log-admin-name { font-weight: 600; color: #fff; text-transform: uppercase; font-size: 0.9rem;}
         .log-admin-email { font-size: 0.75rem; color: #a1a1aa; }
-        .btn-clean { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 15px; transition: 0.3s; }
-        .btn-clean:hover { background: #ef4444; color: #fff; }
+        
+        /* NEW PREMIUM ROUND CLEAN BUTTON */
+        .btn-clean-round { 
+            background: rgba(239, 68, 68, 0.15); 
+            color: #ef4444; 
+            border: 1px solid rgba(239, 68, 68, 0.4); 
+            border-radius: 50%; 
+            width: 44px; 
+            height: 44px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.1);
+        }
+        .btn-clean-round:hover { 
+            background: #ef4444; 
+            color: #fff; 
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
+        }
+        .btn-clean-round i { padding: 0 !important; background: transparent !important; }
 
         /* Prompts */
         .telegram-prompt-wrapper { margin-bottom: 15px; display: flex; flex-direction: column; }
@@ -148,19 +171,31 @@
         .telegram-prompt-header { background: rgba(0, 0, 0, 0.3); padding: 10px 15px; font-weight: 600; color: #fff; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .telegram-prompt-body { padding: 12px 15px; color: #a1a1aa; font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; word-break: break-word; }
         
-        /* YouTube Tutorial Cards */
-        .yt-card { background: transparent; display: flex; flex-direction: column; width: 320px; max-width: 100%; margin-bottom: 25px; position: relative; overflow: hidden; transition: transform 0.2s; }
-        .yt-card:hover { transform: translateY(-3px); }
-        .yt-thumbnail-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        /* YouTube Tutorial Cards - UPDATED FOR STANDALONE PREMIUM LOOK */
+        .yt-card { 
+            background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(15, 15, 20, 0.9)); 
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            display: flex; flex-direction: column; 
+            width: 320px; max-width: 100%; 
+            margin-bottom: 25px; 
+            position: relative; overflow: hidden; 
+            transition: transform 0.2s, box-shadow 0.2s; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            padding-bottom: 5px;
+        }
+        .yt-card:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(0,0,0,0.7); border-color: rgba(139, 92, 246, 0.3); }
+        .yt-thumbnail-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 16px 16px 0 0; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .yt-thumbnail-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .yt-duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.85); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 6px; border-radius: 4px; }
         .yt-action-btns { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10; opacity: 0; transition: opacity 0.3s ease; }
         .yt-card:hover .yt-action-btns { opacity: 1; }
         .yt-action-btn { width: 32px; height: 32px; border: none; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; color: white; font-size: 0.9rem; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); transition: all 0.2s; }
         .yt-copy:hover { background: #10b981; transform: scale(1.1); }
+        .yt-edit:hover { background: #3b82f6; transform: scale(1.1); } /* EDIT HOVER */
         .yt-delete:hover { background: #ef4444; transform: scale(1.1); }
-        .yt-info-box { padding: 12px 5px; display: flex; gap: 12px; align-items: flex-start; }
-        .yt-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+        .yt-info-box { padding: 15px 12px; display: flex; gap: 12px; align-items: flex-start; }
+        .yt-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
         .yt-video-title { font-size: 15px; font-weight: 600; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 4px; line-height: 1.3;}
         .yt-channel-name { font-size: 13px; color: #a1a1aa; font-weight: 400; line-height: 1.4;}
 
@@ -203,6 +238,7 @@
         @media (max-width: 768px) {
             .main-content { padding: 20px 15px; }
             .admin-card, .premium-form-card { padding: 20px 15px; border-radius: 16px; }
+            .card-header-large { font-size: 1.15rem; }
             .compact-grid, .charts-grid, .modal-grid { grid-template-columns: 1fr; }
             .chart-box { height: 260px; }
             .modal-content { padding: 20px; max-height: 95svh; width: 98%; }
@@ -288,7 +324,7 @@
                     <div class="filter-row">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchBook" placeholder="Advance Search: Title or Author..." onkeyup="handleFilterChange()">
+                            <input type="text" id="searchBook" placeholder="Search: Title or Author..." onkeyup="handleFilterChange()">
                         </div>
                         <select id="filterLang" class="filter-select" onchange="handleFilterChange()">
                             <option value="All">All Languages</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Bilingual">Bilingual</option>
@@ -325,7 +361,7 @@
             </div>
 
             <div id="sectionTutorials" class="section-container">
-                <div class="premium-form-card">
+                <div class="premium-form-card" style="margin-bottom: 20px;">
                     <div class="card-header"><i class="fas fa-plus-circle"></i> Add Tutorial Video</div>
                     <div class="compact-grid">
                         <div class="compact-group full-width"><input type="url" id="newTutorialUrl" class="compact-input" placeholder="YouTube or Shorts URL"></div>
@@ -335,11 +371,9 @@
                         <button class="btn-compact-submit" onclick="addTutorialLink(this)"><i class="fas fa-upload"></i> Upload Video</button>
                     </div>
                 </div>
-                <div class="admin-card">
-                    <div class="card-header-large"><div class="title-left"><i class="fas fa-list"></i> Manage Tutorials</div></div>
-                    <div id="adminTutorialsGrid" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-                        <div class="empty-state">Loading tutorials...</div>
-                    </div>
+                
+                <div id="adminTutorialsGrid" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; padding-top: 10px;">
+                    <div class="empty-state" style="width: 100%;">Loading tutorials...</div>
                 </div>
             </div>
 
@@ -354,7 +388,7 @@
                 <div class="admin-card">
                     <div class="card-header-large">
                         <div class="title-left"><i class="fas fa-shield-alt"></i> System Activity Logs</div>
-                        <button class="btn-clean" onclick="autoCleanOldLogs(true)"><i class="fas fa-broom"></i> Clean 15-Day Old Logs</button>
+                        <button class="btn-clean-round" onclick="autoCleanOldLogs(true)" title="Clean 15-Day Old Logs"><i class="fas fa-broom"></i></button>
                     </div>
                     <div class="table-responsive">
                         <table class="books-table">
@@ -378,7 +412,7 @@
                     <div class="filter-row">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchUser" placeholder="Advance Search: User Name or Email..." onkeyup="handleUserFilterChange()">
+                            <input type="text" id="searchUser" placeholder="Search: User Name or Email..." onkeyup="handleUserFilterChange()">
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -411,6 +445,21 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="editTutorialModal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" onclick="closeTutorialEditModal()"></i>
+            <div class="card-header-large" style="margin-bottom: 20px;"><div class="title-left"><i class="fas fa-pen"></i> Edit Tutorial</div></div>
+            <form id="editTutorialForm" class="modal-grid">
+                <input type="hidden" id="editTutId"> 
+                <div class="form-group-modal full-width"><label class="compact-label">YouTube/Shorts URL</label><input type="url" id="edTutUrl" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal"><label class="compact-label">Custom Views</label><input type="text" id="edTutViews" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal"><label class="compact-label">Duration</label><input type="text" id="edTutDuration" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal full-width"><label class="compact-label">Channel Avatar Image URL</label><input type="url" id="edTutAvatar" class="form-input-modal" autocomplete="off"></div>
+                <button type="submit" class="btn-modal-submit"><i class="fas fa-save"></i> Save Changes</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         function switchTab(tab) {
             document.querySelectorAll('.section-container').forEach(el => el.classList.remove('active'));
@@ -432,6 +481,8 @@
         }
         
         window.closeEditModal = function() { document.getElementById('editModal').classList.remove('active'); }
+        window.closeTutorialEditModal = function() { document.getElementById('editTutorialModal').classList.remove('active'); }
+
         function togglePassword() {
             const pass = document.getElementById('loginPassword'); const eye = document.getElementById('toggleEye');
             if (pass.type === 'password') { pass.type = 'text'; eye.classList.replace('fa-eye', 'fa-eye-slash'); }
@@ -467,11 +518,10 @@
         const SUPER_ADMIN_EMAIL = "princeyadav000261@gmail.com"; 
         window.IS_SUPER_ADMIN = false;
 
-        let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = []; let filteredUsers = [];
+        let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = []; let filteredUsers = []; let dbTutorials = [];
         let currentPage = 1; const booksPerPage = 10;
         let myLangChart = null; let myActivityChart = null;
 
-        // Auto-Delete Logs
         window.autoCleanOldLogs = async function(manual = false) {
             if(!window.IS_SUPER_ADMIN) return;
             const fifteenDaysAgo = new Date().getTime() - (15 * 24 * 60 * 60 * 1000); 
@@ -487,7 +537,6 @@
             } catch (e) { if(manual) showToast("Cleanup failed: Check Firestore Rules", "error"); console.log(e); }
         }
 
-        /* ==== PROMPTS ==== */
         window.addPrompt = async function(btn) { 
             if(!window.IS_SUPER_ADMIN) return showToast("Super Admin Required!", "error");
             const title = document.getElementById('newPromptTitle').value; const ins = document.getElementById('newPromptInstruction').value; const text = document.getElementById('newPromptText').value;
@@ -498,7 +547,6 @@
         }
         window.deletePrompt = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete prompt?")) { await deleteDoc(doc(db, "prompts", id)); showToast("Deleted!"); } }
 
-        /* ==== TUTORIALS ==== */
         window.addTutorialLink = async function(btn) { 
             if(!window.IS_SUPER_ADMIN) return showToast("Super Admin Required!", "error");
             const url = document.getElementById('newTutorialUrl').value; const views = document.getElementById('newTutorialViews').value || "10K"; const dur = document.getElementById('newTutorialDuration').value || "10:00"; const avatar = document.getElementById('newTutorialAvatar').value || "";
@@ -508,6 +556,32 @@
             btn.innerHTML = originalHTML;
         }
         window.deleteTutorial = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete video?")) { await deleteDoc(doc(db, "tutorials", id)); showToast("Deleted!"); } }
+        
+        window.openTutorialEditModal = function(id) {
+            if(!window.IS_SUPER_ADMIN) return;
+            const tut = dbTutorials.find(x => x.id === id);
+            document.getElementById('editTutId').value = tut.id;
+            document.getElementById('edTutUrl').value = tut.url;
+            document.getElementById('edTutViews').value = tut.views;
+            document.getElementById('edTutDuration').value = tut.duration;
+            document.getElementById('edTutAvatar').value = tut.avatarUrl || "";
+            document.getElementById('editTutorialModal').classList.add('active');
+        }
+
+        document.getElementById('editTutorialForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+            const id = document.getElementById('editTutId').value;
+            try { 
+                await updateDoc(doc(db, "tutorials", id), { 
+                    url: document.getElementById('edTutUrl').value, 
+                    views: document.getElementById('edTutViews').value, 
+                    duration: document.getElementById('edTutDuration').value, 
+                    avatarUrl: document.getElementById('edTutAvatar').value 
+                }); 
+                window.closeTutorialEditModal(); showToast("Tutorial Updated!"); 
+            } catch (e) { showToast("Error", "error"); } 
+            btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
+        });
         
         async function renderTutorialCardAdmin(data, docId) {
             const videoUrl = data.url; const views = data.views || "10K"; const dur = data.duration || "10:00"; const avatar = data.avatarUrl || "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png"; 
@@ -523,6 +597,7 @@
                         <div class="yt-duration">${dur}</div>
                         <div class="yt-action-btns">
                             <button class="yt-action-btn yt-copy" onclick="copyToClipboard('${standardUrl}')" title="Copy Link"><i class="fas fa-copy"></i></button>
+                            <button class="yt-action-btn yt-edit" onclick="openTutorialEditModal('${docId}')" title="Edit"><i class="fas fa-edit"></i></button>
                             <button class="yt-action-btn yt-delete" onclick="deleteTutorial('${docId}')" title="Delete"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
@@ -534,18 +609,15 @@
             document.getElementById('adminTutorialsGrid').innerHTML += cardHTML;
         }
 
-        /* ==== AUTHENTICATION LOGIC (GLITCH-FREE) ==== */
         onAuthStateChanged(auth, async (user) => {
             const loader = document.getElementById('initLoader');
             const authScreen = document.getElementById('authScreen');
             const appWrapper = document.getElementById('appWrapper');
 
-            // 1. Hide Loader
             loader.style.opacity = '0';
             setTimeout(() => { loader.style.display = 'none'; }, 500);
 
             if (user) {
-                // 2. Show App directly
                 authScreen.style.display = 'none';
                 appWrapper.style.display = 'flex';
                 
@@ -574,7 +646,18 @@
                     });
 
                     onSnapshot(query(collection(db, "tutorials"), orderBy("createdAt", "desc")), (snapshot) => {
-                        const grid = document.getElementById('adminTutorialsGrid'); if(grid) { grid.innerHTML = ''; if(snapshot.empty) grid.innerHTML = `<div class="empty-state">No tutorials added yet.</div>`; snapshot.forEach(doc => { renderTutorialCardAdmin(doc.data(), doc.id); }); }
+                        dbTutorials = [];
+                        const grid = document.getElementById('adminTutorialsGrid'); 
+                        if(grid) { 
+                            grid.innerHTML = ''; 
+                            if(snapshot.empty) grid.innerHTML = `<div class="empty-state" style="width:100%;">No tutorials added yet.</div>`; 
+                            snapshot.forEach(doc => { 
+                                let d = doc.data();
+                                d.id = doc.id;
+                                dbTutorials.push(d);
+                                renderTutorialCardAdmin(d, doc.id); 
+                            }); 
+                        }
                     });
                 } else {
                     window.IS_SUPER_ADMIN = false; document.getElementById('roleText').innerText = "Admin";
@@ -584,13 +667,11 @@
                 switchTab('manage'); 
                 onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => { dbBooks = []; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbBooks.push(d); }); window.handleFilterChange(); });
             } else {
-                // 3. Show Login Screen if no user
                 appWrapper.style.display = 'none';
                 authScreen.style.display = 'flex';
             }
         });
 
-        // Exact strict error on login form
         document.getElementById('glassLoginForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
             const btn = document.getElementById('submitBtn'); btn.innerHTML = `Authenticating...`;
