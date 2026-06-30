@@ -20,6 +20,8 @@
             --accent-primary: #8b5cf6; 
             --accent-success: #10b981; 
             --accent-danger: #ef4444; 
+            --accent-info: #3b82f6; 
+            --accent-purple: #8b5cf6; 
         }
 
         ::-webkit-scrollbar { width: 0px !important; height: 0px !important; background: transparent !important; display: none !important; }
@@ -29,76 +31,63 @@
         body::before { content: ''; position: absolute; width: 600px; height: 600px; background: #ffffff; border-radius: 50%; filter: blur(250px); opacity: 0.02; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; }
 
         /* ========================================= */
-        /* --- EXACT LOGIN SCREEN RESTORED --- */
+        /* --- GLITCH-FREE INITIAL LOADER --- */
+        /* ========================================= */
+        #initLoader {
+            position: fixed; inset: 0; z-index: 999999;
+            background: #000000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-logo { width: 90px; height: 90px; border-radius: 20px; object-fit: cover; border: 4px solid #71717a; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255,255,255,0.2); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255,255,255,0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
+
+        /* ========================================= */
+        /* --- PREMIUM LOGIN SCREEN --- */
         /* ========================================= */
         #authScreen {
             position: fixed; inset: 0; z-index: 99999;
             background: linear-gradient(135deg, rgba(15, 15, 25, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: none; /* Hidden by default, controlled by JS */
+            flex-direction: column; justify-content: center; align-items: center;
         }
         .login-wrapper { position: relative; z-index: 10; width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        
         .logo-container { text-align: center; margin-bottom: 25px; width: 100%; }
         .brand-logo { width: 115px; height: 115px; border-radius: 22px; object-fit: cover; margin-bottom: 20px; border: 6px solid #71717a; box-shadow: 0 15px 40px rgba(0,0,0,0.9); transition: transform 0.3s ease; }
         .brand-logo:hover { transform: scale(1.05); }
         .brand-title { font-size: 35px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; text-shadow: 0 4px 15px rgba(0,0,0,0.8); margin-top: 10px; color: #fff;}
         .brand-subtitle { font-size: 14px; letter-spacing: 1px; color: #71717a; margin-top: 10px; text-transform: uppercase; font-weight: 900; white-space: nowrap; width: 100%; }
         
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-radius: 16px; padding: 40px 30px; width: 100%;
-            border-top: 1px solid rgba(255, 255, 255, 0.45); border-left: 1px solid rgba(255, 255, 255, 0.3); border-bottom: 1px solid rgba(255, 255, 255, 0.05); border-right: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.08), inset 0 4px 12px rgba(255, 255, 255, 0.2), 0 30px 60px rgba(0, 0, 0, 0.7);
-            position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .glass-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.25) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-        .glass-card:hover { transform: translateY(-3px); box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.12), inset 0 4px 20px rgba(255, 255, 255, 0.35), 0 40px 75px rgba(0, 0, 0, 0.9); }
-        
+        .glass-card { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 16px; padding: 40px 30px; width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.45); border-left: 1px solid rgba(255, 255, 255, 0.3); border-bottom: 1px solid rgba(255, 255, 255, 0.05); border-right: 1px solid rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.08), inset 0 4px 12px rgba(255, 255, 255, 0.2), 0 30px 60px rgba(0, 0, 0, 0.7); position: relative; overflow: hidden; }
         .form-header { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 22px; font-weight: 600; margin-bottom: 35px; color: #fff; letter-spacing: 1px; }
         .form-header i { color: #00d2ff; font-size: 22px; text-shadow: 0 2px 12px rgba(0, 210, 255, 0.5); }
-        
         .input-group { position: relative; margin-bottom: 25px; z-index: 1; }
         .input-group input { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.4); border-radius: 0; color: #ffffff; font-size: 15px; padding: 10px 25px 10px 0; outline: none; transition: 0.3s ease; }
         .input-group input::placeholder { color: #d4d4d8; font-size: 14px; font-weight: 300; }
         .input-group input:focus { border-bottom-color: #00d2ff; box-shadow: 0 2px 0 0 rgba(0, 210, 255, 0.2); }
-        
         .toggle-password { position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: #a1a1aa; cursor: pointer; transition: 0.2s; z-index: 2;}
-        .toggle-password:hover { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
-        
         .form-actions { display: flex; justify-content: flex-start; align-items: center; font-size: 14px; margin-bottom: 30px; color: #e4e4e7; position: relative; z-index: 1;}
-        .form-actions label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 300; }
-
         .btn-login { position: relative; z-index: 1; width: 100%; background: rgba(255, 255, 255, 0.95); color: #000000; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1); }
         .btn-login:hover { transform: translateY(-2px); background: #ffffff; box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25); }
 
-        @media (max-width: 420px) {
-            .brand-title { font-size: 29px; } 
-            .brand-logo { width: 95px; height: 95px; border: 4px solid #71717a; }
-            .glass-card { padding: 35px 25px; }
-        }
-
-        /* --- APP WRAPPER --- */
+        /* --- MAIN APP WRAPPER --- */
         #appWrapper { display: none; width: 100%; height: 100%; flex-direction: column; position: relative; z-index: 1; }
 
         .app-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(10, 10, 12, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 100; }
         .header-logo { width: 42px; height: 42px; border-radius: 12px; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 4px 10px rgba(0,0,0,0.3); background: #0d0d12; }
         .header-btn { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #fff; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
-        .header-btn:hover { background: rgba(255,255,255,0.1); transform: scale(1.05); }
         .power-btn { color: #ef4444; border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.05); }
         .header-title { font-size: 1.25rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #ffffff; }
 
         .top-nav-tabs { display: flex; gap: 10px; padding: 15px 20px; overflow-x: auto; white-space: nowrap; flex-shrink: 0; border-bottom: 1px solid var(--border-color); background: rgba(15, 15, 18, 0.5); z-index: 99;}
         .tab-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; padding: 10px 18px; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; outline: none; }
-        .tab-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
         .tab-btn.active { background: rgba(139, 92, 246, 0.1); border-color: var(--accent-primary); color: var(--accent-primary); box-shadow: 0 0 15px rgba(139, 92, 246, 0.15); }
 
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; padding: 30px 20px; width: 100%; -webkit-overflow-scrolling: touch; will-change: scroll-position; transform: translateZ(0); }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; padding: 30px 20px; width: 100%; transform: translateZ(0); }
         .section-container { width: 100%; max-width: 1100px; display: none; margin: 0 auto; box-sizing: border-box; }
         .section-container.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Premium Form Cards */
+        /* Cards & Grids */
         .premium-form-card { background: linear-gradient(145deg, rgba(22, 22, 28, 0.85), rgba(12, 12, 16, 0.95)); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); border-top: 1px solid rgba(139, 92, 246, 0.4); border-radius: 18px; padding: 22px 28px; box-shadow: 0 20px 45px rgba(0,0,0,0.6); margin-bottom: 30px; width: 100%; }
         .premium-form-card .card-header { font-size: 1.1rem; font-weight: 700; color: #fff; padding-bottom: 12px; margin-bottom: 18px; border-bottom: 1px dashed rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; }
         .premium-form-card .card-header i { background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); padding: 8px; border-radius: 8px; }
@@ -109,6 +98,7 @@
         .compact-input { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 16px; border-radius: 12px; color: #fff; width: 100%; outline: none;}
         .compact-input:focus { border-color: var(--accent-primary); }
         .btn-compact-submit { grid-column: 1 / -1; background: linear-gradient(135deg, var(--accent-primary), #6d5dfc); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 8px;}
+        select.compact-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a1a1aa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; padding-right: 40px;}
 
         /* Admin Tables */
         .admin-card { background: var(--bg-card); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 28px; padding: 45px; box-shadow: 0 40px 80px rgba(0,0,0,0.8); margin-bottom: 30px; width: 100%; }
@@ -119,16 +109,38 @@
         .search-box { flex: 1; min-width: 250px; position: relative; }
         .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #a1a1aa; }
         .search-box input { width: 100%; background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); padding: 12px 15px 12px 40px; border-radius: 12px; color: #fff; outline: none; }
+        .filter-select { background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; outline: none; padding: 12px 40px 12px 20px !important; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a1a1aa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; }
+
         .table-responsive { overflow-x: auto; margin-top: 10px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); }
         .books-table { width: 100%; border-collapse: collapse; min-width: 600px; text-align: left; }
         .books-table th { background: rgba(255,255,255,0.05); padding: 18px 25px; font-size: 0.85rem; color: #d4d4d8; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .books-table td { padding: 18px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1rem; }
+        .books-table td { padding: 18px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1rem; vertical-align: middle; }
         .table-img { width: 50px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); }
         
         .pagination-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding: 0 10px; }
-        .page-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+        .page-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;}
+        .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .action-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; font-size: 1rem; cursor: pointer; margin-right: 10px; padding: 8px 14px; color: #fff;}
+        .btn-edit:hover { background: #ffffff; color: #000; }
+        .btn-delete:hover { background: var(--accent-danger); border-color: var(--accent-danger); }
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 1.1rem; }
+
+        /* RESTORED: Activity Logs Badges & Recovery */
+        .log-table-img { width: 40px; height: 55px; object-fit: cover; border-radius: 6px; margin-right: 15px;}
+        .log-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;}
+        .log-add { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .log-edit { background: rgba(59, 130, 246, 0.2); color: var(--accent-info); border: 1px solid rgba(59, 130, 246, 0.3); }
+        .log-delete { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .log-restore { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
+        .btn-recover { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 6px 12px; margin-top: 8px; transition: 0.3s; display: inline-block;}
+        .btn-recover:hover { background: #10b981; color: #fff; }
+
+        .log-admin-box { display: flex; align-items: center; gap: 12px; }
+        .log-admin-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2);}
+        .log-admin-name { font-weight: 600; color: #fff; text-transform: uppercase; font-size: 0.9rem;}
+        .log-admin-email { font-size: 0.75rem; color: #a1a1aa; }
+        .btn-clean { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 15px; transition: 0.3s; }
+        .btn-clean:hover { background: #ef4444; color: #fff; }
 
         /* Prompts */
         .telegram-prompt-wrapper { margin-bottom: 15px; display: flex; flex-direction: column; }
@@ -136,43 +148,17 @@
         .telegram-prompt-header { background: rgba(0, 0, 0, 0.3); padding: 10px 15px; font-weight: 600; color: #fff; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .telegram-prompt-body { padding: 12px 15px; color: #a1a1aa; font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; word-break: break-word; }
         
-        /* 🌟 NEW YOUTUBE TUTORIAL CARDS (EXACT YOUTUBE UI + COPY BUTTON) 🌟 */
-        .yt-card { 
-            background: transparent;
-            display: flex; flex-direction: column; 
-            width: 320px; max-width: 100%; 
-            margin-bottom: 25px; 
-            position: relative; overflow: hidden;
-            transition: transform 0.2s;
-        }
+        /* YouTube Tutorial Cards */
+        .yt-card { background: transparent; display: flex; flex-direction: column; width: 320px; max-width: 100%; margin-bottom: 25px; position: relative; overflow: hidden; transition: transform 0.2s; }
         .yt-card:hover { transform: translateY(-3px); }
-        .yt-thumbnail-wrapper { 
-            position: relative; width: 100%; 
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            background: #000; border-radius: 12px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        .yt-thumbnail-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
         .yt-thumbnail-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .yt-duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.85); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 6px; border-radius: 4px; }
-        
-        /* Overlay Action Buttons (Copy, Edit, Delete) */
-        .yt-action-btns { 
-            position: absolute; top: 8px; right: 8px; 
-            display: flex; gap: 8px; z-index: 10; 
-            opacity: 0; transition: opacity 0.3s ease;
-        }
+        .yt-action-btns { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10; opacity: 0; transition: opacity 0.3s ease; }
         .yt-card:hover .yt-action-btns { opacity: 1; }
-        .yt-action-btn { 
-            width: 32px; height: 32px; border: none; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; 
-            cursor: pointer; color: white; font-size: 0.9rem;
-            background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-            transition: all 0.2s;
-        }
+        .yt-action-btn { width: 32px; height: 32px; border: none; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; color: white; font-size: 0.9rem; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); transition: all 0.2s; }
         .yt-copy:hover { background: #10b981; transform: scale(1.1); }
-        .yt-edit:hover { background: #3b82f6; transform: scale(1.1); } 
         .yt-delete:hover { background: #ef4444; transform: scale(1.1); }
-
         .yt-info-box { padding: 12px 5px; display: flex; gap: 12px; align-items: flex-start; }
         .yt-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
         .yt-video-title { font-size: 15px; font-weight: 600; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 4px; line-height: 1.3;}
@@ -183,34 +169,49 @@
         .chart-box { background: rgba(15, 15, 20, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; width: 100%; height: 320px; display: flex; justify-content: center; align-items: center;}
         .canvas-wrapper { position: relative; width: 100%; height: 100%; }
 
-        /* User Stats */
+        /* RESTORED: User Stats & Block System */
         .user-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .stat-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; display: flex; align-items: center; gap: 18px; }
         .stat-card i { font-size: 2rem; padding: 15px; border-radius: 14px; background: rgba(255,255,255,0.05); }
         .stat-card h4 { color: #a1a1aa; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 5px; }
         .stat-card h2 { color: #fff; font-size: 1.8rem; font-weight: 800; line-height: 1; }
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+        .status-active { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); }
+        .status-blocked { background: rgba(239, 68, 68, 0.2); color: var(--accent-danger); }
+        .btn-block, .btn-unblock { border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 12px; margin-top: 5px; width: 100%; transition: 0.3s;}
+        .btn-block { background: rgba(239, 68, 68, 0.15); color: var(--accent-danger); border: 1px solid rgba(239, 68, 68, 0.4); }
+        .btn-block:hover { background: var(--accent-danger); color: #fff;}
+        .btn-unblock { background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.4); }
+        .btn-unblock:hover { background: var(--accent-success); color: #fff;}
 
-        .btn-clean { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 6px 15px; transition: 0.3s; }
-        .btn-clean:hover { background: #ef4444; color: #fff; }
-
-        /* Toast */
-        #toast { position: fixed; bottom: 40px; right: 40px; background: #ffffff; color: #000; padding: 18px 30px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; transform: translateX(150%); transition: 0.4s; z-index: 99999; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
-        #toast.show { transform: translateX(0); }
-
-        /* Modals */
+        /* RESTORED: Full Edit Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; padding: 20px; }
         .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-content { background: linear-gradient(145deg, rgba(25, 25, 30, 0.95), rgba(10, 10, 12, 0.98)); width: 100%; max-width: 800px; border-radius: 28px; border: 1px solid var(--border-glow); padding: 35px; position: relative;}
-        .close-modal { position: absolute; top: 25px; right: 25px; font-size: 1.4rem; color: #a1a1aa; cursor: pointer; }
-        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .modal-content { background: linear-gradient(145deg, rgba(25, 25, 30, 0.95), rgba(10, 10, 12, 0.98)); width: 100%; max-width: 800px; border-radius: 28px; border: 1px solid var(--border-glow); max-height: 90svh; overflow-y: auto; position: relative; padding: 35px; }
+        .close-modal { position: absolute; top: 25px; right: 25px; font-size: 1.4rem; color: #a1a1aa; cursor: pointer; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;}
+        .close-modal:hover { color: #000; background: #fff; transform: rotate(90deg); }
+        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px 25px; }
+        .form-group-modal { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;}
+        .form-group-modal.full-width { grid-column: 1 / -1; }
+        .form-input-modal { background: var(--bg-input); border: 1px solid rgba(255, 255, 255, 0.15); padding: 12px 18px; border-radius: 12px; color: #fff; font-size: 1rem; outline: none; width: 100%; }
+        .form-input-modal:focus { border-color: var(--accent-primary); }
+        .btn-modal-submit { grid-column: 1 / -1; background: linear-gradient(135deg, #ffffff, #d4d4d8); color: #000; border: none; padding: 15px; border-radius: 12px; font-size: 1.05rem; font-weight: 800; cursor: pointer; margin-top: 10px;}
+
+        #toast { position: fixed; bottom: 40px; right: 40px; background: #ffffff; color: #000; padding: 18px 30px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; transform: translateX(150%); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 99999; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        #toast.show { transform: translateX(0); }
 
         @media (max-width: 768px) {
             .main-content { padding: 20px 15px; }
             .admin-card, .premium-form-card { padding: 20px 15px; border-radius: 16px; }
             .compact-grid, .charts-grid, .modal-grid { grid-template-columns: 1fr; }
             .chart-box { height: 260px; }
+            .modal-content { padding: 20px; max-height: 95svh; width: 98%; }
             #toast { right: 20px; bottom: 20px; left: 20px; transform: translateY(150%); justify-content: center;}
             #toast.show { transform: translateY(0); }
+        }
+        @media (max-width: 420px) {
+            .brand-title { font-size: 29px; } 
+            .brand-logo { width: 95px; height: 95px; border: 4px solid #71717a; }
         }
     </style>
 </head>
@@ -218,8 +219,13 @@
 
     <span id="currentAdminName" style="display:none"></span>
     <img id="currentAdminImg" style="display:none">
+    <span id="roleText" style="display:none"></span>
     
     <div id="toast"><i class="fas fa-info-circle"></i> <span id="toastMsg">Action Successful!</span></div>
+
+    <div id="initLoader">
+        <img src="https://i.postimg.cc/cJdGqYHG/IMG-20260524-WA0004.jpg" class="loader-logo" alt="Loading">
+    </div>
 
     <div id="authScreen">
         <div class="login-wrapper">
@@ -266,13 +272,13 @@
                 <div class="premium-form-card">
                     <div class="card-header"><i class="fas fa-pen-nib"></i> Publish New Book</div>
                     <form id="addBookForm" class="compact-grid">
-                        <div class="compact-group"><label class="compact-label">Book Title</label><input type="text" id="inTitle" class="compact-input" required autocomplete="off"></div>
-                        <div class="compact-group"><label class="compact-label">Author Name</label><input type="text" id="inAuthor" class="compact-input" required autocomplete="off"></div>
-                        <div class="compact-group"><label class="compact-label">Publish Year</label><select id="inYear" class="compact-input" required><option value="2024">2024</option><option value="2025">2025</option><option value="2026" selected>2026</option></select></div>
+                        <div class="compact-group"><label class="compact-label">Book Title</label><input type="text" id="inTitle" class="compact-input" placeholder="e.g. Vocab - 15000+" required autocomplete="off"></div>
+                        <div class="compact-group"><label class="compact-label">Author Name</label><input type="text" id="inAuthor" class="compact-input" placeholder="e.g. Neetu Singh" required autocomplete="off"></div>
+                        <div class="compact-group"><label class="compact-label">Publish Year</label><select id="inYear" class="compact-input" required><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026" selected>2026</option><option value="2027">2027</option><option value="2030">2030</option></select></div>
                         <div class="compact-group"><label class="compact-label">Language</label><select id="inLang" class="compact-input"><option value="Hindi">Hindi</option><option value="English">English</option><option value="Bilingual">Bilingual</option></select></div>
-                        <div class="compact-group"><label class="compact-label">Exam Relevance</label><input type="text" id="inExams" class="compact-input" required autocomplete="off"></div>
-                        <div class="compact-group"><label class="compact-label">Cover Image URL</label><input type="url" id="inImage" class="compact-input" required autocomplete="off"></div>
-                        <div class="compact-group full-width"><label class="compact-label">Direct PDF Link</label><input type="url" id="inPdfUrl" class="compact-input" required autocomplete="off"></div>
+                        <div class="compact-group"><label class="compact-label">Exam Relevance</label><input type="text" id="inExams" class="compact-input" placeholder="SSC, BPSC, RRB" required autocomplete="off"></div>
+                        <div class="compact-group"><label class="compact-label">Cover Image URL</label><input type="url" id="inImage" class="compact-input" placeholder="https://..." required autocomplete="off"></div>
+                        <div class="compact-group full-width"><label class="compact-label">Direct PDF Link</label><input type="url" id="inPdfUrl" class="compact-input" placeholder="Google Drive Link" required autocomplete="off"></div>
                         <button type="submit" id="publishBtn" class="btn-compact-submit"><i class="fas fa-cloud-upload-alt"></i> Publish Book</button>
                     </form>
                 </div>
@@ -282,8 +288,11 @@
                     <div class="filter-row">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="searchBook" placeholder="Search Title or Author..." onkeyup="handleFilterChange()">
+                            <input type="text" id="searchBook" placeholder="Advance Search: Title or Author..." onkeyup="handleFilterChange()">
                         </div>
+                        <select id="filterLang" class="filter-select" onchange="handleFilterChange()">
+                            <option value="All">All Languages</option><option value="Hindi">Hindi</option><option value="English">English</option><option value="Bilingual">Bilingual</option>
+                        </select>
                     </div>
                     <div class="table-responsive">
                         <table class="books-table">
@@ -303,8 +312,8 @@
                 <div class="premium-form-card">
                     <div class="card-header"><i class="fas fa-plus-circle"></i> Add New Prompt</div>
                     <div class="compact-grid">
-                        <div class="compact-group full-width"><input type="text" id="newPromptTitle" class="compact-input" placeholder="Prompt Title"></div>
-                        <div class="compact-group full-width"><textarea id="newPromptInstruction" class="compact-input" placeholder="Instructions" rows="2"></textarea></div>
+                        <div class="compact-group full-width"><input type="text" id="newPromptTitle" class="compact-input" placeholder="Prompt Title (e.g. Important)"></div>
+                        <div class="compact-group full-width"><textarea id="newPromptInstruction" class="compact-input" placeholder="Instructions (e.g. 1. Copy code)" rows="2"></textarea></div>
                         <div class="compact-group full-width"><textarea id="newPromptText" class="compact-input" placeholder="Paste prompt text..." rows="3"></textarea></div>
                         <button class="btn-compact-submit" onclick="addPrompt(this)"><i class="fas fa-save"></i> Save Prompt</button>
                     </div>
@@ -322,7 +331,7 @@
                         <div class="compact-group full-width"><input type="url" id="newTutorialUrl" class="compact-input" placeholder="YouTube or Shorts URL"></div>
                         <div class="compact-group"><input type="text" id="newTutorialViews" class="compact-input" placeholder="Custom Views (e.g. 1.2M)"></div>
                         <div class="compact-group"><input type="text" id="newTutorialDuration" class="compact-input" placeholder="Duration (e.g. 12:05)"></div>
-                        <div class="compact-group full-width"><input type="url" id="newTutorialAvatar" class="compact-input" placeholder="Channel Avatar Image URL"></div>
+                        <div class="compact-group full-width"><input type="url" id="newTutorialAvatar" class="compact-input" placeholder="Channel Avatar Image URL (Optional)"></div>
                         <button class="btn-compact-submit" onclick="addTutorialLink(this)"><i class="fas fa-upload"></i> Upload Video</button>
                     </div>
                 </div>
@@ -349,7 +358,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="books-table">
-                            <thead><tr><th>Action</th><th>File / Book</th><th>Admin</th><th>Date</th></tr></thead>
+                            <thead><tr><th>Action Taken</th><th>Modified File / Book</th><th>Admin Authority</th><th>Date & Recovery</th></tr></thead>
                             <tbody id="logsTableBody"><tr><td colspan="4" class="empty-state">Loading Activity Logs...</td></tr></tbody>
                         </table>
                     </div>
@@ -358,15 +367,23 @@
 
             <div id="sectionUsers" class="section-container">
                 <div class="admin-card">
-                    <div class="card-header-large"><div class="title-left"><i class="fas fa-users-shield"></i> Live Users Tracking</div></div>
+                    <div class="card-header-large"><div class="title-left"><i class="fas fa-users-shield"></i> User Access Management</div></div>
+                    
                     <div class="user-stats-grid">
                         <div class="stat-card"><i class="fas fa-users" style="color:#3b82f6;"></i><div class="stat-info"><h4>Total Logins</h4><h2 id="statTotalUsers">0</h2></div></div>
                         <div class="stat-card"><i class="fas fa-user-check" style="color:#10b981;"></i><div class="stat-info"><h4>Active Valid</h4><h2 id="statActiveUsers">0</h2></div></div>
-                        <div class="stat-card" style="border-color:rgba(239, 68, 68, 0.2);"><i class="fas fa-user-slash" style="color:#ef4444; background:rgba(239, 68, 68, 0.1);"></i><div class="stat-info"><h4>Deleted</h4><h2 id="statInvalidUsers">0</h2></div></div>
+                        <div class="stat-card" style="border-color:rgba(239, 68, 68, 0.2);"><i class="fas fa-user-slash" style="color:#ef4444; background:rgba(239, 68, 68, 0.1);"></i><div class="stat-info"><h4>Deleted / Invalid</h4><h2 id="statInvalidUsers">0</h2></div></div>
+                    </div>
+
+                    <div class="filter-row">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchUser" placeholder="Advance Search: User Name or Email..." onkeyup="handleUserFilterChange()">
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="books-table">
-                            <thead><tr><th>Profile</th><th>User Details</th><th>Status</th></tr></thead>
+                            <thead><tr><th>Profile</th><th>User Details</th><th>Status & Action</th></tr></thead>
                             <tbody id="usersTableBody"><tr><td colspan="3" class="empty-state">Fetching live users...</td></tr></tbody>
                         </table>
                     </div>
@@ -380,13 +397,16 @@
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeEditModal()"></i>
             <div class="card-header-large" style="margin-bottom: 20px;"><div class="title-left"><i class="fas fa-pen"></i> Edit Vault Record</div></div>
-            <form id="editBookForm" style="display:flex; flex-direction:column; gap:15px;">
+            <form id="editBookForm" class="modal-grid">
                 <input type="hidden" id="editDocId"> 
-                <input type="text" id="edTitle" class="form-input-modal" required placeholder="Book Title">
-                <input type="url" id="edImage" class="form-input-modal" required placeholder="Cover Image URL">
-                <input type="text" id="edAuthor" class="form-input-modal" required placeholder="Author Name">
-                <input type="url" id="edPdfUrl" class="form-input-modal" required placeholder="Direct PDF Link">
-                <button type="submit" class="btn-compact-submit" style="margin-top:10px;"><i class="fas fa-save"></i> Save Changes</button>
+                <div class="form-group-modal full-width"><label class="compact-label">Book Title</label><input type="text" id="edTitle" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal full-width"><label class="compact-label">Cover Image URL</label><input type="url" id="edImage" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal"><label class="compact-label">Author Name</label><input type="text" id="edAuthor" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal"><label class="compact-label">Publish Year</label><select id="edYear" class="form-input-modal" required><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2030">2030</option></select></div>
+                <div class="form-group-modal"><label class="compact-label">Language</label><select id="edLang" class="form-input-modal filter-select"><option value="Hindi">Hindi</option><option value="English">English</option><option value="Bilingual">Bilingual</option></select></div>
+                <div class="form-group-modal"><label class="compact-label">Exam Relevance</label><input type="text" id="edExams" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal full-width"><label class="compact-label">Direct PDF Link</label><input type="url" id="edPdfUrl" class="form-input-modal" required autocomplete="off"></div>
+                <button type="submit" class="btn-modal-submit"><i class="fas fa-save"></i> Save Changes</button>
             </form>
         </div>
     </div>
@@ -405,7 +425,8 @@
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast'); document.getElementById('toastMsg').innerText = message;
             const icon = toast.querySelector('i');
-            if(type === 'error' || message.includes("Invalid")) { toast.style.background = "#ef4444"; toast.style.color = "#fff"; icon.className = "fas fa-exclamation-circle"; } 
+            if(type === 'error' || message.includes("Invalid") || message.includes("Error")) { toast.style.background = "#ef4444"; toast.style.color = "#fff"; icon.className = "fas fa-exclamation-circle"; } 
+            else if (message.includes("Restored") || message.includes("Updated")) { toast.style.background = "#3b82f6"; toast.style.color = "#fff"; icon.className = "fas fa-info-circle"; }
             else { toast.style.background = "#10b981"; toast.style.color = "#fff"; icon.className = "fas fa-check-circle"; }
             toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 3500);
         }
@@ -416,7 +437,6 @@
             if (pass.type === 'password') { pass.type = 'text'; eye.classList.replace('fa-eye', 'fa-eye-slash'); }
             else { pass.type = 'password'; eye.classList.replace('fa-eye-slash', 'fa-eye'); }
         }
-        
         window.copyToClipboard = function(text) {
             navigator.clipboard.writeText(text).then(() => { showToast("Link Copied to Clipboard!"); })
             .catch(err => { showToast("Failed to copy link", "error"); });
@@ -443,14 +463,15 @@
 
         let CURRENT_ADMIN_NAME = "USER"; 
         let CURRENT_ADMIN_EMAIL = "";
+        let CURRENT_ADMIN_PHOTO = "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
         const SUPER_ADMIN_EMAIL = "princeyadav000261@gmail.com"; 
         window.IS_SUPER_ADMIN = false;
 
-        let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = []; 
+        let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = []; let filteredUsers = [];
         let currentPage = 1; const booksPerPage = 10;
         let myLangChart = null; let myActivityChart = null;
 
-        // Force Auto-Delete Function (Can be clicked manually now)
+        // Auto-Delete Logs
         window.autoCleanOldLogs = async function(manual = false) {
             if(!window.IS_SUPER_ADMIN) return;
             const fifteenDaysAgo = new Date().getTime() - (15 * 24 * 60 * 60 * 1000); 
@@ -466,22 +487,28 @@
             } catch (e) { if(manual) showToast("Cleanup failed: Check Firestore Rules", "error"); console.log(e); }
         }
 
-        /* ==== PROMPT & TUTORIAL LOGIC ==== */
-        window.addPrompt = async function(btn) { if(!window.IS_SUPER_ADMIN) return;
+        /* ==== PROMPTS ==== */
+        window.addPrompt = async function(btn) { 
+            if(!window.IS_SUPER_ADMIN) return showToast("Super Admin Required!", "error");
             const title = document.getElementById('newPromptTitle').value; const ins = document.getElementById('newPromptInstruction').value; const text = document.getElementById('newPromptText').value;
             if(!title || !text) return showToast("Fields required!", "error");
-            try { await addDoc(collection(db, "prompts"), { title: title.trim(), instruction: ins.trim(), text: text.trim(), createdAt: new Date().getTime() }); showToast("Prompt Added!"); } catch(e) { showToast("Error", "error"); }
+            const originalHTML = btn.innerHTML; btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+            try { await addDoc(collection(db, "prompts"), { title: title.trim(), instruction: ins.trim(), text: text.trim(), createdAt: new Date().getTime() }); showToast("Prompt Added!"); document.getElementById('newPromptTitle').value = ''; document.getElementById('newPromptInstruction').value = ''; document.getElementById('newPromptText').value = ''; } catch(e) { showToast("Error", "error"); }
+            btn.innerHTML = originalHTML;
         }
         window.deletePrompt = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete prompt?")) { await deleteDoc(doc(db, "prompts", id)); showToast("Deleted!"); } }
 
-        window.addTutorialLink = async function(btn) { if(!window.IS_SUPER_ADMIN) return;
+        /* ==== TUTORIALS ==== */
+        window.addTutorialLink = async function(btn) { 
+            if(!window.IS_SUPER_ADMIN) return showToast("Super Admin Required!", "error");
             const url = document.getElementById('newTutorialUrl').value; const views = document.getElementById('newTutorialViews').value || "10K"; const dur = document.getElementById('newTutorialDuration').value || "10:00"; const avatar = document.getElementById('newTutorialAvatar').value || "";
             if(!url) return showToast("URL required!", "error");
-            try { await addDoc(collection(db, "tutorials"), { url, views, duration: dur, avatarUrl: avatar, createdAt: new Date().getTime() }); showToast("Video Added!"); } catch(e) { showToast("Error", "error"); }
+            const originalHTML = btn.innerHTML; btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
+            try { await addDoc(collection(db, "tutorials"), { url, views, duration: dur, avatarUrl: avatar, createdAt: new Date().getTime() }); showToast("Video Added!"); document.getElementById('newTutorialUrl').value = ''; document.getElementById('newTutorialViews').value = ''; document.getElementById('newTutorialDuration').value = ''; document.getElementById('newTutorialAvatar').value = '';} catch(e) { showToast("Error", "error"); }
+            btn.innerHTML = originalHTML;
         }
         window.deleteTutorial = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete video?")) { await deleteDoc(doc(db, "tutorials", id)); showToast("Deleted!"); } }
         
-        // Exact YouTube Card Rendering
         async function renderTutorialCardAdmin(data, docId) {
             const videoUrl = data.url; const views = data.views || "10K"; const dur = data.duration || "10:00"; const avatar = data.avatarUrl || "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png"; 
             const videoIdMatch = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtube\.com\/shorts\/)([^"&?\/\s]{11})/i);
@@ -501,52 +528,65 @@
                     </div>
                     <div class="yt-info-box">
                         <img src="${avatar}" class="yt-avatar">
-                        <div>
-                            <div class="yt-video-title">${title}</div>
-                            <div class="yt-channel-name">${channel} • ${views} views</div>
-                        </div>
+                        <div><div class="yt-video-title">${title}</div><div class="yt-channel-name">${channel} • ${views} views</div></div>
                     </div>
                 </div>`;
             document.getElementById('adminTutorialsGrid').innerHTML += cardHTML;
         }
 
-        // Live Users Observer logic
+        /* ==== AUTHENTICATION LOGIC (GLITCH-FREE) ==== */
         onAuthStateChanged(auth, async (user) => {
+            const loader = document.getElementById('initLoader');
+            const authScreen = document.getElementById('authScreen');
+            const appWrapper = document.getElementById('appWrapper');
+
+            // 1. Hide Loader
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+
             if (user) {
-                document.getElementById('authScreen').style.display = 'none';
-                document.getElementById('appWrapper').style.display = 'flex';
-                CURRENT_ADMIN_NAME = user.email.split('@')[0]; CURRENT_ADMIN_EMAIL = user.email;
+                // 2. Show App directly
+                authScreen.style.display = 'none';
+                appWrapper.style.display = 'flex';
+                
+                CURRENT_ADMIN_NAME = user.displayName ? user.displayName : user.email.split('@')[0]; CURRENT_ADMIN_EMAIL = user.email;
+                if(user.photoURL) { CURRENT_ADMIN_PHOTO = user.photoURL; }
+                document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME; document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
 
                 if(user.email === SUPER_ADMIN_EMAIL) {
-                    window.IS_SUPER_ADMIN = true; autoCleanOldLogs(false);
+                    window.IS_SUPER_ADMIN = true; document.getElementById('roleText').innerText = "Super Admin";
+                    autoCleanOldLogs(false);
                     document.getElementById('navManage').style.display = 'flex'; document.getElementById('navPrompts').style.display = 'flex'; document.getElementById('navTutorials').style.display = 'flex'; document.getElementById('navAnalytics').style.display = 'flex'; document.getElementById('navUsers').style.display = 'flex'; 
 
                     onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc"), limit(100)), (snapshot) => { dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs(); });
                     
-                    // Unrestricted Live Database Listener for Users
-                    onSnapshot(collection(db, "users"), (snapshot) => { dbUsers = []; snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); document.getElementById('statTotalUsers').innerText = dbUsers.length; renderUsersTable(); });
+                    onSnapshot(collection(db, "users"), (snapshot) => { dbUsers = []; snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); window.handleUserFilterChange(); window.updateLiveUserStats(); });
                     
                     onSnapshot(query(collection(db, "prompts"), orderBy("createdAt", "asc")), (snapshot) => {
                         const container = document.getElementById('promptsContainer'); container.innerHTML = '';
+                        if(snapshot.empty) container.innerHTML = `<div class="empty-state">No prompts added yet.</div>`;
                         snapshot.forEach(doc => {
                             const data = doc.data(); const id = doc.id;
-                            container.innerHTML += `<div class="telegram-prompt-wrapper"><div class="telegram-prompt-card"><div class="telegram-prompt-header">${data.title} <button onclick="deletePrompt('${id}')" style="background:transparent; border:none; color:#ef4444; cursor:pointer;"><i class="fas fa-trash"></i></button></div><div class="telegram-prompt-body">${data.text}</div></div></div>`;
+                            const safeText = data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;"); const safeInstruction = data.instruction ? data.instruction.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
+                            let instructionHTML = ''; if(safeInstruction) { instructionHTML = `<div style="color: #ffffff; font-weight: 600; font-size: 13px; margin-bottom: 6px; margin-left: 2px; line-height: 1.5;">${safeInstruction}</div>`; }
+                            container.innerHTML += `<div class="telegram-prompt-wrapper">${instructionHTML}<div class="telegram-prompt-card"><div class="telegram-prompt-header">${data.title} <button onclick="deletePrompt('${id}')" style="background:transparent; border:none; color:#ef4444; cursor:pointer;"><i class="fas fa-trash"></i></button></div><div class="telegram-prompt-body">${safeText}</div></div></div>`;
                         });
                     });
 
                     onSnapshot(query(collection(db, "tutorials"), orderBy("createdAt", "desc")), (snapshot) => {
-                        const grid = document.getElementById('adminTutorialsGrid'); if(grid) { grid.innerHTML = ''; snapshot.forEach(doc => { renderTutorialCardAdmin(doc.data(), doc.id); }); }
+                        const grid = document.getElementById('adminTutorialsGrid'); if(grid) { grid.innerHTML = ''; if(snapshot.empty) grid.innerHTML = `<div class="empty-state">No tutorials added yet.</div>`; snapshot.forEach(doc => { renderTutorialCardAdmin(doc.data(), doc.id); }); }
                     });
                 } else {
-                    window.IS_SUPER_ADMIN = false;
+                    window.IS_SUPER_ADMIN = false; document.getElementById('roleText').innerText = "Admin";
                     document.getElementById('navManage').style.display = 'flex'; document.getElementById('navPrompts').style.display = 'none'; document.getElementById('navTutorials').style.display = 'none'; document.getElementById('navAnalytics').style.display = 'none'; document.getElementById('navUsers').style.display = 'none'; 
                 }
                 
                 switchTab('manage'); 
                 onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => { dbBooks = []; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbBooks.push(d); }); window.handleFilterChange(); });
             } else {
-                document.getElementById('appWrapper').style.display = 'none';
-                document.getElementById('authScreen').style.display = 'flex';
+                // 3. Show Login Screen if no user
+                appWrapper.style.display = 'none';
+                authScreen.style.display = 'flex';
             }
         });
 
@@ -559,56 +599,106 @@
             btn.innerHTML = `Log In`; 
         });
 
-        document.getElementById('headerLogoutBtn').addEventListener('click', () => { if(confirm("Are you sure you want to exit?")) { signOut(auth); } });
+        document.getElementById('headerLogoutBtn').addEventListener('click', () => { if(confirm("Are you sure you want to exit and logout?")) { signOut(auth).catch(() => {}); } });
 
-        async function logActivity(action, bookTitle, imageUrl = "") { 
-            try { await addDoc(collection(db, "activity_logs"), { action, bookTitle, image: imageUrl, adminName: CURRENT_ADMIN_NAME, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB') }); } catch(e) {} 
+        async function logActivity(action, bookTitle, imageUrl = "", deletedData = null) { 
+            try { await addDoc(collection(db, "activity_logs"), { action, bookTitle, image: imageUrl, deletedData, adminName: CURRENT_ADMIN_NAME, adminEmail: CURRENT_ADMIN_EMAIL, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) {} 
+        }
+        window.recoverBook = async function(logId) {
+            if(!window.IS_SUPER_ADMIN) return; const log = dbLogs.find(l => l.id === logId);
+            if(!log || !log.deletedData) return showToast("Recovery data missing.", "error");
+            if(confirm(`Recover "${log.bookTitle}"?`)) { try { await setDoc(doc(db, "books", log.deletedData.id), log.deletedData); await logActivity("RESTORE", log.bookTitle, log.image); showToast("Restored!"); } catch(e) { showToast("Error", "error"); } }
         }
 
         window.handleFilterChange = function() { 
-            currentPage = 1; const search = document.getElementById('searchBook') ? document.getElementById('searchBook').value.toLowerCase() : ""; 
-            filteredBooks = dbBooks.filter(b => (b.title || "").toLowerCase().includes(search) || (b.author || "").toLowerCase().includes(search)); 
+            currentPage = 1; const search = document.getElementById('searchBook') ? document.getElementById('searchBook').value.toLowerCase().replace(/\s+/g, '') : ""; 
+            const langFilter = document.getElementById('filterLang') ? document.getElementById('filterLang').value : "All";
+            filteredBooks = dbBooks.filter(b => {
+                const matchSearch = (b.title || "").toLowerCase().replace(/\s+/g, '').includes(search) || (b.author || "").toLowerCase().replace(/\s+/g, '').includes(search);
+                const matchLang = langFilter === "All" || b.lang === langFilter;
+                return matchSearch && matchLang;
+            }); 
             renderBooks(); updateCharts(); 
         }
 
         window.changePage = function(direction) { currentPage += direction; renderBooks(); }
 
         document.getElementById('addBookForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); const btn = document.getElementById('publishBtn'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Publishing...`;
-            const newBook = { title: document.getElementById('inTitle').value, author: document.getElementById('inAuthor').value, image: document.getElementById('inImage').value, year: document.getElementById('inYear').value, lang: document.getElementById('inLang').value, exams: document.getElementById('inExams').value, pdfLink: document.getElementById('inPdfUrl').value, createdAt: new Date().getTime() };
-            try { await addDoc(collection(db, "books"), newBook); await logActivity("ADD", newBook.title, newBook.image); showToast("Published!"); e.target.reset(); } catch (e) { showToast("Error", "error"); } btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Publish Book`;
+            e.preventDefault(); const btn = document.getElementById('publishBtn'); const originalText = btn.innerHTML;
+            const pdfUrlInput = document.getElementById('inPdfUrl').value;
+            if (!window.IS_SUPER_ADMIN) { if (!pdfUrlInput.includes('drive.google.com')) { showToast("Error: You can only upload Google Drive links!", "error"); return; } }
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Publishing...`; btn.disabled = true;
+            const newBook = { title: document.getElementById('inTitle').value, author: document.getElementById('inAuthor').value, image: document.getElementById('inImage').value, year: document.getElementById('inYear').value, lang: document.getElementById('inLang').value, exams: document.getElementById('inExams').value, pdfLink: pdfUrlInput, dateAdded: new Date().toLocaleDateString('en-GB').toUpperCase(), createdAt: new Date().getTime() };
+            try { await addDoc(collection(db, "books"), newBook); await logActivity("ADD", newBook.title, newBook.image); showToast("Published!"); e.target.reset(); } catch (e) { showToast("Error", "error"); } finally { btn.innerHTML = originalText; btn.disabled = false; }
         });
 
         function renderBooks() {
-            const tbody = document.getElementById('booksTableBody'); const startIdx = (currentPage - 1) * booksPerPage; const paginated = filteredBooks.slice(startIdx, startIdx + booksPerPage);
+            if(!document.getElementById('booksTableBody')) return; const tbody = document.getElementById('booksTableBody'); 
+            const totalPages = Math.ceil(filteredBooks.length / booksPerPage) || 1; document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${totalPages}`; document.getElementById('prevPageBtn').disabled = currentPage === 1; document.getElementById('nextPageBtn').disabled = currentPage === totalPages;
+            const startIdx = (currentPage - 1) * booksPerPage; const paginated = filteredBooks.slice(startIdx, startIdx + booksPerPage);
             if (paginated.length === 0) { tbody.innerHTML = `<tr><td colspan="3" class="empty-state">No records found.</td></tr>`; return; }
-            let html = ""; paginated.forEach(b => { html += `<tr><td><img src="${b.image}" class="table-img"></td><td><strong style="color:#fff; display:block;">${b.title}</strong><span style="font-size:0.85rem; color:#a1a1aa;">${b.author} | ${b.year}</span></td><td><button class="action-btn btn-edit" onclick="openEditModal('${b.id}')"><i class="fas fa-edit"></i></button><button class="action-btn btn-delete" onclick="deleteBook('${b.id}')"><i class="fas fa-trash-alt"></i></button></td></tr>`; }); tbody.innerHTML = html;
+            let html = ""; paginated.forEach(b => { html += `<tr><td><img src="${b.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td><td><strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${b.title}</strong><span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib"></i> ${b.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${b.year}</span></td><td><button class="action-btn btn-edit" onclick="openEditModal('${b.id}')"><i class="fas fa-edit"></i></button><button class="action-btn btn-delete" onclick="deleteBook('${b.id}', '${b.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button></td></tr>`; }); tbody.innerHTML = html;
         }
 
-        window.deleteBook = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete?")) { try { await deleteDoc(doc(db, "books", id)); await logActivity("DELETE", "Book Removed"); showToast("Deleted!"); } catch(e) {} } }
-        window.openEditModal = function(id) { if(!window.IS_SUPER_ADMIN) return; const b = dbBooks.find(x => x.id === id); document.getElementById('editDocId').value = b.id; document.getElementById('edTitle').value = b.title; document.getElementById('edImage').value = b.image; document.getElementById('edAuthor').value = b.author; document.getElementById('edPdfUrl').value = b.pdfLink; document.getElementById('editModal').classList.add('active'); }
+        window.deleteBook = async function(id, title) { if(window.IS_SUPER_ADMIN && confirm(`Delete "${title}"?`)) { const b = dbBooks.find(x => x.id === id); try { await deleteDoc(doc(db, "books", id)); await logActivity("DELETE", title, b.image, b); showToast("Deleted!"); } catch(e) {} } }
+        window.openEditModal = function(id) { if(!window.IS_SUPER_ADMIN) return; const b = dbBooks.find(x => x.id === id); document.getElementById('editDocId').value = b.id; document.getElementById('edTitle').value = b.title; document.getElementById('edAuthor').value = b.author; document.getElementById('edYear').value = b.year; document.getElementById('edLang').value = b.lang; document.getElementById('edExams').value = b.exams; document.getElementById('edImage').value = b.image; document.getElementById('edPdfUrl').value = b.pdfLink; document.getElementById('editModal').classList.add('active'); }
         
         document.getElementById('editBookForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); const id = document.getElementById('editDocId').value;
-            try { await updateDoc(doc(db, "books", id), { title: document.getElementById('edTitle').value, image: document.getElementById('edImage').value, author: document.getElementById('edAuthor').value, pdfLink: document.getElementById('edPdfUrl').value }); closeEditModal(); showToast("Updated!"); } catch (e) {}
+            e.preventDefault(); const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+            const id = document.getElementById('editDocId').value; const updatedTitle = document.getElementById('edTitle').value; const updatedImage = document.getElementById('edImage').value;
+            try { await updateDoc(doc(db, "books", id), { title: updatedTitle, author: document.getElementById('edAuthor').value, image: updatedImage, year: document.getElementById('edYear').value, lang: document.getElementById('edLang').value, exams: document.getElementById('edExams').value, pdfLink: document.getElementById('edPdfUrl').value }); await logActivity("EDIT", updatedTitle, updatedImage); closeEditModal(); showToast("Updated!"); } catch (e) {} btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
 
         function updateCharts() {
             if(!window.IS_SUPER_ADMIN || !document.getElementById('langChart')) return;
             const langCounts = { 'Hindi': 0, 'English': 0, 'Bilingual': 0 }; dbBooks.forEach(b => { if(langCounts[b.lang] !== undefined) langCounts[b.lang]++; });
             Chart.defaults.color = '#a1a1aa'; Chart.defaults.font.family = 'Outfit';
-            if(myLangChart) myLangChart.destroy(); myLangChart = new Chart(document.getElementById('langChart'), { type: 'doughnut', data: { labels: ['Hindi', 'English', 'Bilingual'], datasets: [{ data: [langCounts.Hindi, langCounts.English, langCounts.Bilingual], backgroundColor: ['#ef4444', '#3b82f6', '#8b5cf6'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '75%' } });
+            if(myLangChart) myLangChart.destroy(); myLangChart = new Chart(document.getElementById('langChart'), { type: 'doughnut', data: { labels: ['Hindi', 'English', 'Bilingual'], datasets: [{ data: [langCounts.Hindi, langCounts.English, langCounts.Bilingual], backgroundColor: ['#ef4444', '#3b82f6', '#8b5cf6'], borderColor: 'rgba(255,255,255,0.05)', borderWidth: 2, hoverOffset: 5 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#fff', padding: 15 } }, title: { display: true, text: 'Books by Language', color: '#fff', font: { size: 16 }, padding: {bottom: 15} } }, cutout: '75%' } });
+            
+            let last7Labels = []; let last7Data = [0, 0, 0, 0, 0, 0, 0]; let todayDate = new Date(); todayDate.setHours(0,0,0,0); 
+            for(let i = 6; i >= 0; i--) { let tempDate = new Date(todayDate); tempDate.setDate(todayDate.getDate() - i); last7Labels.push(tempDate.toLocaleDateString('en-US', {weekday: 'short'})); }
+            dbBooks.forEach(b => { if(b.createdAt) { let bDate = new Date(b.createdAt); bDate.setHours(0,0,0,0); let diff = Math.round((todayDate - bDate) / (1000 * 60 * 60 * 24)); if(diff >= 0 && diff <= 6) last7Data[6 - diff]++; } });
+            if(myActivityChart) myActivityChart.destroy(); myActivityChart = new Chart(document.getElementById('activityChart'), { type: 'bar', data: { labels: last7Labels, datasets: [{ label: 'Books Added', data: last7Data, backgroundColor: 'rgba(16, 185, 129, 0.8)', hoverBackgroundColor: '#10b981', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, title: { display: true, text: 'Real-time Vault Uploads', color: '#fff', font: { size: 16 }, padding: {bottom: 15} } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false }, ticks: { font: { size: 11 }, stepSize: 1 } }, x: { grid: { display: false, drawBorder: false }, ticks: { font: { size: 11 } } } } } });
         }
 
         function renderLogs() {
             const tbody = document.getElementById('logsTableBody'); if (dbLogs.length === 0) { tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No activity tracked.</td></tr>`; return; }
-            let html = ""; dbLogs.forEach(log => { html += `<tr><td style="color:#a1a1aa;">${log.action}</td><td><strong style="color:#fff;">${log.bookTitle}</strong></td><td style="color:#8b5cf6;">${log.adminName}</td><td style="font-size:0.85rem; color:#71717a;">${log.dateStr}</td></tr>`; }); tbody.innerHTML = html;
+            let html = ""; dbLogs.forEach(log => {
+                let badge = ''; let recoveryBtn = '';
+                if(log.action === 'ADD') { badge = `<span class="log-badge log-add"><i class="fas fa-plus"></i> Uploaded</span>`; } else if(log.action === 'EDIT') { badge = `<span class="log-badge log-edit"><i class="fas fa-pen"></i> Modified</span>`; } else if(log.action === 'DELETE') { badge = `<span class="log-badge log-delete"><i class="fas fa-trash"></i> Deleted</span>`; if(log.deletedData) { recoveryBtn = `<br><button class="btn-recover" onclick="recoverBook('${log.id}')"><i class="fas fa-undo"></i> Recover Vault</button>`; } } else if (log.action === 'RESTORE') { badge = `<span class="log-badge log-restore"><i class="fas fa-trash-restore"></i> Restored</span>`; }
+                let img = log.image ? `<img src="${log.image}" class="log-table-img">` : ''; let avatar = log.adminPhoto ? log.adminPhoto : "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png"; let emailDisplay = log.adminEmail ? `<div class="log-admin-email">${log.adminEmail}</div>` : '';
+                html += `<tr><td>${badge}</td><td style="display:flex; align-items:center;">${img}<span style="color:#fff; font-weight:500; font-size:1.05rem;">${log.bookTitle}</span></td><td><div class="log-admin-box"><img src="${avatar}" class="log-admin-avatar"><div style="display:flex; flex-direction:column;"><span class="log-admin-name">${log.adminName}</span>${emailDisplay}</div></div></td><td><div style="color:#a1a1aa; font-size:0.9rem;"><i class="far fa-clock" style="margin-right:5px;"></i> ${log.dateStr}</div>${recoveryBtn}</td></tr>`;
+            }); tbody.innerHTML = html;
+        }
+
+        window.updateLiveUserStats = function() {
+            if(!document.getElementById('statTotalUsers')) return; const total = dbUsers.length; const invalid = dbUsers.filter(u => !u.email || u.email === 'undefined' || !u.name || u.name === 'undefined').length; const active = total - invalid;
+            document.getElementById('statTotalUsers').innerText = total; document.getElementById('statActiveUsers').innerText = active; document.getElementById('statInvalidUsers').innerText = invalid;
+        }
+
+        window.handleUserFilterChange = function() {
+            const search = document.getElementById('searchUser') ? document.getElementById('searchUser').value.toLowerCase().replace(/\s+/g, '') : "";
+            filteredUsers = dbUsers.filter(u => (u.name || "").toLowerCase().replace(/\s+/g, '').includes(search) || (u.email || "").toLowerCase().replace(/\s+/g, '').includes(search));
+            renderUsersTable();
         }
 
         function renderUsersTable() {
-            const tbody = document.getElementById('usersTableBody'); if (dbUsers.length === 0) return;
-            let html = ""; dbUsers.forEach(u => { html += `<tr><td><img src="${u.photo || 'https://via.placeholder.com/45'}" style="width:40px; height:40px; border-radius:50%;"></td><td><strong style="color:#fff; display:block;">${u.name || 'Unknown'}</strong><span style="font-size:0.8rem; color:#a1a1aa;">${u.email}</span></td><td><span style="color:#10b981;">Active</span></td></tr>`; }); tbody.innerHTML = html;
+            const tbody = document.getElementById('usersTableBody'); if (filteredUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="3" class="empty-state">No users found.</td></tr>`; return; }
+            let html = ""; filteredUsers.forEach(u => {
+                const isSuper = u.email === SUPER_ADMIN_EMAIL || u.role === "Super Admin"; const isCorrupted = !u.email || u.email === 'undefined' || !u.name || u.name === 'undefined';
+                let statusBadge = ""; let actionBtn = ""; let userDisplay = ""; let imgDisplay = "";
+                if (isCorrupted) {
+                    imgDisplay = `<div style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); background:#1a1a24; display:flex; align-items:center; justify-content:center;"><i class="fas fa-user-slash" style="color:#ef4444;"></i></div>`; userDisplay = `<strong style="color:#ef4444; display:block; font-size:1.05rem;">Invalid / Undefined</strong><span style="font-size:0.8rem; color:#a1a1aa;">Missing Data</span>`; statusBadge = `<span class="status-badge status-blocked" style="background:transparent; border:1px solid #ef4444;"><i class="fas fa-exclamation-triangle"></i> Error</span>`; actionBtn = `<button class="btn-block" onclick="deleteUserRecord('${u.uid}')"><i class="fas fa-trash-alt"></i> Delete Faltu Card</button>`;
+                } else {
+                    imgDisplay = `<img src="${u.photo}" onerror="this.src='https://via.placeholder.com/45'" style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); object-fit:cover;">`; userDisplay = `<strong style="color:#fff; display:block; font-size:1.05rem;">${u.name}</strong><span style="font-size:0.8rem; color:#a1a1aa;">${u.email}</span>`; statusBadge = u.status === 'Blocked' ? `<span class="status-badge status-blocked"><i class="fas fa-ban"></i> Blocked</span>` : `<span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span>`; 
+                    if(!isSuper) { if(u.status === 'Blocked') { actionBtn = `<button class="btn-unblock" onclick="toggleUserStatus('${u.uid}', 'Active')"><i class="fas fa-unlock"></i> Unblock Admin</button>`; } else { actionBtn = `<button class="btn-block" onclick="toggleUserStatus('${u.uid}', 'Blocked')"><i class="fas fa-ban"></i> Block Admin</button>`; } } else { actionBtn = `<div style="color:#eab308; font-size:0.85rem; font-weight:700; background:rgba(234, 179, 8, 0.15); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(234, 179, 8, 0.4); text-align:center; margin-top:5px;"><i class="fas fa-crown"></i> Super Admin (Immune)</div>`; }
+                }
+                html += `<tr><td>${imgDisplay}</td><td>${userDisplay}</td><td>${statusBadge}<br>${actionBtn}</td></tr>`;
+            }); tbody.innerHTML = html;
         }
+
+        window.toggleUserStatus = async function(uid, newStatus) { if(!window.IS_SUPER_ADMIN) return; if(confirm(`Are you sure you want to ${newStatus === 'Blocked' ? 'BLOCK' : 'UNBLOCK'} this user?`)) { try { await updateDoc(doc(db, "users", uid), { status: newStatus }); showToast(`User successfully ${newStatus}!`); } catch(e) { showToast("Error", "error"); } } }
+        window.deleteUserRecord = async function(uid) { if(!window.IS_SUPER_ADMIN) return; if(confirm("Delete this corrupted record?")) { try { await deleteDoc(doc(db, "users", uid)); showToast("Deleted!"); } catch(e) { showToast("Error", "error"); } } }
     </script>
 </body>
 </html>
