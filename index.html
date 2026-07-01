@@ -27,15 +27,11 @@
         ::-webkit-scrollbar { width: 0px !important; height: 0px !important; background: transparent !important; display: none !important; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; scrollbar-width: none !important; -ms-overflow-style: none !important; }
 
-        /* ALL MAIN TEXT BOLD */
         body, button, input, select, textarea { font-weight: 700; }
 
         body { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100svh; background-color: var(--bg-body); background-image: radial-gradient(circle at top right, #1a1a1f 0%, #000000 70%); color: var(--text-primary); display: flex; flex-direction: column; overflow: hidden; }
         body::before { content: ''; position: absolute; width: 600px; height: 600px; background: #ffffff; border-radius: 50%; filter: blur(250px); opacity: 0.02; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; }
 
-        /* ========================================= */
-        /* --- GLITCH-FREE INITIAL LOADER --- */
-        /* ========================================= */
         #initLoader {
             position: fixed; inset: 0; z-index: 999999;
             background: #000000; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -44,9 +40,6 @@
         .loader-logo { width: 90px; height: 90px; border-radius: 20px; object-fit: cover; border: 4px solid #71717a; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255,255,255,0.2); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255,255,255,0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
 
-        /* ========================================= */
-        /* --- PREMIUM LOGIN SCREEN --- */
-        /* ========================================= */
         #authScreen {
             position: fixed; inset: 0; z-index: 99999;
             background: linear-gradient(135deg, rgba(15, 15, 25, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
@@ -72,7 +65,6 @@
         .btn-login { position: relative; z-index: 1; width: 100%; background: rgba(255, 255, 255, 0.95); color: #000000; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1); }
         .btn-login:hover { transform: translateY(-2px); background: #ffffff; box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25); }
 
-        /* --- MAIN APP WRAPPER --- */
         #appWrapper { display: none; width: 100%; height: 100%; flex-direction: column; position: relative; z-index: 1; }
 
         .app-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(10, 10, 12, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 100; }
@@ -90,7 +82,6 @@
         .section-container.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Cards & Grids */
         .premium-form-card { background: linear-gradient(145deg, rgba(22, 22, 28, 0.85), rgba(12, 12, 16, 0.95)); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); border-top: 1px solid rgba(139, 92, 246, 0.4); border-radius: 18px; padding: 22px 28px; box-shadow: 0 20px 45px rgba(0,0,0,0.6); margin-bottom: 30px; width: 100%; }
         .premium-form-card .card-header { font-size: 1.1rem; font-weight: 800; color: #fff; padding-bottom: 12px; margin-bottom: 18px; border-bottom: 1px dashed rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; }
         .premium-form-card .card-header i { background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); padding: 8px; border-radius: 8px; }
@@ -98,22 +89,13 @@
         .compact-grid .full-width { grid-column: 1 / -1; }
         .compact-group { display: flex; flex-direction: column; gap: 6px; }
         
-        /* WHITE TEXT FOR LABELS */
         .compact-label { font-size: 0.85rem; font-weight: 800; color: #ffffff; text-transform: uppercase; margin-left: 2px;}
-        
         .compact-input { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); padding: 12px 16px; border-radius: 12px; color: #fff; font-weight: 700; width: 100%; outline: none;}
         .compact-input:focus { border-color: var(--accent-primary); }
-        
-        /* GRAY PLACEHOLDERS */
-        .compact-input::placeholder, .form-input-modal::placeholder, .search-box input::placeholder {
-            color: #8a8a93 !important;
-            font-weight: 600 !important;
-        }
-
+        .compact-input::placeholder, .form-input-modal::placeholder, .search-box input::placeholder { color: #8a8a93 !important; font-weight: 600 !important; }
         .btn-compact-submit { grid-column: 1 / -1; background: linear-gradient(135deg, var(--accent-primary), #6d5dfc); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 8px;}
         select.compact-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; padding-right: 40px;}
 
-        /* Admin Tables */
         .admin-card { background: var(--bg-card); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 28px; padding: 45px; box-shadow: 0 40px 80px rgba(0,0,0,0.8); margin-bottom: 30px; width: 100%; }
         .card-header-large { font-size: 1.3rem; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
         .card-header-large .title-left { display: flex; align-items: center; gap: 12px; }
@@ -138,7 +120,6 @@
         .btn-delete:hover { background: var(--accent-danger); border-color: var(--accent-danger); }
         .empty-state { text-align: center; padding: 60px 20px; color: #a1a1aa; font-weight: 800; font-size: 1.1rem; width: 100%; }
 
-        /* RESTORED & UPGRADED: Activity Logs Badges & Recovery */
         .log-table-img { width: 40px; height: 55px; object-fit: cover; border-radius: 6px; margin-right: 15px;}
         .log-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;}
         .log-add { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.3); }
@@ -153,32 +134,12 @@
         .log-admin-name { font-weight: 800; color: #fff; text-transform: uppercase; font-size: 0.95rem;}
         .log-admin-email { font-size: 0.8rem; color: #a1a1aa; font-weight: 700; }
         
-        /* NEW PREMIUM ROUND CLEAN BUTTON */
         .btn-clean-round { 
-            background: rgba(239, 68, 68, 0.15); 
-            color: #ef4444; 
-            border: 1px solid rgba(239, 68, 68, 0.4); 
-            border-radius: 50%; 
-            width: 44px; 
-            height: 44px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            font-size: 1.1rem; 
-            cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 50%; width: 44px; height: 44px; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.1);
         }
-        .btn-clean-round:hover { 
-            background: #ef4444; 
-            color: #fff; 
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
-        }
+        .btn-clean-round:hover { background: #ef4444; color: #fff; transform: scale(1.1) rotate(15deg); box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3); }
         .btn-clean-round i { padding: 0 !important; background: transparent !important; }
 
-        /* Prompts */
         .telegram-prompt-wrapper { margin-bottom: 15px; display: flex; flex-direction: column; }
         .telegram-prompt-card { background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(20, 20, 25, 0.9)); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 3px solid var(--accent-primary); border-radius: 12px; overflow: hidden;}
         .telegram-prompt-header { background: rgba(0, 0, 0, 0.3); padding: 10px 15px; font-weight: 800; color: #fff; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -187,22 +148,16 @@
         /* YouTube Tutorial Cards */
         .yt-card { 
             background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(15, 15, 20, 0.9)); 
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            display: flex; flex-direction: column; 
-            width: 320px; max-width: 100%; 
-            margin-bottom: 25px; 
-            position: relative; overflow: hidden; 
-            transition: transform 0.2s, box-shadow 0.2s; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            padding-bottom: 5px;
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; display: flex; flex-direction: column; width: 320px; max-width: 100%; margin-bottom: 25px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 15px 35px rgba(0,0,0,0.5); padding-bottom: 5px;
         }
         .yt-card:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(0,0,0,0.7); border-color: rgba(139, 92, 246, 0.3); }
         .yt-thumbnail-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 16px 16px 0 0; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .yt-thumbnail-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .yt-duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.85); color: #fff; font-size: 13px; font-weight: 800; padding: 3px 6px; border-radius: 4px; }
-        .yt-action-btns { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10; opacity: 0; transition: opacity 0.3s ease; }
-        .yt-card:hover .yt-action-btns { opacity: 1; }
+        
+        /* FIXED: Action buttons are now always visible for mobile */
+        .yt-action-btns { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10; opacity: 1; }
+        
         .yt-action-btn { width: 32px; height: 32px; border: none; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; color: white; font-size: 0.9rem; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); transition: all 0.2s; }
         .yt-copy:hover { background: #10b981; transform: scale(1.1); }
         .yt-edit:hover { background: #3b82f6; transform: scale(1.1); }
@@ -212,12 +167,10 @@
         .yt-video-title { font-size: 15px; font-weight: 800; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 4px; line-height: 1.3;}
         .yt-channel-name { font-size: 13px; color: #a1a1aa; font-weight: 700; line-height: 1.4;}
 
-        /* Charts */
         .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
         .chart-box { background: rgba(15, 15, 20, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; width: 100%; height: 320px; display: flex; justify-content: center; align-items: center;}
         .canvas-wrapper { position: relative; width: 100%; height: 100%; }
 
-        /* RESTORED: User Stats & Block System */
         .user-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .stat-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; display: flex; align-items: center; gap: 18px; }
         .stat-card i { font-size: 2rem; padding: 15px; border-radius: 14px; background: rgba(255,255,255,0.05); }
@@ -232,7 +185,6 @@
         .btn-unblock { background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.4); }
         .btn-unblock:hover { background: var(--accent-success); color: #fff;}
 
-        /* RESTORED: Full Edit Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; padding: 20px; }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-content { background: linear-gradient(145deg, rgba(25, 25, 30, 0.95), rgba(10, 10, 12, 0.98)); width: 100%; max-width: 800px; border-radius: 28px; border: 1px solid var(--border-glow); max-height: 90svh; overflow-y: auto; position: relative; padding: 35px; }
@@ -357,8 +309,9 @@
                 </div>
             </div>
 
+            <!-- PROMPTS SECTION -->
             <div id="sectionPrompts" class="section-container">
-                <div class="premium-form-card">
+                <div class="premium-form-card" style="margin-bottom: 20px;">
                     <div class="card-header"><i class="fas fa-plus-circle"></i> Add New Prompt</div>
                     <div class="compact-grid">
                         <div class="compact-group full-width"><input type="text" id="newPromptTitle" class="compact-input" placeholder="Prompt Title (e.g. Important)"></div>
@@ -367,10 +320,8 @@
                         <button class="btn-compact-submit" onclick="addPrompt(this)"><i class="fas fa-save"></i> Save Prompt</button>
                     </div>
                 </div>
-                <div class="admin-card">
-                    <div class="card-header-large"><div class="title-left"><i class="fas fa-list"></i> Manage Prompts</div></div>
-                    <div id="promptsContainer"><div class="empty-state">Loading prompts...</div></div>
-                </div>
+                <!-- Removed 'Manage Prompts' Header Box. Prompts will now flow directly below -->
+                <div id="promptsContainer"><div class="empty-state">Loading prompts...</div></div>
             </div>
 
             <!-- TUTORIALS SECTION -->
@@ -402,7 +353,8 @@
                 <div class="admin-card">
                     <div class="card-header-large">
                         <div class="title-left"><i class="fas fa-shield-alt"></i> System Activity Logs</div>
-                        <button class="btn-clean-round" onclick="autoCleanOldLogs(true)" title="Clean 15-Day Old Logs"><i class="fas fa-broom"></i></button>
+                        <!-- Updated to 10-Day Tooltip -->
+                        <button class="btn-clean-round" onclick="autoCleanOldLogs(true)" title="Clean 10-Day Old Logs"><i class="fas fa-broom"></i></button>
                     </div>
                     <div class="table-responsive">
                         <table class="books-table">
@@ -503,8 +455,12 @@
             else { pass.type = 'password'; eye.classList.replace('fa-eye-slash', 'fa-eye'); }
         }
         window.copyToClipboard = function(text) {
-            navigator.clipboard.writeText(text).then(() => { showToast("Link Copied to Clipboard!"); })
-            .catch(err => { showToast("Failed to copy link", "error"); });
+            navigator.clipboard.writeText(text).then(() => { showToast("Link/Text Copied!"); })
+            .catch(err => { showToast("Failed to copy", "error"); });
+        }
+        window.copyPromptFromDOM = function(id) { 
+            const text = document.getElementById('prompt_text_' + id).innerText; 
+            window.copyToClipboard(text); 
         }
     </script>
 
@@ -536,17 +492,18 @@
         let currentPage = 1; const booksPerPage = 10;
         let myLangChart = null; let myActivityChart = null;
 
+        // FIXED: Now deletes 10 days old logs
         window.autoCleanOldLogs = async function(manual = false) {
             if(!window.IS_SUPER_ADMIN) return;
-            const fifteenDaysAgo = new Date().getTime() - (15 * 24 * 60 * 60 * 1000); 
+            const tenDaysAgo = new Date().getTime() - (10 * 24 * 60 * 60 * 1000); 
             try {
-                const oldLogsQuery = query(collection(db, "activity_logs"), where("timestamp", "<", fifteenDaysAgo));
+                const oldLogsQuery = query(collection(db, "activity_logs"), where("timestamp", "<", tenDaysAgo));
                 const snapshot = await getDocs(oldLogsQuery);
                 if(snapshot.size > 0) {
                     snapshot.forEach(async (logDoc) => { await deleteDoc(doc(db, "activity_logs", logDoc.id)); });
                     if(manual) showToast(`Success: ${snapshot.size} old logs deleted!`);
                 } else {
-                    if(manual) showToast("No logs older than 15 days found.");
+                    if(manual) showToast("No logs older than 10 days found.");
                 }
             } catch (e) { if(manual) showToast("Cleanup failed: Check Firestore Rules", "error"); console.log(e); }
         }
@@ -655,7 +612,22 @@
                             const data = doc.data(); const id = doc.id;
                             const safeText = data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;"); const safeInstruction = data.instruction ? data.instruction.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
                             let instructionHTML = ''; if(safeInstruction) { instructionHTML = `<div style="color: #ffffff; font-weight: 800; font-size: 13px; margin-bottom: 6px; margin-left: 2px; line-height: 1.5;">${safeInstruction}</div>`; }
-                            container.innerHTML += `<div class="telegram-prompt-wrapper">${instructionHTML}<div class="telegram-prompt-card"><div class="telegram-prompt-header">${data.title} <button onclick="deletePrompt('${id}')" style="background:transparent; border:none; color:#ef4444; cursor:pointer;"><i class="fas fa-trash"></i></button></div><div class="telegram-prompt-body">${safeText}</div></div></div>`;
+                            
+                            // ADDED COPY BUTTON & REMOVED THE TOP HEADER BOX FOR PROMPTS
+                            container.innerHTML += `
+                            <div class="telegram-prompt-wrapper">
+                                ${instructionHTML}
+                                <div class="telegram-prompt-card">
+                                    <div class="telegram-prompt-header">
+                                        ${data.title} 
+                                        <div style="display:flex; gap:12px; align-items:center;">
+                                            <button onclick="copyPromptFromDOM('${id}')" style="background:transparent; border:none; color:#10b981; cursor:pointer; font-size: 1.1rem;" title="Copy Prompt"><i class="fas fa-copy"></i></button>
+                                            <button onclick="deletePrompt('${id}')" style="background:transparent; border:none; color:#ef4444; cursor:pointer; font-size: 1.1rem;" title="Delete"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="telegram-prompt-body" id="prompt_text_${id}">${safeText}</div>
+                                </div>
+                            </div>`;
                         });
                     });
 
