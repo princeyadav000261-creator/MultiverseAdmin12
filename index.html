@@ -145,7 +145,6 @@
         .telegram-prompt-header { background: rgba(0, 0, 0, 0.3); padding: 10px 15px; font-weight: 800; color: #fff; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .telegram-prompt-body { padding: 12px 15px; color: #a1a1aa; font-weight: 700; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
         
-        /* YouTube Tutorial Cards */
         .yt-card { 
             background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(15, 15, 20, 0.9)); 
             border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; display: flex; flex-direction: column; width: 320px; max-width: 100%; margin-bottom: 25px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 15px 35px rgba(0,0,0,0.5); padding-bottom: 5px;
@@ -155,7 +154,6 @@
         .yt-thumbnail-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .yt-duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.85); color: #fff; font-size: 13px; font-weight: 800; padding: 3px 6px; border-radius: 4px; }
         
-        /* FIXED: Action buttons are now always visible for mobile */
         .yt-action-btns { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10; opacity: 1; }
         
         .yt-action-btn { width: 32px; height: 32px; border: none; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; color: white; font-size: 0.9rem; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); transition: all 0.2s; }
@@ -309,7 +307,6 @@
                 </div>
             </div>
 
-            <!-- PROMPTS SECTION -->
             <div id="sectionPrompts" class="section-container">
                 <div class="premium-form-card" style="margin-bottom: 20px;">
                     <div class="card-header"><i class="fas fa-plus-circle"></i> Add New Prompt</div>
@@ -320,11 +317,9 @@
                         <button class="btn-compact-submit" onclick="addPrompt(this)"><i class="fas fa-save"></i> Save Prompt</button>
                     </div>
                 </div>
-                <!-- Removed 'Manage Prompts' Header Box. Prompts will now flow directly below -->
                 <div id="promptsContainer"><div class="empty-state">Loading prompts...</div></div>
             </div>
 
-            <!-- TUTORIALS SECTION -->
             <div id="sectionTutorials" class="section-container">
                 <div class="premium-form-card" style="margin-bottom: 20px;">
                     <div class="card-header"><i class="fas fa-plus-circle"></i> Add Tutorial Video</div>
@@ -353,7 +348,6 @@
                 <div class="admin-card">
                     <div class="card-header-large">
                         <div class="title-left"><i class="fas fa-shield-alt"></i> System Activity Logs</div>
-                        <!-- Updated to 10-Day Tooltip -->
                         <button class="btn-clean-round" onclick="autoCleanOldLogs(true)" title="Clean 10-Day Old Logs"><i class="fas fa-broom"></i></button>
                     </div>
                     <div class="table-responsive">
@@ -433,7 +427,7 @@
             if (tab === 'manage') { document.getElementById('sectionManageBooks').classList.add('active'); document.getElementById('navManage').classList.add('active'); } 
             else if (tab === 'prompts') { document.getElementById('sectionPrompts').classList.add('active'); document.getElementById('navPrompts').classList.add('active'); } 
             else if (tab === 'tutorials') { document.getElementById('sectionTutorials').classList.add('active'); document.getElementById('navTutorials').classList.add('active'); } 
-            else if (tab === 'analytics') { document.getElementById('sectionAnalytics').classList.add('active'); document.getElementById('navAnalytics').classList.add('active'); } 
+            else if (tab === 'analytics') { document.getElementById('sectionAnalytics').classList.add('active'); document.getElementById('navAnalytics').classList.add('active'); setTimeout(() => { if(window.updateCharts) window.updateCharts(); }, 100); } 
             else if (tab === 'users') { document.getElementById('sectionUsers').classList.add('active'); document.getElementById('navUsers').classList.add('active'); } 
         }
 
@@ -466,7 +460,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDocs, where, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        // Added getDoc for dynamic admin verification
+        import { getFirestore, collection, addDoc, doc, getDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDocs, where, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -485,14 +480,13 @@
         let CURRENT_ADMIN_NAME = "USER"; 
         let CURRENT_ADMIN_EMAIL = "";
         let CURRENT_ADMIN_PHOTO = "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png";
-        const SUPER_ADMIN_EMAIL = "princeyadav000261@gmail.com"; 
+        
         window.IS_SUPER_ADMIN = false;
 
         let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = []; let filteredUsers = []; let dbTutorials = [];
         let currentPage = 1; const booksPerPage = 10;
         let myLangChart = null; let myActivityChart = null;
 
-        // FIXED: Now deletes 10 days old logs
         window.autoCleanOldLogs = async function(manual = false) {
             if(!window.IS_SUPER_ADMIN) return;
             const tenDaysAgo = new Date().getTime() - (10 * 24 * 60 * 60 * 1000); 
@@ -505,7 +499,7 @@
                 } else {
                     if(manual) showToast("No logs older than 10 days found.");
                 }
-            } catch (e) { if(manual) showToast("Cleanup failed: Check Firestore Rules", "error"); console.log(e); }
+            } catch (e) { if(manual) showToast("Cleanup failed: Check Firestore Rules", "error"); console.error(e); }
         }
 
         window.addPrompt = async function(btn) { 
@@ -513,20 +507,36 @@
             const title = document.getElementById('newPromptTitle').value; const ins = document.getElementById('newPromptInstruction').value; const text = document.getElementById('newPromptText').value;
             if(!title || !text) return showToast("Fields required!", "error");
             const originalHTML = btn.innerHTML; btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
-            try { await addDoc(collection(db, "prompts"), { title: title.trim(), instruction: ins.trim(), text: text.trim(), createdAt: new Date().getTime() }); showToast("Prompt Added!"); document.getElementById('newPromptTitle').value = ''; document.getElementById('newPromptInstruction').value = ''; document.getElementById('newPromptText').value = ''; } catch(e) { showToast("Error", "error"); }
+            try { 
+                await addDoc(collection(db, "prompts"), { title: title.trim(), instruction: ins.trim(), text: text.trim(), createdAt: new Date().getTime() }); 
+                showToast("Prompt Added!"); 
+                document.getElementById('newPromptTitle').value = ''; document.getElementById('newPromptInstruction').value = ''; document.getElementById('newPromptText').value = ''; 
+            } catch(e) { 
+                showToast("Upload Error: Check Firestore Rules", "error"); 
+                console.error("Add Prompt Error:", e);
+            }
             btn.innerHTML = originalHTML;
         }
-        window.deletePrompt = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete prompt?")) { await deleteDoc(doc(db, "prompts", id)); showToast("Deleted!"); } }
+        
+        window.deletePrompt = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete prompt?")) { try{ await deleteDoc(doc(db, "prompts", id)); showToast("Deleted!"); }catch(e){showToast("Error deleting", "error"); console.error(e);} } }
 
         window.addTutorialLink = async function(btn) { 
             if(!window.IS_SUPER_ADMIN) return showToast("Super Admin Required!", "error");
             const url = document.getElementById('newTutorialUrl').value; const views = document.getElementById('newTutorialViews').value || "10K"; const dur = document.getElementById('newTutorialDuration').value || "10:00"; const avatar = document.getElementById('newTutorialAvatar').value || "";
             if(!url) return showToast("URL required!", "error");
             const originalHTML = btn.innerHTML; btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
-            try { await addDoc(collection(db, "tutorials"), { url, views, duration: dur, avatarUrl: avatar, createdAt: new Date().getTime() }); showToast("Video Added!"); document.getElementById('newTutorialUrl').value = ''; document.getElementById('newTutorialViews').value = ''; document.getElementById('newTutorialDuration').value = ''; document.getElementById('newTutorialAvatar').value = '';} catch(e) { showToast("Error", "error"); }
+            try { 
+                await addDoc(collection(db, "tutorials"), { url, views, duration: dur, avatarUrl: avatar, createdAt: new Date().getTime() }); 
+                showToast("Video Added!"); 
+                document.getElementById('newTutorialUrl').value = ''; document.getElementById('newTutorialViews').value = ''; document.getElementById('newTutorialDuration').value = ''; document.getElementById('newTutorialAvatar').value = '';
+            } catch(e) { 
+                showToast("Upload Error: Check Firestore Rules", "error"); 
+                console.error("Add Tutorial Error:", e);
+            }
             btn.innerHTML = originalHTML;
         }
-        window.deleteTutorial = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete video?")) { await deleteDoc(doc(db, "tutorials", id)); showToast("Deleted!"); } }
+        
+        window.deleteTutorial = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete video?")) { try{await deleteDoc(doc(db, "tutorials", id)); showToast("Deleted!");}catch(e){console.error(e);} } }
         
         window.openTutorialEditModal = function(id) {
             if(!window.IS_SUPER_ADMIN) return;
@@ -550,7 +560,7 @@
                     avatarUrl: document.getElementById('edTutAvatar').value 
                 }); 
                 window.closeTutorialEditModal(); showToast("Tutorial Updated!"); 
-            } catch (e) { showToast("Error", "error"); } 
+            } catch (e) { showToast("Error", "error"); console.error(e); } 
             btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
         
@@ -580,6 +590,7 @@
             document.getElementById('adminTutorialsGrid').innerHTML += cardHTML;
         }
 
+        // --- AUTH & ADMIN CHECK LOGIC ---
         onAuthStateChanged(auth, async (user) => {
             const loader = document.getElementById('initLoader');
             const authScreen = document.getElementById('authScreen');
@@ -596,58 +607,66 @@
                 if(user.photoURL) { CURRENT_ADMIN_PHOTO = user.photoURL; }
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME; document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
 
-                if(user.email === SUPER_ADMIN_EMAIL) {
-                    window.IS_SUPER_ADMIN = true; document.getElementById('roleText').innerText = "Super Admin";
-                    autoCleanOldLogs(false);
-                    document.getElementById('navManage').style.display = 'flex'; document.getElementById('navPrompts').style.display = 'flex'; document.getElementById('navTutorials').style.display = 'flex'; document.getElementById('navAnalytics').style.display = 'flex'; document.getElementById('navUsers').style.display = 'flex'; 
+                try {
+                    // Fetch dynamic Super Admin status from Firestore
+                    const adminDocRef = doc(db, "admins", user.email);
+                    const adminDocSnap = await getDoc(adminDocRef);
 
-                    onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc"), limit(100)), (snapshot) => { dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs(); });
-                    
-                    onSnapshot(collection(db, "users"), (snapshot) => { dbUsers = []; snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); window.handleUserFilterChange(); window.updateLiveUserStats(); });
-                    
-                    onSnapshot(query(collection(db, "prompts"), orderBy("createdAt", "asc")), (snapshot) => {
-                        const container = document.getElementById('promptsContainer'); container.innerHTML = '';
-                        if(snapshot.empty) container.innerHTML = `<div class="empty-state">No prompts added yet.</div>`;
-                        snapshot.forEach(doc => {
-                            const data = doc.data(); const id = doc.id;
-                            const safeText = data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;"); const safeInstruction = data.instruction ? data.instruction.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
-                            let instructionHTML = ''; if(safeInstruction) { instructionHTML = `<div style="color: #ffffff; font-weight: 800; font-size: 13px; margin-bottom: 6px; margin-left: 2px; line-height: 1.5;">${safeInstruction}</div>`; }
-                            
-                            // ADDED COPY BUTTON & REMOVED THE TOP HEADER BOX FOR PROMPTS
-                            container.innerHTML += `
-                            <div class="telegram-prompt-wrapper">
-                                ${instructionHTML}
-                                <div class="telegram-prompt-card">
-                                    <div class="telegram-prompt-header">
-                                        ${data.title} 
-                                        <div style="display:flex; gap:12px; align-items:center;">
-                                            <button onclick="copyPromptFromDOM('${id}')" style="background:transparent; border:none; color:#10b981; cursor:pointer; font-size: 1.1rem;" title="Copy Prompt"><i class="fas fa-copy"></i></button>
-                                            <button onclick="deletePrompt('${id}')" style="background:transparent; border:none; color:#ef4444; cursor:pointer; font-size: 1.1rem;" title="Delete"><i class="fas fa-trash"></i></button>
+                    if (adminDocSnap.exists() && adminDocSnap.data().role === "Super Admin") {
+                        window.IS_SUPER_ADMIN = true; 
+                        document.getElementById('roleText').innerText = "Super Admin";
+                        autoCleanOldLogs(false);
+                        document.getElementById('navManage').style.display = 'flex'; document.getElementById('navPrompts').style.display = 'flex'; document.getElementById('navTutorials').style.display = 'flex'; document.getElementById('navAnalytics').style.display = 'flex'; document.getElementById('navUsers').style.display = 'flex'; 
+
+                        onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc"), limit(100)), (snapshot) => { dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs(); });
+                        onSnapshot(collection(db, "users"), (snapshot) => { dbUsers = []; snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); window.handleUserFilterChange(); window.updateLiveUserStats(); });
+                        onSnapshot(query(collection(db, "prompts"), orderBy("createdAt", "asc")), (snapshot) => {
+                            const container = document.getElementById('promptsContainer'); container.innerHTML = '';
+                            if(snapshot.empty) container.innerHTML = `<div class="empty-state">No prompts added yet.</div>`;
+                            snapshot.forEach(doc => {
+                                const data = doc.data(); const id = doc.id;
+                                const safeText = data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;"); const safeInstruction = data.instruction ? data.instruction.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
+                                let instructionHTML = ''; if(safeInstruction) { instructionHTML = `<div style="color: #ffffff; font-weight: 800; font-size: 13px; margin-bottom: 6px; margin-left: 2px; line-height: 1.5;">${safeInstruction}</div>`; }
+                                
+                                container.innerHTML += `
+                                <div class="telegram-prompt-wrapper">
+                                    ${instructionHTML}
+                                    <div class="telegram-prompt-card">
+                                        <div class="telegram-prompt-header">
+                                            ${data.title} 
+                                            <div style="display:flex; gap:12px; align-items:center;">
+                                                <button onclick="copyPromptFromDOM('${id}')" style="background:transparent; border:none; color:#10b981; cursor:pointer; font-size: 1.1rem;" title="Copy Prompt"><i class="fas fa-copy"></i></button>
+                                                <button onclick="deletePrompt('${id}')" style="background:transparent; border:none; color:#ef4444; cursor:pointer; font-size: 1.1rem;" title="Delete"><i class="fas fa-trash"></i></button>
+                                            </div>
                                         </div>
+                                        <div class="telegram-prompt-body" id="prompt_text_${id}">${safeText}</div>
                                     </div>
-                                    <div class="telegram-prompt-body" id="prompt_text_${id}">${safeText}</div>
-                                </div>
-                            </div>`;
+                                </div>`;
+                            });
                         });
-                    });
 
-                    onSnapshot(query(collection(db, "tutorials"), orderBy("createdAt", "desc")), (snapshot) => {
-                        dbTutorials = [];
-                        const grid = document.getElementById('adminTutorialsGrid'); 
-                        if(grid) { 
-                            grid.innerHTML = ''; 
-                            if(snapshot.empty) grid.innerHTML = `<div class="empty-state" style="width:100%;">No tutorials added yet.</div>`; 
-                            snapshot.forEach(doc => { 
-                                let d = doc.data();
-                                d.id = doc.id;
-                                dbTutorials.push(d);
-                                renderTutorialCardAdmin(d, doc.id); 
-                            }); 
-                        }
-                    });
-                } else {
-                    window.IS_SUPER_ADMIN = false; document.getElementById('roleText').innerText = "Admin";
-                    document.getElementById('navManage').style.display = 'flex'; document.getElementById('navPrompts').style.display = 'none'; document.getElementById('navTutorials').style.display = 'none'; document.getElementById('navAnalytics').style.display = 'none'; document.getElementById('navUsers').style.display = 'none'; 
+                        onSnapshot(query(collection(db, "tutorials"), orderBy("createdAt", "desc")), (snapshot) => {
+                            dbTutorials = [];
+                            const grid = document.getElementById('adminTutorialsGrid'); 
+                            if(grid) { 
+                                grid.innerHTML = ''; 
+                                if(snapshot.empty) grid.innerHTML = `<div class="empty-state" style="width:100%;">No tutorials added yet.</div>`; 
+                                snapshot.forEach(doc => { 
+                                    let d = doc.data();
+                                    d.id = doc.id;
+                                    dbTutorials.push(d);
+                                    renderTutorialCardAdmin(d, doc.id); 
+                                }); 
+                            }
+                        });
+                    } else {
+                        // User is regular admin
+                        window.IS_SUPER_ADMIN = false; document.getElementById('roleText').innerText = "Admin";
+                        document.getElementById('navManage').style.display = 'flex'; document.getElementById('navPrompts').style.display = 'none'; document.getElementById('navTutorials').style.display = 'none'; document.getElementById('navAnalytics').style.display = 'none'; document.getElementById('navUsers').style.display = 'none'; 
+                    }
+                } catch(err) {
+                    console.error("Admin Access Error: ", err);
+                    window.IS_SUPER_ADMIN = false;
                 }
                 
                 switchTab('manage'); 
@@ -662,19 +681,20 @@
             e.preventDefault(); 
             const btn = document.getElementById('submitBtn'); btn.innerHTML = `Authenticating...`;
             try { await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPassword').value); e.target.reset(); } 
-            catch(error) { showToast("Invalid email & password", "error"); } 
+            catch(error) { showToast("Invalid email & password", "error"); console.error(error); } 
             btn.innerHTML = `Log In`; 
         });
 
         document.getElementById('headerLogoutBtn').addEventListener('click', () => { if(confirm("Are you sure you want to exit and logout?")) { signOut(auth).catch(() => {}); } });
 
         async function logActivity(action, bookTitle, imageUrl = "", deletedData = null) { 
-            try { await addDoc(collection(db, "activity_logs"), { action, bookTitle, image: imageUrl, deletedData, adminName: CURRENT_ADMIN_NAME, adminEmail: CURRENT_ADMIN_EMAIL, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) {} 
+            try { await addDoc(collection(db, "activity_logs"), { action, bookTitle, image: imageUrl, deletedData, adminName: CURRENT_ADMIN_NAME, adminEmail: CURRENT_ADMIN_EMAIL, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) { console.error("Logging Error:", e); } 
         }
+        
         window.recoverBook = async function(logId) {
             if(!window.IS_SUPER_ADMIN) return; const log = dbLogs.find(l => l.id === logId);
             if(!log || !log.deletedData) return showToast("Recovery data missing.", "error");
-            if(confirm(`Recover "${log.bookTitle}"?`)) { try { await setDoc(doc(db, "books", log.deletedData.id), log.deletedData); await logActivity("RESTORE", log.bookTitle, log.image); showToast("Restored!"); } catch(e) { showToast("Error", "error"); } }
+            if(confirm(`Recover "${log.bookTitle}"?`)) { try { await setDoc(doc(db, "books", log.deletedData.id), log.deletedData); await logActivity("RESTORE", log.bookTitle, log.image); showToast("Restored!"); } catch(e) { showToast("Error", "error"); console.error(e);} }
         }
 
         window.handleFilterChange = function() { 
@@ -693,10 +713,23 @@
         document.getElementById('addBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); const btn = document.getElementById('publishBtn'); const originalText = btn.innerHTML;
             const pdfUrlInput = document.getElementById('inPdfUrl').value;
-            if (!window.IS_SUPER_ADMIN) { if (!pdfUrlInput.includes('drive.google.com')) { showToast("Error: You can only upload Google Drive links!", "error"); return; } }
+            
+            if (!window.IS_SUPER_ADMIN) { 
+                if (!pdfUrlInput.includes('drive.google.com')) { showToast("Error: You can only upload Google Drive links!", "error"); return; } 
+            }
+            
             btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Publishing...`; btn.disabled = true;
             const newBook = { title: document.getElementById('inTitle').value, author: document.getElementById('inAuthor').value, image: document.getElementById('inImage').value, year: document.getElementById('inYear').value, lang: document.getElementById('inLang').value, exams: document.getElementById('inExams').value, pdfLink: pdfUrlInput, dateAdded: new Date().toLocaleDateString('en-GB').toUpperCase(), createdAt: new Date().getTime() };
-            try { await addDoc(collection(db, "books"), newBook); await logActivity("ADD", newBook.title, newBook.image); showToast("Published!"); e.target.reset(); } catch (e) { showToast("Error", "error"); } finally { btn.innerHTML = originalText; btn.disabled = false; }
+            try { 
+                await addDoc(collection(db, "books"), newBook); 
+                await logActivity("ADD", newBook.title, newBook.image); 
+                showToast("Published!"); e.target.reset(); 
+            } catch (e) { 
+                showToast("Upload Error: Check console", "error"); 
+                console.error("Book Upload Error:", e);
+            } finally { 
+                btn.innerHTML = originalText; btn.disabled = false; 
+            }
         });
 
         function renderBooks() {
@@ -707,16 +740,17 @@
             let html = ""; paginated.forEach(b => { html += `<tr><td><img src="${b.image}" class="table-img" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'"></td><td><strong style="color:#fff; display:block; margin-bottom:6px; font-size:1.1rem;">${b.title}</strong><span style="font-size: 0.85rem; color: #a1a1aa;"><i class="fas fa-pen-nib"></i> ${b.author} &nbsp;|&nbsp; <i class="far fa-calendar-alt"></i> ${b.year}</span></td><td><button class="action-btn btn-edit" onclick="openEditModal('${b.id}')"><i class="fas fa-edit"></i></button><button class="action-btn btn-delete" onclick="deleteBook('${b.id}', '${b.title.replace(/'/g, "\\'")}')"><i class="fas fa-trash-alt"></i></button></td></tr>`; }); tbody.innerHTML = html;
         }
 
-        window.deleteBook = async function(id, title) { if(window.IS_SUPER_ADMIN && confirm(`Delete "${title}"?`)) { const b = dbBooks.find(x => x.id === id); try { await deleteDoc(doc(db, "books", id)); await logActivity("DELETE", title, b.image, b); showToast("Deleted!"); } catch(e) {} } }
+        window.deleteBook = async function(id, title) { if(window.IS_SUPER_ADMIN && confirm(`Delete "${title}"?`)) { const b = dbBooks.find(x => x.id === id); try { await deleteDoc(doc(db, "books", id)); await logActivity("DELETE", title, b.image, b); showToast("Deleted!"); } catch(e) {console.error(e);} } }
+        
         window.openEditModal = function(id) { if(!window.IS_SUPER_ADMIN) return; const b = dbBooks.find(x => x.id === id); document.getElementById('editDocId').value = b.id; document.getElementById('edTitle').value = b.title; document.getElementById('edAuthor').value = b.author; document.getElementById('edYear').value = b.year; document.getElementById('edLang').value = b.lang; document.getElementById('edExams').value = b.exams; document.getElementById('edImage').value = b.image; document.getElementById('edPdfUrl').value = b.pdfLink; document.getElementById('editModal').classList.add('active'); }
         
         document.getElementById('editBookForm').addEventListener('submit', async (e) => {
             e.preventDefault(); const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
             const id = document.getElementById('editDocId').value; const updatedTitle = document.getElementById('edTitle').value; const updatedImage = document.getElementById('edImage').value;
-            try { await updateDoc(doc(db, "books", id), { title: updatedTitle, author: document.getElementById('edAuthor').value, image: updatedImage, year: document.getElementById('edYear').value, lang: document.getElementById('edLang').value, exams: document.getElementById('edExams').value, pdfLink: document.getElementById('edPdfUrl').value }); await logActivity("EDIT", updatedTitle, updatedImage); closeEditModal(); showToast("Updated!"); } catch (e) {} btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
+            try { await updateDoc(doc(db, "books", id), { title: updatedTitle, author: document.getElementById('edAuthor').value, image: updatedImage, year: document.getElementById('edYear').value, lang: document.getElementById('edLang').value, exams: document.getElementById('edExams').value, pdfLink: document.getElementById('edPdfUrl').value }); await logActivity("EDIT", updatedTitle, updatedImage); closeEditModal(); showToast("Updated!"); } catch (e) {console.error(e);} btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
 
-        function updateCharts() {
+        window.updateCharts = function() {
             if(!window.IS_SUPER_ADMIN || !document.getElementById('langChart')) return;
             const langCounts = { 'Hindi': 0, 'English': 0, 'Bilingual': 0 }; dbBooks.forEach(b => { if(langCounts[b.lang] !== undefined) langCounts[b.lang]++; });
             Chart.defaults.color = '#a1a1aa'; Chart.defaults.font.family = 'Outfit';
@@ -752,20 +786,23 @@
         function renderUsersTable() {
             const tbody = document.getElementById('usersTableBody'); if (filteredUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="3" class="empty-state">No users found.</td></tr>`; return; }
             let html = ""; filteredUsers.forEach(u => {
-                const isSuper = u.email === SUPER_ADMIN_EMAIL || u.role === "Super Admin"; const isCorrupted = !u.email || u.email === 'undefined' || !u.name || u.name === 'undefined';
                 let statusBadge = ""; let actionBtn = ""; let userDisplay = ""; let imgDisplay = "";
+                const isCorrupted = !u.email || u.email === 'undefined' || !u.name || u.name === 'undefined';
+                
                 if (isCorrupted) {
                     imgDisplay = `<div style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); background:#1a1a24; display:flex; align-items:center; justify-content:center;"><i class="fas fa-user-slash" style="color:#ef4444;"></i></div>`; userDisplay = `<strong style="color:#ef4444; display:block; font-size:1.05rem;">Invalid / Undefined</strong><span style="font-size:0.8rem; color:#a1a1aa;">Missing Data</span>`; statusBadge = `<span class="status-badge status-blocked" style="background:transparent; border:1px solid #ef4444;"><i class="fas fa-exclamation-triangle"></i> Error</span>`; actionBtn = `<button class="btn-block" onclick="deleteUserRecord('${u.uid}')"><i class="fas fa-trash-alt"></i> Delete Faltu Card</button>`;
                 } else {
                     imgDisplay = `<img src="${u.photo}" onerror="this.src='https://via.placeholder.com/45'" style="width:45px; height:45px; border-radius:50%; border:2px solid rgba(255,255,255,0.1); object-fit:cover;">`; userDisplay = `<strong style="color:#fff; display:block; font-size:1.05rem;">${u.name}</strong><span style="font-size:0.8rem; color:#a1a1aa;">${u.email}</span>`; statusBadge = u.status === 'Blocked' ? `<span class="status-badge status-blocked"><i class="fas fa-ban"></i> Blocked</span>` : `<span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span>`; 
-                    if(!isSuper) { if(u.status === 'Blocked') { actionBtn = `<button class="btn-unblock" onclick="toggleUserStatus('${u.uid}', 'Active')"><i class="fas fa-unlock"></i> Unblock Admin</button>`; } else { actionBtn = `<button class="btn-block" onclick="toggleUserStatus('${u.uid}', 'Blocked')"><i class="fas fa-ban"></i> Block Admin</button>`; } } else { actionBtn = `<div style="color:#eab308; font-size:0.85rem; font-weight:700; background:rgba(234, 179, 8, 0.15); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(234, 179, 8, 0.4); text-align:center; margin-top:5px;"><i class="fas fa-crown"></i> Super Admin (Immune)</div>`; }
+                    
+                    // We can't check 'isSuper' exactly here because that requires async getDoc on every row, but we can assume normal flow for actions:
+                    if(u.status === 'Blocked') { actionBtn = `<button class="btn-unblock" onclick="toggleUserStatus('${u.uid}', 'Active')"><i class="fas fa-unlock"></i> Unblock Admin</button>`; } else { actionBtn = `<button class="btn-block" onclick="toggleUserStatus('${u.uid}', 'Blocked')"><i class="fas fa-ban"></i> Block Admin</button>`; }
                 }
                 html += `<tr><td>${imgDisplay}</td><td>${userDisplay}</td><td>${statusBadge}<br>${actionBtn}</td></tr>`;
             }); tbody.innerHTML = html;
         }
 
-        window.toggleUserStatus = async function(uid, newStatus) { if(!window.IS_SUPER_ADMIN) return; if(confirm(`Are you sure you want to ${newStatus === 'Blocked' ? 'BLOCK' : 'UNBLOCK'} this user?`)) { try { await updateDoc(doc(db, "users", uid), { status: newStatus }); showToast(`User successfully ${newStatus}!`); } catch(e) { showToast("Error", "error"); } } }
-        window.deleteUserRecord = async function(uid) { if(!window.IS_SUPER_ADMIN) return; if(confirm("Delete this corrupted record?")) { try { await deleteDoc(doc(db, "users", uid)); showToast("Deleted!"); } catch(e) { showToast("Error", "error"); } } }
+        window.toggleUserStatus = async function(uid, newStatus) { if(!window.IS_SUPER_ADMIN) return; if(confirm(`Are you sure you want to ${newStatus === 'Blocked' ? 'BLOCK' : 'UNBLOCK'} this user?`)) { try { await updateDoc(doc(db, "users", uid), { status: newStatus }); showToast(`User successfully ${newStatus}!`); } catch(e) { showToast("Error", "error"); console.error(e);} } }
+        window.deleteUserRecord = async function(uid) { if(!window.IS_SUPER_ADMIN) return; if(confirm("Delete this corrupted record?")) { try { await deleteDoc(doc(db, "users", uid)); showToast("Deleted!"); } catch(e) { showToast("Error", "error"); console.error(e);} } }
     </script>
 </body>
 </html>
