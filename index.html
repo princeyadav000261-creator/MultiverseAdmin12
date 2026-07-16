@@ -140,34 +140,28 @@
         .btn-clean-round:hover { background: #ef4444; color: #fff; transform: scale(1.1) rotate(15deg); box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3); }
         .btn-clean-round i { padding: 0 !important; background: transparent !important; }
 
-        .telegram-prompt-wrapper { margin-bottom: 15px; display: flex; flex-direction: column; }
-        .telegram-prompt-card { background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(20, 20, 25, 0.9)); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 3px solid var(--accent-primary); border-radius: 12px; overflow: hidden;}
-        .telegram-prompt-header { background: rgba(0, 0, 0, 0.3); padding: 10px 15px; font-weight: 800; color: #fff; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .telegram-prompt-body { padding: 12px 15px; color: #a1a1aa; font-weight: 700; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+        /* Prompts New UI Styles */
+        .prompt-item-container { margin-bottom: 30px; }
+        .prompt-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px; }
+        .prompt-item-header h3 { font-size: 1.15rem; color: #fff; font-weight: 800; letter-spacing: 0.5px; }
+        .prompt-actions { display: flex; gap: 10px; }
+        .prompt-actions button { border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 0.85rem; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+        .btn-prompt-edit { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .btn-prompt-edit:hover { background: #3b82f6; color: #fff; }
+        .btn-prompt-delete { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .btn-prompt-delete:hover { background: #ef4444; color: #fff; }
         
-        .yt-card { 
-            background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(15, 15, 20, 0.9)); 
-            border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; display: flex; flex-direction: column; width: 320px; max-width: 100%; margin-bottom: 25px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 15px 35px rgba(0,0,0,0.5); padding-bottom: 5px;
-        }
-        .yt-card:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(0,0,0,0.7); border-color: rgba(139, 92, 246, 0.3); }
-        .yt-thumbnail-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 16px 16px 0 0; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .yt-thumbnail-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .yt-duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.85); color: #fff; font-size: 13px; font-weight: 800; padding: 3px 6px; border-radius: 4px; }
-        
-        .yt-action-btns { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10; opacity: 1; }
-        
-        .yt-action-btn { width: 32px; height: 32px; border: none; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; color: white; font-size: 0.9rem; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); transition: all 0.2s; }
-        .yt-copy:hover { background: #10b981; transform: scale(1.1); }
-        .yt-edit:hover { background: #3b82f6; transform: scale(1.1); }
-        .yt-delete:hover { background: #ef4444; transform: scale(1.1); }
-        .yt-info-box { padding: 15px 12px; display: flex; gap: 12px; align-items: flex-start; }
-        .yt-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
-        .yt-video-title { font-size: 15px; font-weight: 800; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 4px; line-height: 1.3;}
-        .yt-channel-name { font-size: 13px; color: #a1a1aa; font-weight: 700; line-height: 1.4;}
+        .prompt-card-modern { background: linear-gradient(to right, rgba(20,20,25,0.95), rgba(15,15,18,0.98)); border-left: 4px solid var(--accent-primary); border-radius: 16px; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        .prompt-instruction { padding: 20px; color: #e4e4e7; font-size: 0.95rem; font-weight: 700; line-height: 1.5; background: rgba(255,255,255,0.02); }
+        .prompt-text { padding: 20px; color: #fff; font-size: 1rem; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); word-break: break-all; white-space: pre-wrap; font-family: monospace, sans-serif; font-weight: 600; }
+        .prompt-copy-btn { width: 100%; background: transparent; color: #fff; border: none; padding: 16px; font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .prompt-copy-btn:hover { background: rgba(255,255,255,0.05); color: var(--accent-primary); }
 
+        /* Chart Fix */
         .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
-        .chart-box { background: rgba(15, 15, 20, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; width: 100%; height: 320px; display: flex; justify-content: center; align-items: center;}
-        .canvas-wrapper { position: relative; width: 100%; height: 100%; }
+        .chart-box { background: rgba(15, 15, 20, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; width: 100%; height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box; }
+        .canvas-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        canvas { max-width: 100%; max-height: 100%; margin: 0 auto; }
 
         .user-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .stat-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; display: flex; align-items: center; gap: 18px; }
@@ -195,7 +189,6 @@
         .form-input-modal:focus { border-color: var(--accent-primary); }
         .btn-modal-submit { grid-column: 1 / -1; background: linear-gradient(135deg, #ffffff, #d4d4d8); color: #000; border: none; padding: 15px; border-radius: 12px; font-size: 1.05rem; font-weight: 900; cursor: pointer; margin-top: 10px;}
 
-        /* FIX: High Z-index and Top Positioning for Toast */
         #toast { 
             position: fixed; 
             top: 25px; 
@@ -212,9 +205,8 @@
             .admin-card, .premium-form-card { padding: 20px 15px; border-radius: 16px; }
             .card-header-large { font-size: 1.15rem; }
             .compact-grid, .charts-grid, .modal-grid { grid-template-columns: 1fr; }
-            .chart-box { height: 260px; }
+            .chart-box { height: 320px; }
             .modal-content { padding: 20px; max-height: 95svh; width: 98%; }
-            /* FIX: Mobile Toast drop down from top */
             #toast { top: 20px; right: 20px; left: 20px; bottom: auto; transform: translateY(-150%); justify-content: center;}
             #toast.show { transform: translateY(0); }
         }
@@ -270,7 +262,6 @@
         <nav class="top-nav-tabs">
             <button class="tab-btn active" id="navManage" onclick="switchTab('manage')"><i class="fas fa-layer-group"></i> Manage Vault</button>
             <button class="tab-btn" id="navPrompts" onclick="switchTab('prompts')"><i class="fas fa-terminal"></i> Prompts</button>
-            <button class="tab-btn" id="navTutorials" onclick="switchTab('tutorials')"><i class="fas fa-video"></i> Tutorials</button>
             <button class="tab-btn" id="navAnalytics" onclick="switchTab('analytics')"><i class="fas fa-chart-pie"></i> System Analytics</button>
             <button class="tab-btn" id="navUsers" onclick="switchTab('users')"><i class="fas fa-users-cog"></i> Manage Users</button>
         </nav>
@@ -318,33 +309,16 @@
             </div>
 
             <div id="sectionPrompts" class="section-container">
-                <div class="premium-form-card" style="margin-bottom: 20px;">
+                <div class="premium-form-card" style="margin-bottom: 30px;">
                     <div class="card-header"><i class="fas fa-plus-circle"></i> Add New Prompt</div>
                     <div class="compact-grid">
-                        <div class="compact-group full-width"><input type="text" id="newPromptTitle" class="compact-input" placeholder="Prompt Title (e.g. Important)"></div>
-                        <div class="compact-group full-width"><textarea id="newPromptInstruction" class="compact-input" placeholder="Instructions (e.g. 1. Copy code)" rows="2"></textarea></div>
-                        <div class="compact-group full-width"><textarea id="newPromptText" class="compact-input" placeholder="Paste prompt text..." rows="3"></textarea></div>
+                        <div class="compact-group full-width"><input type="text" id="newPromptTitle" class="compact-input" placeholder="Prompt Title (e.g. 2. Free Image Hosting Sites.)"></div>
+                        <div class="compact-group full-width"><textarea id="newPromptInstruction" class="compact-input" placeholder="Instructions (e.g. ImgBB par Start uploading par click karein...)" rows="2"></textarea></div>
+                        <div class="compact-group full-width"><textarea id="newPromptText" class="compact-input" placeholder="Paste link or code here..." rows="3"></textarea></div>
                         <button class="btn-compact-submit" onclick="addPrompt(this)"><i class="fas fa-save"></i> Save Prompt</button>
                     </div>
                 </div>
                 <div id="promptsContainer"><div class="empty-state">Loading prompts...</div></div>
-            </div>
-
-            <div id="sectionTutorials" class="section-container">
-                <div class="premium-form-card" style="margin-bottom: 20px;">
-                    <div class="card-header"><i class="fas fa-plus-circle"></i> Add Tutorial Video</div>
-                    <div class="compact-grid">
-                        <div class="compact-group full-width"><input type="url" id="newTutorialUrl" class="compact-input" placeholder="YouTube or Shorts URL"></div>
-                        <div class="compact-group"><input type="text" id="newTutorialViews" class="compact-input" placeholder="Custom Views (e.g. 1.2M)"></div>
-                        <div class="compact-group"><input type="text" id="newTutorialDuration" class="compact-input" placeholder="Duration (e.g. 12:05)"></div>
-                        <div class="compact-group full-width"><input type="url" id="newTutorialAvatar" class="compact-input" placeholder="Channel Avatar Image URL (Optional)"></div>
-                        <button class="btn-compact-submit" onclick="addTutorialLink(this)"><i class="fas fa-upload"></i> Upload Video</button>
-                    </div>
-                </div>
-                
-                <div id="adminTutorialsGrid" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; padding-top: 10px;">
-                    <div class="empty-state" style="width: 100%;">Loading tutorials...</div>
-                </div>
             </div>
 
             <div id="sectionAnalytics" class="section-container">
@@ -397,6 +371,7 @@
         </main>
     </div>
 
+    <!-- Edit Book Modal -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-content">
             <i class="fas fa-times close-modal" onclick="closeEditModal()"></i>
@@ -415,16 +390,16 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="editTutorialModal">
+    <!-- Edit Prompt Modal -->
+    <div class="modal-overlay" id="editPromptModal">
         <div class="modal-content">
-            <i class="fas fa-times close-modal" onclick="closeTutorialEditModal()"></i>
-            <div class="card-header-large" style="margin-bottom: 20px;"><div class="title-left"><i class="fas fa-pen"></i> Edit Tutorial</div></div>
-            <form id="editTutorialForm" class="modal-grid">
-                <input type="hidden" id="editTutId"> 
-                <div class="form-group-modal full-width"><label class="compact-label">YouTube/Shorts URL</label><input type="url" id="edTutUrl" class="form-input-modal" required autocomplete="off"></div>
-                <div class="form-group-modal"><label class="compact-label">Custom Views</label><input type="text" id="edTutViews" class="form-input-modal" required autocomplete="off"></div>
-                <div class="form-group-modal"><label class="compact-label">Duration</label><input type="text" id="edTutDuration" class="form-input-modal" required autocomplete="off"></div>
-                <div class="form-group-modal full-width"><label class="compact-label">Channel Avatar Image URL</label><input type="url" id="edTutAvatar" class="form-input-modal" autocomplete="off"></div>
+            <i class="fas fa-times close-modal" onclick="closeEditPromptModal()"></i>
+            <div class="card-header-large" style="margin-bottom: 20px;"><div class="title-left"><i class="fas fa-pen"></i> Edit Prompt</div></div>
+            <form id="editPromptForm" class="modal-grid">
+                <input type="hidden" id="editPromptId"> 
+                <div class="form-group-modal full-width"><label class="compact-label">Prompt Title</label><input type="text" id="edPromptTitle" class="form-input-modal" required autocomplete="off"></div>
+                <div class="form-group-modal full-width"><label class="compact-label">Instructions</label><textarea id="edPromptInstruction" class="form-input-modal" rows="2"></textarea></div>
+                <div class="form-group-modal full-width"><label class="compact-label">Code / Text</label><textarea id="edPromptText" class="form-input-modal" required rows="3"></textarea></div>
                 <button type="submit" class="btn-modal-submit"><i class="fas fa-save"></i> Save Changes</button>
             </form>
         </div>
@@ -442,10 +417,6 @@
             else if (tab === 'prompts') { 
                 document.getElementById('sectionPrompts').classList.add('active'); 
                 document.getElementById('navPrompts').classList.add('active'); 
-            } 
-            else if (tab === 'tutorials') { 
-                document.getElementById('sectionTutorials').classList.add('active'); 
-                document.getElementById('navTutorials').classList.add('active'); 
             } 
             else if (tab === 'analytics') { 
                 document.getElementById('sectionAnalytics').classList.add('active'); 
@@ -468,7 +439,7 @@
         }
         
         window.closeEditModal = function() { document.getElementById('editModal').classList.remove('active'); }
-        window.closeTutorialEditModal = function() { document.getElementById('editTutorialModal').classList.remove('active'); }
+        window.closeEditPromptModal = function() { document.getElementById('editPromptModal').classList.remove('active'); }
 
         function togglePassword() {
             const pass = document.getElementById('loginPassword'); const eye = document.getElementById('toggleEye');
@@ -476,7 +447,7 @@
             else { pass.type = 'password'; eye.classList.replace('fa-eye-slash', 'fa-eye'); }
         }
         window.copyToClipboard = function(text) {
-            navigator.clipboard.writeText(text).then(() => { showToast("Link/Text Copied!"); })
+            navigator.clipboard.writeText(text).then(() => { showToast("Copied Successfully!"); })
             .catch(err => { showToast("Failed to copy", "error"); });
         }
         window.copyPromptFromDOM = function(id) { 
@@ -510,14 +481,12 @@
         
         window.IS_SUPER_ADMIN = false;
 
-        let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = []; let filteredUsers = []; let dbTutorials = [];
+        let dbBooks = []; let filteredBooks = []; let dbLogs = []; let dbUsers = []; let filteredUsers = []; let dbPrompts = [];
         let currentPage = 1; const booksPerPage = 10;
         let myLangChart = null; let myActivityChart = null;
 
-        // FIX: Dynamic super admin setup based ONLY on Firebase Collection
         async function checkSuperAdminStatus(userEmail) {
             try {
-                // Ye wahi collection check kar raha hai jo screenshot me diya tha
                 const adminDocRef = doc(db, "admins", userEmail);
                 const adminDocSnap = await getDoc(adminDocRef);
 
@@ -526,35 +495,45 @@
                     document.getElementById('roleText').innerText = "Super Admin";
                     document.getElementById('navManage').style.display = 'flex';
                     document.getElementById('navPrompts').style.display = 'flex';
-                    document.getElementById('navTutorials').style.display = 'flex';
                     document.getElementById('navAnalytics').style.display = 'flex';
                     document.getElementById('navUsers').style.display = 'flex';
 
-                    // Fetch Admin-only Data
                     onSnapshot(query(collection(db, "activity_logs"), orderBy("timestamp", "desc"), limit(100)), (snapshot) => { dbLogs = []; snapshot.forEach(doc => { let l = doc.data(); l.id = doc.id; dbLogs.push(l); }); renderLogs(); });
                     onSnapshot(collection(db, "users"), (snapshot) => { dbUsers = []; snapshot.forEach(doc => { let d = doc.data(); d.uid = doc.id; dbUsers.push(d); }); window.handleUserFilterChange(); window.updateLiveUserStats(); });
+                    
                     onSnapshot(query(collection(db, "prompts"), orderBy("createdAt", "asc")), (snapshot) => {
+                        dbPrompts = [];
                         const container = document.getElementById('promptsContainer'); container.innerHTML = '';
                         if(snapshot.empty) container.innerHTML = `<div class="empty-state">No prompts added yet.</div>`;
+                        
                         snapshot.forEach(doc => {
-                            const data = doc.data(); const id = doc.id;
-                            const safeText = data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;"); const safeInstruction = data.instruction ? data.instruction.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
-                            let instructionHTML = ''; if(safeInstruction) { instructionHTML = `<div style="color: #ffffff; font-weight: 800; font-size: 13px; margin-bottom: 6px; margin-left: 2px; line-height: 1.5;">${safeInstruction}</div>`; }
-                            container.innerHTML += `<div class="telegram-prompt-wrapper">${instructionHTML}<div class="telegram-prompt-card"><div class="telegram-prompt-header">${data.title} <div style="display:flex; gap:12px; align-items:center;"><button onclick="copyPromptFromDOM('${id}')" style="background:transparent; border:none; color:#10b981; cursor:pointer; font-size: 1.1rem;" title="Copy Prompt"><i class="fas fa-copy"></i></button><button onclick="deletePrompt('${id}')" style="background:transparent; border:none; color:#ef4444; cursor:pointer; font-size: 1.1rem;" title="Delete"><i class="fas fa-trash"></i></button></div></div><div class="telegram-prompt-body" id="prompt_text_${id}">${safeText}</div></div></div>`;
+                            const data = doc.data(); const id = doc.id; data.id = id; dbPrompts.push(data);
+                            const safeText = data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;"); 
+                            const safeInstruction = data.instruction ? data.instruction.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
+                            let instructionHTML = ''; if(safeInstruction) { instructionHTML = `<div class="prompt-instruction">${safeInstruction}</div>`; }
+                            
+                            container.innerHTML += `
+                            <div class="prompt-item-container">
+                                <div class="prompt-item-header">
+                                    <h3>${data.title}</h3>
+                                    <div class="prompt-actions">
+                                        <button class="btn-prompt-edit" onclick="window.openEditPromptModal('${id}')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn-prompt-delete" onclick="window.deletePrompt('${id}')"><i class="fas fa-trash"></i> Delete</button>
+                                    </div>
+                                </div>
+                                <div class="prompt-card-modern">
+                                    ${instructionHTML}
+                                    <div class="prompt-text" id="prompt_text_${id}">${safeText}</div>
+                                    <button class="prompt-copy-btn" onclick="copyPromptFromDOM('${id}')"><i class="far fa-copy"></i> Copy Code</button>
+                                </div>
+                            </div>`;
                         });
                     });
-
-                    onSnapshot(query(collection(db, "tutorials"), orderBy("createdAt", "desc")), (snapshot) => {
-                        dbTutorials = []; const grid = document.getElementById('adminTutorialsGrid'); 
-                        if(grid) { grid.innerHTML = ''; if(snapshot.empty) grid.innerHTML = `<div class="empty-state" style="width:100%;">No tutorials added yet.</div>`; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbTutorials.push(d); renderTutorialCardAdmin(d, doc.id); }); }
-                    });
                 } else {
-                    // Regular Admin Fallback
                     window.IS_SUPER_ADMIN = false;
                     document.getElementById('roleText').innerText = "Admin";
                     document.getElementById('navManage').style.display = 'flex';
                     document.getElementById('navPrompts').style.display = 'none';
-                    document.getElementById('navTutorials').style.display = 'none';
                     document.getElementById('navAnalytics').style.display = 'none';
                     document.getElementById('navUsers').style.display = 'none';
                 }
@@ -580,13 +559,9 @@
                 if(user.photoURL) { CURRENT_ADMIN_PHOTO = user.photoURL; }
                 document.getElementById('currentAdminName').innerText = CURRENT_ADMIN_NAME; document.getElementById('currentAdminImg').src = CURRENT_ADMIN_PHOTO;
 
-                // Checking if user is super admin in Firebase
                 await checkSuperAdminStatus(user.email);
-                
-                // Active Manage Tab on login
                 switchTab('manage'); 
                 
-                // Fetch Books for everyone
                 onSnapshot(query(collection(db, "books"), orderBy("createdAt", "desc")), (snapshot) => { 
                     dbBooks = []; snapshot.forEach(doc => { let d = doc.data(); d.id = doc.id; dbBooks.push(d); }); 
                     window.handleFilterChange(); 
@@ -643,43 +618,31 @@
         }
         
         window.deletePrompt = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete prompt?")) { try{ await deleteDoc(doc(db, "prompts", id)); showToast("Deleted!"); }catch(e){showToast("Error deleting", "error"); console.error(e);} } }
-
-        window.addTutorialLink = async function(btn) { 
-            if(!window.IS_SUPER_ADMIN) return showToast("Super Admin Required!", "error");
-            const url = document.getElementById('newTutorialUrl').value; const views = document.getElementById('newTutorialViews').value || "10K"; const dur = document.getElementById('newTutorialDuration').value || "10:00"; const avatar = document.getElementById('newTutorialAvatar').value || "";
-            if(!url) return showToast("URL required!", "error");
-            const originalHTML = btn.innerHTML; btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
-            try { 
-                await addDoc(collection(db, "tutorials"), { url, views, duration: dur, avatarUrl: avatar, createdAt: new Date().getTime() }); 
-                showToast("Video Added!"); document.getElementById('newTutorialUrl').value = ''; document.getElementById('newTutorialViews').value = ''; document.getElementById('newTutorialDuration').value = ''; document.getElementById('newTutorialAvatar').value = '';
-            } catch(e) { showToast("Upload Error", "error"); console.error(e); }
-            btn.innerHTML = originalHTML;
+        
+        window.openEditPromptModal = function(id) { 
+            if(!window.IS_SUPER_ADMIN) return; 
+            const p = dbPrompts.find(x => x.id === id); 
+            if(!p) return;
+            document.getElementById('editPromptId').value = p.id; 
+            document.getElementById('edPromptTitle').value = p.title; 
+            document.getElementById('edPromptInstruction').value = p.instruction || ""; 
+            document.getElementById('edPromptText').value = p.text; 
+            document.getElementById('editPromptModal').classList.add('active'); 
         }
         
-        window.deleteTutorial = async function(id) { if(window.IS_SUPER_ADMIN && confirm("Delete video?")) { try{await deleteDoc(doc(db, "tutorials", id)); showToast("Deleted!");}catch(e){console.error(e);} } }
-        
-        window.openTutorialEditModal = function(id) {
-            if(!window.IS_SUPER_ADMIN) return;
-            const tut = dbTutorials.find(x => x.id === id); document.getElementById('editTutId').value = tut.id; document.getElementById('edTutUrl').value = tut.url; document.getElementById('edTutViews').value = tut.views; document.getElementById('edTutDuration').value = tut.duration; document.getElementById('edTutAvatar').value = tut.avatarUrl || ""; document.getElementById('editTutorialModal').classList.add('active');
-        }
-
-        document.getElementById('editTutorialForm').addEventListener('submit', async (e) => {
+        document.getElementById('editPromptForm').addEventListener('submit', async (e) => {
             e.preventDefault(); const btn = e.target.querySelector('button'); btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
-            const id = document.getElementById('editTutId').value;
-            try { await updateDoc(doc(db, "tutorials", id), { url: document.getElementById('edTutUrl').value, views: document.getElementById('edTutViews').value, duration: document.getElementById('edTutDuration').value, avatarUrl: document.getElementById('edTutAvatar').value }); window.closeTutorialEditModal(); showToast("Tutorial Updated!"); } catch (e) { showToast("Error", "error"); console.error(e); } 
+            const id = document.getElementById('editPromptId').value;
+            try { 
+                await updateDoc(doc(db, "prompts", id), { 
+                    title: document.getElementById('edPromptTitle').value, 
+                    instruction: document.getElementById('edPromptInstruction').value, 
+                    text: document.getElementById('edPromptText').value 
+                }); 
+                window.closeEditPromptModal(); showToast("Prompt Updated!"); 
+            } catch (e) { showToast("Error", "error"); console.error(e); } 
             btn.innerHTML = `<i class="fas fa-save"></i> Save Changes`;
         });
-        
-        async function renderTutorialCardAdmin(data, docId) {
-            const videoUrl = data.url; const views = data.views || "10K"; const dur = data.duration || "10:00"; const avatar = data.avatarUrl || "https://i.postimg.cc/D0BF1b77/file-000000000e847207a64f6711d825a859.png"; 
-            const videoIdMatch = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtube\.com\/shorts\/)([^"&?\/\s]{11})/i);
-            if (!videoIdMatch) return; const videoId = videoIdMatch[1]; const standardUrl = `https://www.youtube.com/watch?v=${videoId}`;
-            let title = "YouTube Video"; let channel = "Tutorial Channel";
-            try { const res = await fetch(`https://noembed.com/embed?url=${standardUrl}`); const vData = await res.json(); if(vData.title) title = vData.title; if(vData.author_name) channel = vData.author_name; } catch(e) {}
-            
-            const cardHTML = `<div class="yt-card"><div class="yt-thumbnail-wrapper"><img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'" class="yt-thumbnail-img"><div class="yt-duration">${dur}</div><div class="yt-action-btns"><button class="yt-action-btn yt-copy" onclick="copyToClipboard('${standardUrl}')" title="Copy Link"><i class="fas fa-copy"></i></button><button class="yt-action-btn yt-edit" onclick="openTutorialEditModal('${docId}')" title="Edit"><i class="fas fa-edit"></i></button><button class="yt-action-btn yt-delete" onclick="deleteTutorial('${docId}')" title="Delete"><i class="fas fa-trash"></i></button></div></div><div class="yt-info-box"><img src="${avatar}" class="yt-avatar"><div><div class="yt-video-title">${title}</div><div class="yt-channel-name">${channel} • ${views} views</div></div></div></div>`;
-            document.getElementById('adminTutorialsGrid').innerHTML += cardHTML;
-        }
 
         async function logActivity(action, bookTitle, imageUrl = "", deletedData = null) { 
             try { await addDoc(collection(db, "activity_logs"), { action, bookTitle, image: imageUrl, deletedData, adminName: CURRENT_ADMIN_NAME, adminEmail: CURRENT_ADMIN_EMAIL, adminPhoto: CURRENT_ADMIN_PHOTO, timestamp: new Date().getTime(), dateStr: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' }) }); } catch(e) { console.error("Logging Error:", e); } 
@@ -788,4 +751,3 @@
     </script>
 </body>
 </html>
-
